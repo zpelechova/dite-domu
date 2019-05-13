@@ -1,6 +1,7 @@
 import functools
 from flask import Flask, render_template, request
 import databaze
+import gunicorn
 app = Flask("MojeAppka")
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
