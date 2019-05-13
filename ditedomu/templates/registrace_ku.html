@@ -1,0 +1,99 @@
+{% extends "layout.html" %} {% block body %}
+<br />
+<div class="container">
+  <form method="POST">
+    <div class="jumbotron">
+      <h1 class="display-4">Registrace krajského úřadu</h1>
+      <p>
+        Děkujeme, že máte zájem o naši databázi. Registrace pracovníka krajského
+        úřadu probíhá dvoufázově. Po registraci na těchto stránkách budte
+        kontaktováni a ověřeni našimi pracovníky a následně Vám bude umožněn
+        přístup na naše stránky.
+      </p>
+      <div class="form-group">
+        <label>Jméno</label>
+        <input
+          type="text"
+          class="form-control"
+          id="input_first_name"
+          placeholder="Jméno"
+          name="first_name"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label>Příjmení</label>
+        <input
+          type="text"
+          class="form-control"
+          id="input_Last_name"
+          name="last_name"
+          placeholder="Příjmení"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label>Funkce na krajském úřadě</label>
+        <input
+          type="text"
+          class="form-control"
+          id="input_position_name"
+          name="position_name"
+          placeholder="Funkce na krajském úřadě"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label>Telefonní číslo</label>
+        <input
+          type="text"
+          class="form-control"
+          id="input_phone"
+          name="phone"
+          placeholder="Telefonní číslo"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label>Emailová adresa</label>
+        <input
+          type="email"
+          class="form-control"
+          id="input_email"
+          name="email"
+          placeholder="Emailová adresa"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label>Heslo</label>
+        <input
+          type="password"
+          class="form-control"
+          id="input_password_officer"
+          placeholder="Heslo"
+          name="password"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label>Ověřte heslo</label>
+        <input
+          type="password"
+          class="form-control"
+          id="verify_password_officer"
+          placeholder="Heslo pro kontrolu znovu"
+          name="verify_password"
+          required
+        />
+      </div>
+      <div id="password-error"></div>
+      <input
+        class="btn btn-info btn-lg btn-block"
+        type="submit"
+        value="Odeslat"
+      />
+    </div>
+  </form>
+</div>
+{% endblock %}
