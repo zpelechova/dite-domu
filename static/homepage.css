@@ -1,0 +1,42 @@
+.container-fluid {
+    background-color: indigo
+
+}
+.mezera_nad {
+    margin-top: 1cm;
+    
+}
+
+footer {
+    color: white
+}
+
+
+.white {
+    color: white !important
+}
+
+.thin {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    text-align: center;
+    border-radius: 0px
+}
+
+.copyright {
+    text-align: right;
+}
+
+.jako_tabulka {
+    display: table !important; /* Make the container element behave like a table */
+    width: 100% !important; /* Set full-width to expand the whole page */
+}
+
+.jako_sloupecek {
+    display: table-cell !important;  /* Make elements inside the container behave like table cells */
+}
+
+.form_heading {
+    line-height: 1cm !important;
+}
+
