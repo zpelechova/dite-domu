@@ -1,5 +1,6 @@
 import functools
 from flask import Flask, render_template, request
+import main
 import databaze
 import gunicorn
 app = Flask("MojeAppka")
