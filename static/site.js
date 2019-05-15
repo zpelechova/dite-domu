@@ -33,3 +33,5 @@ $('#verify_password_officer').change(function () {
       $('#password-error').html('Zadané heslo se neshoduje! Zkuste to prosím znovu.');
   }
 });
+
+$('div.checkbox-group.required :checkbox:checked').length > 0

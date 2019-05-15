@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
     <link href="/static/czechmap.css" rel="stylesheet" type="text/css" />
     <link href="/static/homepage.css" rel="stylesheet" type="text/css" />
+    <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon">
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-info">
@@ -34,13 +35,29 @@
             </span>
         </div>
     </nav>
+    <!-- {% with messages = get_flashed_messages(with_categories=true) %}
+  Categories: success (green), info (blue), warning (yellow), danger (red)
+  {% if messages %}
+    {% for category, message in messages %}
+      <div class="alert alert-{{ category }} alert-dismissible" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <strong>Title</strong>  {{ message }}
+      </div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}  -->
     {% with messages = get_flashed_messages() %} {% if messages %}
     <ul class=flashes>
         {% for message in messages %}
-        <li>{{ message }}</li>
+        <li>
+            {{ message }}
+        </li>
         {% endfor %}
     </ul>
     {% endif %} {% endwith %} {% block body %} {% endblock %}
+    <div>
+        <img src="/static/footer.jpg" width=100% alt="">
+    </div>
     <footer class="page-footer font-small navbar-dark bg-info pt-4">
         <div class="container-fluid text-center text-md-left">
             <div class="row bg-info ">
