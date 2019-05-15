@@ -1,6 +1,7 @@
 import psycopg2
 import datetime
 import os
+import hashlib, binascii
 from flask import g, flash
 from hashlib import sha512
 from flask_login import UserMixin
@@ -16,6 +17,25 @@ def get_db():
         g.db = con
     return g.db
 
+def hash_password(password):
+    """Hash a password for storing."""
+    salt = hashlib.sha256(os.urandom(60)).hexdigest().encode('ascii')
+    pwdhash = hashlib.pbkdf2_hmac('sha512', password.encode('utf-8'), 
+                                salt, 100000)
+    pwdhash = binascii.hexlify(pwdhash)
+    return (salt + pwdhash).decode('ascii')
+ 
+def verify_password(stored_password, provided_password):
+    """Verify a stored password against one provided by user"""
+    salt = stored_password[:64]
+    stored_password = stored_password[64:]
+    pwdhash = hashlib.pbkdf2_hmac('sha512', 
+                                  provided_password.encode('utf-8'), 
+                                  salt.encode('ascii'), 
+                                  100000)
+    pwdhash = binascii.hexlify(pwdhash).decode('ascii')
+    return pwdhash == stored_password
+
 def registrace_nr(email, password):
     """ vlozi novou nahradni rodinu do databaze """
     sql = """INSERT INTO public.account
@@ -23,6 +43,7 @@ def registrace_nr(email, password):
              VALUES(%s, %s, %s, %s, %s) RETURNING id;"""
     conn = get_db()
     id_uzivatele = None
+    password = hash_password(password)
     try:
         cur = conn.cursor()
         # execute the INSERT statement
@@ -48,6 +69,7 @@ def registrace_ku(first_name, last_name, position_name, email, password, phone):
              VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s) RETURNING id;"""
     conn = get_db()
     id_uzivatele = None
+    password = hash_password(password)  
     try:
         cur = conn.cursor()
         # execute the INSERT statement
@@ -84,3 +106,52 @@ def accounts():
 #     datas = cur.fetchall()
 #     conn.close()
 #     return datas
+
+def insert_family(file_number, approval_type_id, ):
+    """ vlozi do tabulky expectation id family a sex """
+    sql = """INSERT INTO public.expectation
+            (family_id, sex_id)
+             VALUES(%s, %s) RETURNING id;"""
+    conn = get_db()
+    id_expectation = None
+    try:
+        cur = conn.cursor()
+        # execute the INSERT statement
+        cur.execute(sql, (family_id, sex_id))
+        # get the generated id back
+        id_expectation = cur.fetchone()[0]
+        # commit the changes to the database
+        conn.commit()
+        # close communication with the database
+        cur.close()
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
+    return id_expectation
+
+
+# def insert_expectation(family_id, sex_id):
+#     """ vlozi do tabulky expectation id family a sex """
+#     sql = """INSERT INTO public.expectation
+#             (family_id, sex_id)
+#              VALUES(%s, %s) RETURNING id;"""
+#     conn = get_db()
+#     id_expectation = None
+#     try:
+#         cur = conn.cursor()
+#         # execute the INSERT statement
+#         cur.execute(sql, (family_id, sex_id))
+#         # get the generated id back
+#         id_expectation = cur.fetchone()[0]
+#         # commit the changes to the database
+#         conn.commit()
+#         # close communication with the database
+#         cur.close()
+#     except (Exception, psycopg2.DatabaseError) as error:
+#         print(error)
+#     finally:
+#         if conn is not None:
+#             conn.close()
+#     return id_expectation

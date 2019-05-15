@@ -39,6 +39,7 @@ def registrace_nr ():
         databaze.registrace_nr(email, password)
     return render_template("success.html")
 
+
 @app.route('/tabulka')
 def tabulka ():
     return render_template("tabulka.html")
@@ -55,6 +56,22 @@ def dotaznik ():
         password = request.form['password']
         databaze.registrace_nr(email, password)
     return render_template("success.html")
+
+@app.route('/dotaznik1')
+def zobraz_dotaznik1 ():
+    return render_template("dotaznik1.html")
+
+@app.route('/dotaznik1/{account_id}', methods=('GET', 'POST'))
+def dotaznik1 ():
+    if request.method == 'POST':
+        kraj = request.form["region_office"]
+        # ziskat promenne pro tabulku family a vlzit zaznam, funkce ti vrati zpatky family id
+        # family_id = vloz_zaznam_do_tabulkyFamily(jmeno, prijmeni)
+        insert expectation(family_id, sex_id)
+    print(kraj)
+    return render_template("success.html")
+    if request.method == 'GET':
+        account_id={id}
 
 @app.route('/login')
 def login ():
