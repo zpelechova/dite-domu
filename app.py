@@ -6,7 +6,6 @@ import gunicorn
 app = Flask("MojeAppka")
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
-
 @app.route('/')
 def index ():
     return render_template("index.html")
@@ -61,17 +60,17 @@ def dotaznik ():
 def zobraz_dotaznik1 ():
     return render_template("dotaznik1.html")
 
-@app.route('/dotaznik1/{account_id}', methods=('GET', 'POST'))
-def dotaznik1 ():
-    if request.method == 'POST':
-        kraj = request.form["region_office"]
-        # ziskat promenne pro tabulku family a vlzit zaznam, funkce ti vrati zpatky family id
-        # family_id = vloz_zaznam_do_tabulkyFamily(jmeno, prijmeni)
-        insert expectation(family_id, sex_id)
-    print(kraj)
-    return render_template("success.html")
-    if request.method == 'GET':
-        account_id={id}
+# @app.route('/dotaznik1/{account_id}', methods=('GET', 'POST'))
+# def dotaznik1 ():
+#     if request.method == 'POST':
+#         kraj = request.form["region_office"]
+#         # ziskat promenne pro tabulku family a vlzit zaznam, funkce ti vrati zpatky family id
+#         # family_id = vloz_zaznam_do_tabulkyFamily(jmeno, prijmeni)
+#         insert expectation(family_id, sex_id)
+#     print(kraj)
+#     return render_template("success.html")
+#     if request.method == 'GET':
+#         account_id={id}
 
 @app.route('/login')
 def login ():
