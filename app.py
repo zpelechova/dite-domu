@@ -72,6 +72,10 @@ def zobraz_dotaznik1 ():
 #     if request.method == 'GET':
 #         account_id={id}
 
+@app.route('/dotaznik2')
+def zobraz_dotaznik2 ():
+    return render_template("dotaznik2.html")
+
 @app.route('/login')
 def login ():
     return render_template("login.html",
