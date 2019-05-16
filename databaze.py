@@ -155,3 +155,14 @@ def insert_family(file_number, approval_type_id, regional_office_id, expectation
 #         if conn is not None:
 #             conn.close()
 #     return id_expectation
+
+# def show_email():
+#     """ Vypise email prave registrovaneho uzivatele. """
+#     sql = """SELECT email FROM public.account ORDER BY id DESC limit 1"""
+#     conn = get_db()
+#     cur = conn.cursor()
+#     cur.execute(sql)
+#     show_email = cur.fetchone()
+#     conn.close()
+#     return show_email
+# print(show_email)

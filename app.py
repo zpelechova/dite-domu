@@ -1,7 +1,8 @@
 import functools
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, flash
 import main
 import databaze
+import mail
 import gunicorn
 app = Flask("MojeAppka")
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
@@ -35,7 +36,11 @@ def registrace_nr ():
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
-        databaze.registrace_nr(email, password)
+        id_uzivatele = databaze.registrace_nr(email, password)
+        if id_uzivatele:
+            mail.email_dotaznik(email, id_uzivatele)
+        else: 
+            flash ('smula')
     return render_template("success.html")
 
 
@@ -72,17 +77,17 @@ def zobraz_dotaznik1 ():
 #     if request.method == 'GET':
 #         account_id={id}
 
-@app.route('/dotaznik2')
-def zobraz_dotaznik2 ():
-    return render_template("dotaznik2.html")
+@app.route('/dotaznik2/<account_id>', methods=['GET'])
+def zobraz_dotaznik2(account_id):
+    return render_template("dotaznik2.html", account_id=account_id)
 
 # @app.route('/dotaznik2/{account_id}', methods=('GET', 'POST'))
 # def dotaznik2_get ():
 #     if request.method == 'GET':
 #     family_id={id}
 
-@app.route('/dotaznik2', methods=('GET', 'POST'))
-def dotaznik2_post ():
+@app.route('/dotaznik2/<account_id>', methods=['POST'])
+def dotaznik2_post (account_id):
     if request.method == 'POST':
         file_number = request.form["file_number"]
         approval_type_id = request.form["approval_type_id"]

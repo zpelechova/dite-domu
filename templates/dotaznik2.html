@@ -1,11 +1,9 @@
 {% extends "layout.html" %} {% block body %}
 <br />
 <!-- Toto by melo naplnit tabulku family -->
-<form method="POST">
-<input type="hidden" name="account_id" value="{account_id}">
 <div class="container">
     <form method="POST">
-        <input type="hidden" name="account_id" value="{account_id}}">
+        <input type="hidden" name="account_id" value="{{account_id}}">
         <div class="jumbotron">
             <div class="container">
                 <h2 class="red-text">Něco málo o naší rodině</h2>
