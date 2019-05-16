@@ -166,3 +166,15 @@ def insert_family(file_number, approval_type_id, regional_office_id, expectation
 #     conn.close()
 #     return show_email
 # print(show_email)
+
+def show_district():
+    """ Vypise uživatele a okres, kde bydlí, taková zkouška. """
+    sql = """SELECT district.name AS okres, family.prepcourse AS pripravka, account.id as uzivatel 
+    FROM district JOIN family ON district.id = family.district_id JOIN account ON family.account_id = account.id
+    ORDER BY account.id DESC"""
+    conn = get_db()
+    cur = conn.cursor()
+    cur.execute(sql)
+    districts = cur.fetchall()
+    conn.close()
+    return districts

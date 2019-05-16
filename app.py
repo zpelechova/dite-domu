@@ -112,3 +112,9 @@ def login ():
 def success ():
     return render_template("success.html",
     )
+
+# @app.route('/okresy')
+# def ukaz_okresy():
+#     databaze.show_district()
+
+
