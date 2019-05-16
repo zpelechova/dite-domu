@@ -76,6 +76,28 @@ def zobraz_dotaznik1 ():
 def zobraz_dotaznik2 ():
     return render_template("dotaznik2.html")
 
+# @app.route('/dotaznik2/{account_id}', methods=('GET', 'POST'))
+# def dotaznik2_get ():
+#     if request.method == 'GET':
+#     family_id={id}
+
+@app.route('/dotaznik2', methods=('GET', 'POST'))
+def dotaznik2_post ():
+    if request.method == 'POST':
+        file_number = request.form["file_number"]
+        approval_type_id = request.form["approval_type_id"]
+        regional_office_id = request.form["regional_office_id"]
+        expectation_status_id = request.form["expectation_status_id"]
+        region_id = request.form["region_id"]
+        district_id = request.form["district_id"]
+        carer_info_id = request.form["carer_info_id"]
+        prepcourse = request.form["prepcourse"]
+        account_id = request.form["account_id"]
+        # ziskat promenne pro tabulku family a vlozit zaznam, funkce ti vrati zpatky family id
+        # family_id = vloz_zaznam_do_tabulkyFamily(jmeno, prijmeni)
+        databaze.insert_family(file_number, approval_type_id, regional_office_id, expectation_status_id, region_id, district_id, carer_info_id, prepcourse, account_id)
+    return render_template("success.html")
+
 @app.route('/login')
 def login ():
     return render_template("login.html",

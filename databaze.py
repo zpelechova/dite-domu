@@ -87,15 +87,15 @@ def registrace_ku(first_name, last_name, position_name, email, password, phone):
             conn.close()
     return id_uzivatele
 
-def accounts():
-    """ Vypise seznam uživatelů na webu v klesajicim poradi. """
-    sql = """SELECT * FROM public.account ORDER BY id DESC"""
-    conn = get_db()
-    cur = conn.cursor()
-    cur.execute(sql)
-    data = cur.fetchall()
-    conn.close()
-    return data
+# def accounts():
+#     """ Vypise seznam uživatelů na webu v klesajicim poradi. """
+#     sql = """SELECT * FROM public.account ORDER BY id DESC"""
+#     conn = get_db()
+#     cur = conn.cursor()
+#     cur.execute(sql)
+#     data = cur.fetchall()
+#     conn.close()
+#     return data
 
 # def account(account_id):
 #     """ Vypise seznam uživatelů na webu v klesajicim poradi. """
@@ -107,19 +107,19 @@ def accounts():
 #     conn.close()
 #     return datas
 
-def insert_family(file_number, approval_type_id, ):
-    """ vlozi do tabulky expectation id family a sex """
-    sql = """INSERT INTO public.expectation
-            (family_id, sex_id)
-             VALUES(%s, %s) RETURNING id;"""
+def insert_family(file_number, approval_type_id, regional_office_id, expectation_status_id, region_id, district_id, carer_info_id, prepcourse, account_id):
+    """ vyplni tabulku family """
+    sql = """INSERT INTO public.family
+            (file_number, approval_type_id, regional_office_id, expectation_status_id, region_id, district_id, carer_info_id, prepcourse, account_id)
+             VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s) RETURNING id;"""
     conn = get_db()
-    id_expectation = None
+    family_id = None
     try:
         cur = conn.cursor()
         # execute the INSERT statement
-        cur.execute(sql, (family_id, sex_id))
+        cur.execute(sql, (file_number, approval_type_id, regional_office_id, expectation_status_id, region_id, district_id, carer_info_id, prepcourse, account_id))
         # get the generated id back
-        id_expectation = cur.fetchone()[0]
+        family_id = cur.fetchone()[0]
         # commit the changes to the database
         conn.commit()
         # close communication with the database
@@ -129,7 +129,7 @@ def insert_family(file_number, approval_type_id, ):
     finally:
         if conn is not None:
             conn.close()
-    return id_expectation
+    return family_id
 
 
 # def insert_expectation(family_id, sex_id):
