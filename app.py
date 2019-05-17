@@ -47,43 +47,84 @@ def registrace_nr ():
 def tabulka (): 
     return render_template("tabulka.html")
 
-@app.route('/dotaznik')
-def zobraz_dotaznik ():
-    return render_template("dotaznik.html")
-
-@app.route('/dotaznik2/<account_id>', methods=['GET'])
+@app.route('/dotaznik/<account_id>', methods=['GET'])
 def zobraz_dotaznik2(account_id):
     return render_template("dotaznik2.html", account_id=account_id)
 
-@app.route('/dotaznik2/<account_id>', methods=['GET'])
+@app.route('/dotaznik/<account_id>', methods=['GET'])
 def dotaznik2_get(family_id):
     if request.method == 'GET':
         family_id = request.form["family_id"]
 
-# @app.route('/dotaznik2/<account_id>', methods=['POST'])
-# def dotaznik2_post (account_id):
-#     if request.method == 'POST':
-#         file_number = request.form["file_number"]
-#         approval_type_id = request.form["approval_type_id"]
-#         regional_office_id = request.form["regional_office_id"]
-#         expectation_status_id = request.form["expectation_status_id"]
-#         region_id = request.form["region_id"]
-#         district_id = request.form["district_id"]
-#         carer_info_id = request.form["carer_info_id"]
-#         prepcourse = request.form["prepcourse"]
-#         account_id = request.form["account_id"]
-#         # ziskat promenne pro tabulku family a vlozit zaznam, funkce ti vrati zpatky family id
-#         # family_id = vloz_zaznam_do_tabulkyFamily(jmeno, prijmeni)
-#         family_id = databaze.insert_family(file_number, approval_type_id, regional_office_id, expectation_status_id, region_id, district_id, carer_info_id, prepcourse, account_id)
-#         sex_id = request.form["sex_id"]
-#         year_of_birth = request.form["year_of_birth"]
-#         databaze.insert_parent(family_id, sex_id, year_of_birth)
-#         family_id = databaze.insert_family(file_number, approval_type_id, regional_office_id, expectation_status_id, region_id, district_id, carer_info_id, prepcourse, account_id)
-#         sex_id = request.form["sex_id"]
-#         year_of_birth = request.form["year_of_birth"]
-#         relationship_id = request.form["relationship_id"]
-#         databaze.insert_child_in_care(family_id, sex_id, year_of_birth, relationship_id)
-#     return render_template("success.html")
+@app.route('/dotaznik/<account_id>', methods=['POST'])
+def dotaznik2_post (account_id):
+    if request.method == 'POST':
+        # vyplni tabulku family
+        file_number = request.form["file_number"]
+        approval_type_id = request.form["approval_type_id"]
+        regional_office_id = request.form["regional_office_id"]
+        expectation_status_id = request.form["expectation_status_id"]
+        region_id = request.form["region_id"]
+        district_id = request.form["district_id"]
+        carer_info_id = request.form["carer_info_id"]
+        prepcourse = request.form["prepcourse"]
+        account_id = request.form["account_id"]
+        # vyplni tabulku family_parent pro prvního rodiče
+        family_id = databaze.insert_family(file_number, approval_type_id, regional_office_id, expectation_status_id, region_id, district_id, carer_info_id, prepcourse, account_id)
+        sex_id = request.form["parent1_sex_id"]
+        year_of_birth = request.form["parent1_year_of_birth"]
+        databaze.insert_parent(family_id, sex_id, year_of_birth)
+        # vyplni tabulku family_parent pro druhého rodiče
+        family_id = databaze.insert_family(file_number, approval_type_id, regional_office_id, expectation_status_id, region_id, district_id, carer_info_id, prepcourse, account_id)
+        sex_id = request.form["parent2_sex_id"]
+        year_of_birth = request.form["parent2_year_of_birth"]
+        databaze.insert_parent(family_id, sex_id, year_of_birth)
+        # vyplni tabulku child_in_care pro nejmladší dítě v péči
+        family_id = databaze.insert_family(file_number, approval_type_id, regional_office_id, expectation_status_id, region_id, district_id, carer_info_id, prepcourse, account_id)
+        sex_id = request.form["youngest_child_sex_id"]
+        year_of_birth = request.form["youngest_child_year_of_birth"]
+        relationship_id = request.form["relationship_id"]
+        databaze.insert_child_in_care(family_id, sex_id, year_of_birth, relationship_id)
+        # vyplni tabulku expectation
+        family_id = databaze.insert_family(file_number, approval_type_id, regional_office_id, expectation_status_id, region_id, district_id, carer_info_id, prepcourse, account_id)
+        sex_id = request.form["expectation_sex_id"]
+        databaze.insert_expectation(family_id, sex_id)
+        # vyplni tabulku expectation_sibling_info
+        expectation_id = databaze.insert_expectation(family_id, sex_id)
+        sibling_info_id = request.form["sibling_info_id"]
+        databaze.insert_expectation_sibling_info(expectation_id, sibling_info_id)
+        # vyplni tabulku expectation_mental_handicap
+        expectation_id = databaze.insert_expectation(family_id, sex_id)
+        mental_handicap_id = request.form["mental_handicap_id"]
+        databaze.insert_expectation_mental_handicap(expectation_id, mental_handicap_id)
+        # vyplni tabulku expectation_physical_handicap
+        expectation_id = databaze.insert_expectation(family_id, sex_id)
+        physical_handicap_id = request.form["physical_handicap_id"]
+        databaze.insert_expectation_physical_handicap(expectation_id, physical_handicap_id)
+        # vyplni tabulku expectation_ethnicity
+        expectation_id = databaze.insert_expectation(family_id, sex_id)
+        expectation_ethnicity_id = request.form["expectation_ethnicity_id"]
+        databaze.insert_expectation_ethnicity(expectation_id, expectation_ethnicity)
+        # vyplni tabulku expectation_legal_status
+        expectation_id = databaze.insert_expectation(family_id, sex_id)
+        expectation_legal_status_id = request.form["expectation_legal_status_id"]
+        databaze.insert_expectation_legal_status(expectation_id, expectation_legal_status)
+                # vyplni tabulku expectation_age
+        expectation_id = databaze.insert_expectation(family_id, sex_id)
+        expectation_age_id = request.form["expectation_age_id"]
+        databaze.insert_expectation_age(expectation_id, expectation_age)
+                # vyplni tabulku expectation_anamnesis
+        expectation_id = databaze.insert_expectation(family_id, sex_id)
+        expectation_anamnesis_id = request.form["expectation_anamnesis_id"]
+        databaze.insert_expectation_anamnesis(expectation_id, expectation_anamnesis)
+        
+
+
+
+
+
+
+    return render_template("success.html")
 
 
 @app.route('/login')
