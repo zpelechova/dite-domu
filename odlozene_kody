@@ -1,0 +1,84 @@
+
+# @app.route('/dotaznik1/{account_id}', methods=('GET', 'POST'))
+# def dotaznik1 ():
+#     if request.method == 'POST':
+#         kraj = request.form["region_office"]
+#         # ziskat promenne pro tabulku family a vlzit zaznam, funkce ti vrati zpatky family id
+#         # family_id = vloz_zaznam_do_tabulkyFamily(jmeno, prijmeni)
+#         insert expectation(family_id, sex_id)
+#     print(kraj)
+#     return render_template("success.html")
+#     if request.method == 'GET':
+#         account_id={id}
+
+
+# @app.route('/okresy')
+# def ukaz_okresy():
+#     databaze.show_district()
+
+# def insert_expectation(family_id, sex_id):
+#     """ vlozi do tabulky expectation id family a sex """
+#     sql = """INSERT INTO public.expectation
+#             (family_id, sex_id)
+#              VALUES(%s, %s) RETURNING id;"""
+#     conn = get_db()
+#     id_expectation = None
+#     try:
+#         cur = conn.cursor()
+#         # execute the INSERT statement
+#         cur.execute(sql, (family_id, sex_id))
+#         # get the generated id back
+#         id_expectation = cur.fetchone()[0]
+#         # commit the changes to the database
+#         conn.commit()
+#         # close communication with the database
+#         cur.close()
+#     except (Exception, psycopg2.DatabaseError) as error:
+#         print(error)
+#     finally:
+#         if conn is not None:
+#             conn.close()
+#     return id_expectation
+
+# def show_email():
+#     """ Vypise email prave registrovaneho uzivatele. """
+#     sql = """SELECT email FROM public.account ORDER BY id DESC limit 1"""
+#     conn = get_db()
+#     cur = conn.cursor()
+#     cur.execute(sql)
+#     show_email = cur.fetchone()
+#     conn.close()
+#     return show_email
+# print(show_email)
+
+# def show_district():
+#     """ Vypise uživatele a okres, kde bydlí, taková zkouška. """
+#     sql = """SELECT district.name AS okres, family.prepcourse AS pripravka, account.id as uzivatel 
+#     FROM district JOIN family ON district.id = family.district_id JOIN account ON family.account_id = account.id
+#     ORDER BY account.id DESC"""
+#     conn = get_db()
+#     cur = conn.cursor()
+#     cur.execute(sql)
+#     districts = cur.fetchall()
+#     conn.close()
+#     return districts
+
+# def accounts():
+#     """ Vypise seznam uživatelů na webu v klesajicim poradi. """
+#     sql = """SELECT * FROM public.account ORDER BY id DESC"""
+#     conn = get_db()
+#     cur = conn.cursor()
+#     cur.execute(sql)
+#     data = cur.fetchall()
+#     conn.close()
+#     return data
+
+# def account(account_id):
+#     """ Vypise seznam uživatelů na webu v klesajicim poradi. """
+#     sql = """SELECT * FROM public.account WHERE id=%s ORDER BY id DESC"""
+#     conn = get_db()
+#     cur = conn.cursor()
+#     cur.execute(sql,account_id)
+#     datas = cur.fetchall()
+#     conn.close()
+#     return datas

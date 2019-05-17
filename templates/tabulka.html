@@ -12,64 +12,34 @@
     <table class="table table-hover">
       <thead>
         <tr>
-          <th scope="col">#</th>
-          <th scope="col">First</th>
-          <th scope="col">Last</th>
-          <th scope="col">Handle</th>
+          <th scope="col">file_number</th>
+          <th scope="col">approval_type</th>
+          <th scope="col">regional_office</th>
+          <th scope="col">expectation_status</th>
+          <th scope="col">region</th>
+          <th scope="col">district</th>
+          <th scope="col">carer_info</th>
+          <th scope="col">prepcourse</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <th scope="row">1</th>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-        </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-        </tr>
-        <tr>
-          <th scope="row">3</th>
-          <td colspan="2">Larry the Bird</td>
-          <td>@twitter</td>
-        </tr>
+        
+            {% for x in vyber_z_databaze %}
+            <tr>
+              <td>{{ vyber_z_databaze.file_number }}</td>
+              <td>{{ vyber_z_databaze.approval_type_id }}</td>
+              <td>{{ vyber_z_databaze.regional_office_id }}</td>
+              <td>{{ vyber_z_databaze.expectation_status_id }}</td>
+              <td>{{ vyber_z_databaze.region_id }}</td>
+              <td>{{ vyber_z_databaze.district_id }}</td>
+              <td>{{ vyber_z_databaze.carer_info_id }}</td>
+              <td>{{ vyber_z_databaze.prepcourse }}</td>
+      </tr>
+      {% endfor %}
       </tbody>
     </table>
     <br />nebo <br />
     <br />
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">First</th>
-          <th scope="col">Last</th>
-          <th scope="col">Handle</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th scope="row">1</th>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-        </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-        </tr>
-        <tr>
-          <th scope="row">3</th>
-          <td>Larry</td>
-          <td>the Bird</td>
-          <td>@twitter</td>
-        </tr>
-      </tbody>
-    </table>
   </header>
 </div>
 {% endblock %}

@@ -87,25 +87,6 @@ def registrace_ku(first_name, last_name, position_name, email, password, phone):
             conn.close()
     return id_uzivatele
 
-# def accounts():
-#     """ Vypise seznam uživatelů na webu v klesajicim poradi. """
-#     sql = """SELECT * FROM public.account ORDER BY id DESC"""
-#     conn = get_db()
-#     cur = conn.cursor()
-#     cur.execute(sql)
-#     data = cur.fetchall()
-#     conn.close()
-#     return data
-
-# def account(account_id):
-#     """ Vypise seznam uživatelů na webu v klesajicim poradi. """
-#     sql = """SELECT * FROM public.account WHERE id=%s ORDER BY id DESC"""
-#     conn = get_db()
-#     cur = conn.cursor()
-#     cur.execute(sql,account_id)
-#     datas = cur.fetchall()
-#     conn.close()
-#     return datas
 
 def insert_family(file_number, approval_type_id, regional_office_id, expectation_status_id, region_id, district_id, carer_info_id, prepcourse, account_id):
     """ vyplni tabulku family """
@@ -131,50 +112,60 @@ def insert_family(file_number, approval_type_id, regional_office_id, expectation
             conn.close()
     return family_id
 
+def insert_parent(family_id, sex_id, year_of_birth):
+    """ vyplni tabulku family_parent """
+    sql = """INSERT INTO public.family_parent
+            (family_id, sex_id, year_of_birth)
+             VALUES(%s, %s, %s) RETURNING id;"""
+    conn = get_db()
+    family_parent_id = None
+    try:
+        cur = conn.cursor()
+        # execute the INSERT statement
+        cur.execute(sql, (family_id, sex_id, year_of_birth))
+        # get the generated id back
+        family_parent_id = cur.fetchone()[0]
+        # commit the changes to the database
+        conn.commit()
+        # close communication with the database
+        cur.close()
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
+    return family_parent_id
 
-# def insert_expectation(family_id, sex_id):
-#     """ vlozi do tabulky expectation id family a sex """
-#     sql = """INSERT INTO public.expectation
-#             (family_id, sex_id)
-#              VALUES(%s, %s) RETURNING id;"""
-#     conn = get_db()
-#     id_expectation = None
-#     try:
-#         cur = conn.cursor()
-#         # execute the INSERT statement
-#         cur.execute(sql, (family_id, sex_id))
-#         # get the generated id back
-#         id_expectation = cur.fetchone()[0]
-#         # commit the changes to the database
-#         conn.commit()
-#         # close communication with the database
-#         cur.close()
-#     except (Exception, psycopg2.DatabaseError) as error:
-#         print(error)
-#     finally:
-#         if conn is not None:
-#             conn.close()
-#     return id_expectation
+def insert_child_in_care(family_id, sex_id, year_of_birth, relationship_id):
+    """ vyplni tabulku child_in_care"""
+    sql = """INSERT INTO public.child_in_care
+            (family_id, sex_id, year_of_birth, relationship_id)
+             VALUES(%s, %s, %s, %s) RETURNING id;"""
+    conn = get_db()
+    child_in_care_id = None
+    try:
+        cur = conn.cursor()
+        # execute the INSERT statement
+        cur.execute(sql, (family_id, sex_id, year_of_birth, relationship_id))
+        # get the generated id back
+        child_in_care_id = cur.fetchone()[0]
+        # commit the changes to the database
+        conn.commit()
+        # close communication with the database
+        cur.close()
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
+    return child_in_care_id
 
-# def show_email():
-#     """ Vypise email prave registrovaneho uzivatele. """
-#     sql = """SELECT email FROM public.account ORDER BY id DESC limit 1"""
-#     conn = get_db()
-#     cur = conn.cursor()
-#     cur.execute(sql)
-#     show_email = cur.fetchone()
-#     conn.close()
-#     return show_email
-# print(show_email)
-
-def show_district():
-    """ Vypise uživatele a okres, kde bydlí, taková zkouška. """
-    sql = """SELECT district.name AS okres, family.prepcourse AS pripravka, account.id as uzivatel 
-    FROM district JOIN family ON district.id = family.district_id JOIN account ON family.account_id = account.id
-    ORDER BY account.id DESC"""
+def return_family():
+    """ Vypise polozky tabulky family. """
+    sql = """SELECT file_number, approval_type_id, regional_office_id, expectation_status_id, region_id, district_id, carer_info_id, prepcourse FROM public.family"""
     conn = get_db()
     cur = conn.cursor()
     cur.execute(sql)
-    districts = cur.fetchall()
+    vyber_z_databaze = cur.fetchall()
     conn.close()
-    return districts
+    return dict(vyber_z_databaze)

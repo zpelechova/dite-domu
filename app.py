@@ -40,12 +40,12 @@ def registrace_nr ():
         if id_uzivatele:
             mail.email_dotaznik(email, id_uzivatele)
         else: 
-            flash ('smula')
+            flash ('Někde se stala chyba, zkuste to prosím znovu', "warning")
     return render_template("success.html")
-
 
 @app.route('/tabulka')
 def tabulka ():
+    vyber_z_databaze = databaze.return_family()
     return render_template("tabulka.html")
 
 @app.route('/dotaznik')
@@ -53,55 +53,40 @@ def zobraz_dotaznik ():
     return render_template("dotaznik.html",
     )
 
-@app.route('/dotaznik', methods=('GET', 'POST'))
-def dotaznik ():
-    if request.method == 'POST':
-        email = request.form['email']
-        password = request.form['password']
-        databaze.registrace_nr(email, password)
-    return render_template("success.html")
-
-@app.route('/dotaznik1')
-def zobraz_dotaznik1 ():
-    return render_template("dotaznik1.html")
-
-# @app.route('/dotaznik1/{account_id}', methods=('GET', 'POST'))
-# def dotaznik1 ():
-#     if request.method == 'POST':
-#         kraj = request.form["region_office"]
-#         # ziskat promenne pro tabulku family a vlzit zaznam, funkce ti vrati zpatky family id
-#         # family_id = vloz_zaznam_do_tabulkyFamily(jmeno, prijmeni)
-#         insert expectation(family_id, sex_id)
-#     print(kraj)
-#     return render_template("success.html")
-#     if request.method == 'GET':
-#         account_id={id}
-
 @app.route('/dotaznik2/<account_id>', methods=['GET'])
 def zobraz_dotaznik2(account_id):
     return render_template("dotaznik2.html", account_id=account_id)
 
-# @app.route('/dotaznik2/{account_id}', methods=('GET', 'POST'))
-# def dotaznik2_get ():
-#     if request.method == 'GET':
-#     family_id={id}
+@app.route('/dotaznik2/<account_id>', methods=['GET'])
+def dotaznik2_get(family_id):
+    if request.method == 'GET':
+        family_id = request.form["family_id"]
 
-@app.route('/dotaznik2/<account_id>', methods=['POST'])
-def dotaznik2_post (account_id):
-    if request.method == 'POST':
-        file_number = request.form["file_number"]
-        approval_type_id = request.form["approval_type_id"]
-        regional_office_id = request.form["regional_office_id"]
-        expectation_status_id = request.form["expectation_status_id"]
-        region_id = request.form["region_id"]
-        district_id = request.form["district_id"]
-        carer_info_id = request.form["carer_info_id"]
-        prepcourse = request.form["prepcourse"]
-        account_id = request.form["account_id"]
-        # ziskat promenne pro tabulku family a vlozit zaznam, funkce ti vrati zpatky family id
-        # family_id = vloz_zaznam_do_tabulkyFamily(jmeno, prijmeni)
-        databaze.insert_family(file_number, approval_type_id, regional_office_id, expectation_status_id, region_id, district_id, carer_info_id, prepcourse, account_id)
-    return render_template("success.html")
+# @app.route('/dotaznik2/<account_id>', methods=['POST'])
+# def dotaznik2_post (account_id):
+#     if request.method == 'POST':
+#         file_number = request.form["file_number"]
+#         approval_type_id = request.form["approval_type_id"]
+#         regional_office_id = request.form["regional_office_id"]
+#         expectation_status_id = request.form["expectation_status_id"]
+#         region_id = request.form["region_id"]
+#         district_id = request.form["district_id"]
+#         carer_info_id = request.form["carer_info_id"]
+#         prepcourse = request.form["prepcourse"]
+#         account_id = request.form["account_id"]
+#         # ziskat promenne pro tabulku family a vlozit zaznam, funkce ti vrati zpatky family id
+#         # family_id = vloz_zaznam_do_tabulkyFamily(jmeno, prijmeni)
+#         family_id = databaze.insert_family(file_number, approval_type_id, regional_office_id, expectation_status_id, region_id, district_id, carer_info_id, prepcourse, account_id)
+#         sex_id = request.form["sex_id"]
+#         year_of_birth = request.form["year_of_birth"]
+#         databaze.insert_parent(family_id, sex_id, year_of_birth)
+#         family_id = databaze.insert_family(file_number, approval_type_id, regional_office_id, expectation_status_id, region_id, district_id, carer_info_id, prepcourse, account_id)
+#         sex_id = request.form["sex_id"]
+#         year_of_birth = request.form["year_of_birth"]
+#         relationship_id = request.form["relationship_id"]
+#         databaze.insert_child_in_care(family_id, sex_id, year_of_birth, relationship_id)
+#     return render_template("success.html")
+
 
 @app.route('/login')
 def login ():
@@ -112,9 +97,5 @@ def login ():
 def success ():
     return render_template("success.html",
     )
-
-# @app.route('/okresy')
-# def ukaz_okresy():
-#     databaze.show_district()
 
 

@@ -1,9 +1,10 @@
 {% extends "layout.html" %} {% block body %}
 <br />
-<!-- Toto by melo naplnit tabulku family -->
+<!-- Toto by melo naplnit tabulku family + family_parent + child_in_care-->
 <div class="container">
     <form method="POST">
         <input type="hidden" name="account_id" value="{{account_id}}">
+        <input type="hidden" name="family_id" value="{{family_id}}">
         <div class="jumbotron">
             <div class="container">
                 <h2 class="red-text">Něco málo o naší rodině</h2>
@@ -146,6 +147,133 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="form_heading">
+                    <h5>První rodič</h5>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label>Rok narození</label>
+                            <input type="text" placeholder="1989" name="year_of_birth" />
+                        </div>
+                        <div class="form-group col-md-1">
+                            <label>Pohlaví</label>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <div class="input-group inline">
+                                <div class="input-group-prepend">
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        <input type="radio" class="custom-control-input" name="sex_id" value="2" id="parent1_sex_female">
+                                        <label class="custom-control-label" for="parent1_sex_female">Žena</label>
+                                    </div>
+                                </div>
+                                <div class="input-group-prepend">
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        <input type="radio" class="custom-control-input" name="sex_id" value="1" id="parent1_sex_male">
+                                        <label class="custom-control-label" for="parent1_sex_male">Muž</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form_heading">
+                    <h5>Druhý rodič</h5>
+                    <small>Nevyplňujte, jste-li samožadatel</small>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label>Rok narození</label>
+                            <input type="text" placeholder="1989" name="year_of_birth" />
+                        </div>
+                        <div class="form-group col-md-1">
+                            <label>Pohlaví</label>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <div class="input-group inline">
+                                <div class="input-group-prepend">
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        <input type="radio" class="custom-control-input" name="sex_id" value="2" id="parent2_sex_female">
+                                        <label class="custom-control-label" for="parent2_sex_female">Žena</label>
+                                    </div>
+                                </div>
+                                <div class="input-group-prepend">
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        <input type="radio" class="custom-control-input" name="sex_id" value="1" id="parent2_sex_male">
+                                        <label class="custom-control-label" for="parent2_sex_male">Muž</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form_heading">
+                    <h5>Děti, které s vámi v současnosti bydlí</h5>
+                    <small>Pokud žádné nemáte, nechte prázdné</small>
+                    <h6>Nejmladší dítě</h6>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label>Rok narození</label>
+                            <input type="text" placeholder="2012" name="youngest_child_age" />
+                        </div>
+                        <div class="form-group col-md-1">
+                            <label>Pohlaví</label>
+                        </div>
+                        <div class="form-group col-md-7">
+                            <div class="input-group inline">
+                                <div class="input-group-prepend">
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        <input type="radio" class="custom-control-input" name="youngest_child_sex" value="female" id="youngest_child_sex_female">
+                                        <label class="custom-control-label" for="youngest_child_sex_female">Holka</label>
+                                    </div>
+                                </div>
+                                <div class="input-group-prepend">
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        <input type="radio" class="custom-control-input" name="youngest_child_sex" value="male" id="youngest_child_sex_male">
+                                        <label class="custom-control-label" for="youngest_child_sex_male">Kluk</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col">
+                                <label>Druh péče </label>
+
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" class="custom-control-input" name="youngest_child_care" value="biological" id="youngest_child_care_biological">
+                                    <label class="custom-control-label" for="youngest_child_care_biological">Biologické</label>
+                                </div>
+
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" class="custom-control-input" name="youngest_child_care" value="adopted" id="youngest_child_care_adopted">
+                                    <label class="custom-control-label" for="youngest_child_care_adopted">Osvojené</label>
+                                </div>
+
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" class="custom-control-input" name="youngest_child_care" value="foster" id="youngest_child_care_foster">
+                                    <label class="custom-control-label" for="youngest_child_care_foster">V pěstounské péči</label>
+                                </div>
+
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" class="custom-control-input" name="youngest_child_care" value="other" id="youngest_child_care_other">
+                                    <label class="custom-control-label" for="youngest_child_care_other">Jiné</label>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form_heading">
+                    <h5>Specifika rodiny</h5>
+                    <small>(případně další informace, které se nevešy do formuláře)</small>
+                      <label for="family_specification"></label>
+		          <input
+        		    type="textarea"
+            		name="specifika rodiny"
+            		class="form-control"
+                rows="2"
+                id="family_specification"
+            		placeholder="Zde můžete napsat cokoli, co Vám přijde důležité"
+          		  />
+
                 </div>
                 </div>
                 <div class="form_heading"><h5>Administrativní nezbytnosti</h5> 
