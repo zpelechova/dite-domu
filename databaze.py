@@ -1,4 +1,5 @@
 import psycopg2
+import psycopg2.extras
 import datetime
 import os
 import hashlib, binascii
@@ -164,8 +165,8 @@ def return_family():
     """ Vypise polozky tabulky family. """
     sql = """SELECT file_number, approval_type_id, regional_office_id, expectation_status_id, region_id, district_id, carer_info_id, prepcourse FROM public.family"""
     conn = get_db()
-    cur = conn.cursor()
+    cur = conn.cursor(cursor_factory = psycopg2.extras.RealDictCursor)
     cur.execute(sql)
     vyber_z_databaze = cur.fetchall()
     conn.close()
-    return dict(vyber_z_databaze)
+    return vyber_z_databaze    

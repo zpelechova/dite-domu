@@ -9,6 +9,7 @@
       Na této stránce si můžete prohlédnout redukované informace o náhradních
       rodičích, které čekají na své dítě.
     </p>
+    <form method="GET">
     <table class="table table-hover">
       <thead>
         <tr>
@@ -26,19 +27,20 @@
         
             {% for x in vyber_z_databaze %}
             <tr>
-              <td>{{ vyber_z_databaze.file_number }}</td>
-              <td>{{ vyber_z_databaze.approval_type_id }}</td>
-              <td>{{ vyber_z_databaze.regional_office_id }}</td>
-              <td>{{ vyber_z_databaze.expectation_status_id }}</td>
-              <td>{{ vyber_z_databaze.region_id }}</td>
-              <td>{{ vyber_z_databaze.district_id }}</td>
-              <td>{{ vyber_z_databaze.carer_info_id }}</td>
-              <td>{{ vyber_z_databaze.prepcourse }}</td>
-      </tr>
+              <td>{{ x.file_number }}</td>
+              <td>{{ x.approval_type_id }}</td>
+              <td>{{ x.regional_office_id }}</td>
+              <td>{{ x.expectation_status_id }}</td>
+              <td>{{ x.region_id }}</td>
+              <td>{{ x.district_id }}</td>
+              <td>{{ x.carer_info_id }}</td>
+              <td>{{ x.prepcourse }}</td>
+            </tr>
       {% endfor %}
+    
       </tbody>
     </table>
-    <br />nebo <br />
+    </form>
     <br />
   </header>
 </div>

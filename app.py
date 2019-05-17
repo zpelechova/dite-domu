@@ -45,14 +45,11 @@ def registrace_nr ():
 
 @app.route('/tabulka')
 def tabulka (): 
-    vyber_z_databaze = databaze.return_family()
-    print(vyber_z_databaze)
     return render_template("tabulka.html")
 
 @app.route('/dotaznik')
 def zobraz_dotaznik ():
-    return render_template("dotaznik.html",
-    )
+    return render_template("dotaznik.html")
 
 @app.route('/dotaznik2/<account_id>', methods=['GET'])
 def zobraz_dotaznik2(account_id):
