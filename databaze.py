@@ -123,7 +123,7 @@ def insert_parent1(family_id, parent1_sex_id, parent1_year_of_birth):
     try:
         cur = conn.cursor()
         # execute the INSERT statement
-        cur.execute(sql, (family_id, sex_id, year_of_birth))
+        cur.execute(sql, (family_id, parent1_sex_id, parent1_year_of_birth))
         # get the generated id back
         family_parent_id = cur.fetchone()[0]
         # commit the changes to the database
