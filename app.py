@@ -71,20 +71,20 @@ def dotaznik_post (account_id):
         account_id = request.form["account_id"]
         # vyplni tabulku family_parent pro prvního rodiče
         family_id = databaze.insert_family(file_number, approval_type_id, regional_office_id, expectation_status_id, region_id, district_id, carer_info_id, prepcourse, account_id)
-        sex_id = request.form["parent1_sex_id"]
-        year_of_birth = request.form["parent1_year_of_birth"]
+        parent1_sex_id = request.form["parent1_sex_id"]
+        parent1_year_of_birth = request.form["parent1_year_of_birth"]
         databaze.insert_parent1(family_id, parent1_sex_id, parent1_year_of_birth)
-        # vyplni tabulku family_parent pro druhého rodiče
-        family_id = databaze.insert_family(file_number, approval_type_id, regional_office_id, expectation_status_id, region_id, district_id, carer_info_id, prepcourse, account_id)
-        sex_id = request.form["parent2_sex_id"]
-        year_of_birth = request.form["parent2_year_of_birth"]
-        databaze.insert_parent(family_id, sex_id, year_of_birth)
-        # vyplni tabulku child_in_care pro nejmladší dítě v péči
-        family_id = databaze.insert_family(file_number, approval_type_id, regional_office_id, expectation_status_id, region_id, district_id, carer_info_id, prepcourse, account_id)
-        sex_id = request.form["youngest_child_sex_id"]
-        year_of_birth = request.form["youngest_child_year_of_birth"]
-        relationship_id = request.form["relationship_id"]
-        databaze.insert_child_in_care(family_id, sex_id, year_of_birth, relationship_id)
+        # # vyplni tabulku family_parent pro druhého rodiče
+        # family_id = databaze.insert_family(file_number, approval_type_id, regional_office_id, expectation_status_id, region_id, district_id, carer_info_id, prepcourse, account_id)
+        # parent2_sex_id = request.form["parent2_sex_id"]
+        # parent2_year_of_birth = request.form["parent2_year_of_birth"]
+        # databaze.insert_parent(family_id, parent2_sex_id, parent2_year_of_birth)
+        # # vyplni tabulku child_in_care pro nejmladší dítě v péči
+        # family_id = databaze.insert_family(file_number, approval_type_id, regional_office_id, expectation_status_id, region_id, district_id, carer_info_id, prepcourse, account_id)
+        # sex_id = request.form["youngest_child_sex_id"]
+        # year_of_birth = request.form["youngest_child_year_of_birth"]
+        # relationship_id = request.form["relationship_id"]
+        # databaze.insert_child_in_care(family_id, sex_id, year_of_birth, relationship_id)
         # vyplni tabulku expectation
         family_id = databaze.insert_family(file_number, approval_type_id, regional_office_id, expectation_status_id, region_id, district_id, carer_info_id, prepcourse, account_id)
         sex_id = request.form["expectation_sex_id"]
@@ -95,7 +95,7 @@ def dotaznik_post (account_id):
         databaze.insert_expectation_sibling_info(expectation_id, sibling_info_id)
         # vyplni tabulku expectation_mental_handicap
         expectation_id = databaze.insert_expectation(family_id, sex_id)
-        mental_handicap_id = request.form["mental_handicap_id"]
+        mental_handicap_id = request.form["mental_handicap_id"] 
         databaze.insert_expectation_mental_handicap(expectation_id, mental_handicap_id)
         # vyplni tabulku expectation_physical_handicap
         expectation_id = databaze.insert_expectation(family_id, sex_id)
@@ -104,19 +104,19 @@ def dotaznik_post (account_id):
         # vyplni tabulku expectation_ethnicity
         expectation_id = databaze.insert_expectation(family_id, sex_id)
         expectation_ethnicity_id = request.form["expectation_ethnicity_id"]
-        databaze.insert_expectation_ethnicity(expectation_id, expectation_ethnicity)
+        databaze.insert_expectation_ethnicity(expectation_id, expectation_ethnicity_id)
         # vyplni tabulku expectation_legal_status
         expectation_id = databaze.insert_expectation(family_id, sex_id)
-        expectation_legal_status_id = request.form["expectation_legal_status_id"]
+        expectation_legal_status = request.form["expectation_legal_status"]
         databaze.insert_expectation_legal_status(expectation_id, expectation_legal_status)
                 # vyplni tabulku expectation_age
         expectation_id = databaze.insert_expectation(family_id, sex_id)
-        expectation_age_id = request.form["expectation_age_id"]
+        expectation_age = request.form["expectation_age"]
         databaze.insert_expectation_age(expectation_id, expectation_age)
                 # vyplni tabulku expectation_anamnesis
         expectation_id = databaze.insert_expectation(family_id, sex_id)
         expectation_anamnesis_id = request.form["expectation_anamnesis_id"]
-        databaze.insert_expectation_anamnesis(expectation_id, expectation_anamnesis)
+        databaze.insert_expectation_anamnesis(expectation_id, expectation_anamnesis_id)
         
 
 

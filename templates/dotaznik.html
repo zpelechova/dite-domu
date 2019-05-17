@@ -135,14 +135,14 @@
                             <div class="input-group inline">
                                 <div class="input-group-prepend">
                                     <div class="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" class="custom-control-input" name="pref_physical_disability" value="none" id="pref_physical_disability_none">
-                                        <label class="custom-control-label" for="pref_physical_disability_none">Žádné nebo malé</label>
+                                        <input type="radio" class="custom-control-input" name="physical_handicap_id" value="1" id="physical_handicap_id_none">
+                                        <label class="custom-control-label" for="physical_handicap_id_none">Žádné nebo malé</label>
                                     </div>
                                 </div>
                                 <div class="input-group-prepend">
                                     <div class="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" class="custom-control-input" name="pref_physical_disability" value="some" id="pref_physical_disability_some">
-                                        <label class="custom-control-label" for="pref_physical_disability_some">Střední, případně závažné</label>
+                                        <input type="radio" class="custom-control-input" name="physical_handicap_id" value="2" id="physical_handicap_id_some">
+                                        <label class="custom-control-label" for="physical_handicap_id_some">Střední, případně závažné</label>
                                     </div>
                                 </div>
                             </div>
@@ -156,14 +156,14 @@
                             <div class="input-group inline">
                                 <div class="input-group-prepend">
                                     <div class="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" class="custom-control-input" name="pref_mental_disability" value="none" id="pref_mental_disability_none">
-                                        <label class="custom-control-label" for="pref_mental_disability_none">Žádné nebo malé</label>
+                                        <input type="radio" class="custom-control-input" name="mental_handicap_id" value="1" id="mental_handicap_id_none">
+                                        <label class="custom-control-label" for="mental_handicap_id_none">Žádné nebo malé</label>
                                     </div>
                                 </div>
                                 <div class="input-group-prepend">
                                     <div class="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" class="custom-control-input" name="pref_mental_disability" value="some" id="pref_mental_disability_some">
-                                        <label class="custom-control-label" for="pref_mental_disability_some">Střední, případně závažné</label>
+                                        <input type="radio" class="custom-control-input" name="mental_handicap_id" value="2" id="mental_handicap_id_some">
+                                        <label class="custom-control-label" for="mental_handicap_id_some">Střední, případně závažné</label>
                                     </div>
                                 </div>
                             </div>
@@ -176,7 +176,7 @@
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <div class="input-group-text">
-                                <input type="checkbox" aria-label="Checkbox for following text input" name="prefdite_etnikum_major" />
+                                <input type="checkbox" aria-label="Checkbox for following text input" name="expectation_ethnicity_id" value="1"/>
                             </div>
                         </div>
                         <label class="form-control">Majoritní etnikum</label>
@@ -184,7 +184,7 @@
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <div class="input-group-text">
-                                <input type="checkbox" aria-label="Checkbox for following text input" name="prefdite_etnikum_mix" />
+                                <input type="checkbox" aria-label="Checkbox for following text input" name="expectation_ethnicity_id" value="2"/>
                             </div>
                         </div>
                         <label class="form-control">Částečně minoritní etnikum</label>
@@ -192,7 +192,7 @@
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <div class="input-group-text">
-                                <input type="checkbox" aria-label="Checkbox for following text input" name="prefdite_etnikum_mix_nez_ot" />
+                                <input type="checkbox" aria-label="Checkbox for following text input" name="expectation_ethnicity_id" value="3"/>
                             </div>
                         </div>
                         <label class="form-control">Majoritní etnikum, otec neznámý</label>
@@ -200,7 +200,7 @@
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <div class="input-group-text">
-                                <input type="checkbox" aria-label="Checkbox for following text input" name="prefdite_etnikum_min" />
+                                <input type="checkbox" aria-label="Checkbox for following text input" name="expectation_ethnicity_id" value="4"/>
                             </div>
                         </div>
                         <label class="form-control">Minoritní etnikum</label>
@@ -212,7 +212,7 @@
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <div class="input-group-text">
-                                <input type="checkbox" aria-label="Checkbox for following text input" name="alcohol" />
+                                <input type="checkbox" aria-label="Checkbox for following text input" name="expectation_anamnesis_id" value="3"/>
                             </div>
                         </div>
                         <label class="form-control">Nadužívání alkoholu u biologické matky</label>
@@ -220,7 +220,7 @@
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <div class="input-group-text">
-                                <input type="checkbox" aria-label="Checkbox for following text input" name="drugs" />
+                                <input type="checkbox" aria-label="Checkbox for following text input" name="expectation_anamnesis_id" value="2"/>
                             </div>
                         </div>
                         <label class="form-control">Užívání drog biologickou matkou</label>
@@ -228,7 +228,7 @@
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <div class="input-group-text">
-                                <input type="checkbox" aria-label="Checkbox for following text input" name="institutionalized" />
+                                <input type="checkbox" aria-label="Checkbox for following text input" name="expectation_anamnesis_id" value="4"/>
                             </div>
                         </div>
                         <label class="form-control">Dítě strávilo více než rok v ústavním zařízení</label>
@@ -236,7 +236,7 @@
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <div class="input-group-text">
-                                <input type="checkbox" aria-label="Checkbox for following text input" name="psychiatric" />
+                                <input type="checkbox" aria-label="Checkbox for following text input" name="expectation_anamnesis_id" value="5"/>
                             </div>
                         </div>
                         <label class="form-control">V biologické rodině dítěte se vyskytuje psychiatrické onemocnění
@@ -245,7 +245,7 @@
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <div class="input-group-text">
-                                <input type="checkbox" aria-label="Checkbox for following text input" name="metabolic" />
+                                <input type="checkbox" aria-label="Checkbox for following text input" name="expectation_anamnesis_id" value="6"/>
                             </div>
                         </div>
                         <label class="form-control">V biologické rodině dítěte se vyskytuje metabolické onemocnění</label>
@@ -253,7 +253,7 @@
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <div class="input-group-text">
-                                <input type="checkbox" aria-label="Checkbox for following text input" name="simple" />
+                                <input type="checkbox" aria-label="Checkbox for following text input" name="expectation_anamnesis_id" value="7"/>
                             </div>
                         </div>
                         <label class="form-control">Rodiče dítěte jsou spíše simplexní.</label>
@@ -261,7 +261,7 @@
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <div class="input-group-text">
-                                <input type="checkbox" aria-label="Checkbox for following text input" name="babybox" />
+                                <input type="checkbox" aria-label="Checkbox for following text input" name="expectation_anamnesis_id" value="1"/>
                             </div>
                         </div>
                         <label class="form-control">O rodině dítěte není nic známo, dítě bylo nalezeno v babyboxu</label>
@@ -273,7 +273,7 @@
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <div class="input-group-text">
-                                <input type="checkbox" aria-label="Checkbox for following text input" name="pravne_volne" />
+                                <input type="checkbox" aria-label="Checkbox for following text input" name="expectation_legal_status" value="1"/>
                             </div>
                         </div>
                         <label class="form-control">Dítě je právně volné k osvojení</label>
@@ -281,7 +281,7 @@
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <div class="input-group-text">
-                                <input type="checkbox" aria-label="Checkbox for following text input" name="pravne_volne_brzy" />
+                                <input type="checkbox" aria-label="Checkbox for following text input" name="expectation_legal_status" value="2"/>
                             </div>
                         </div>
                         <label class="form-control">Dítě bude velmi pravděpodobně brzy právně volné.</label>
@@ -289,7 +289,7 @@
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <div class="input-group-text">
-                                <input type="checkbox" aria-label="Checkbox for following text input" name="pravne_nevolne_porucnik" />
+                                <input type="checkbox" aria-label="Checkbox for following text input" name="expectation_legal_status" value="3"/>
                             </div>
                         </div>
                         <label class="form-control">Dítě pravděpodobně nebude právně volné, ale je pravděpodobně možné získat poručnictví</label>
@@ -297,7 +297,7 @@
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <div class="input-group-text">
-                                <input type="checkbox" aria-label="Checkbox for following text input" name="pravne_nevolne" />
+                                <input type="checkbox" aria-label="Checkbox for following text input" name="expectation_legal_status" value="4"/>
                             </div>
                         </div>
                         <label class="form-control">Dítě pravděpodobně nebude právně volné a není pravděpodobná možnost získání poručnictví</label>
