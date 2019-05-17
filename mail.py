@@ -9,7 +9,7 @@ from email.utils import make_msgid
 #tenhle mail odejde ve chvíli, kdy NR zadá email a heslo (registruje se) - odkaz na dotazník.
 def email_dotaznik(email, id):
     #měl by být závod, na který auto přihlásil
-    link = 'https://ditedomu.herokuapp.com/dotaznik2/' + str(id)
+    link = 'https://ditedomu.herokuapp.com/dotaznik/' + str(id)
     zprava = EmailMessage()
     zprava['Subject'] = "Pokračujte na dotazník"
     zprava['From'] = Address('Dítě Domů', 'ditedomu', 'gmail.com')

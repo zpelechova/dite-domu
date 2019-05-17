@@ -48,16 +48,16 @@ def tabulka ():
     return render_template("tabulka.html")
 
 @app.route('/dotaznik/<account_id>', methods=['GET'])
-def zobraz_dotaznik2(account_id):
-    return render_template("dotaznik2.html", account_id=account_id)
+def zobraz_dotaznik(account_id):
+    return render_template("dotaznik.html", account_id=account_id)
 
 @app.route('/dotaznik/<account_id>', methods=['GET'])
-def dotaznik2_get(family_id):
+def dotaznik_get(family_id):
     if request.method == 'GET':
         family_id = request.form["family_id"]
 
 @app.route('/dotaznik/<account_id>', methods=['POST'])
-def dotaznik2_post (account_id):
+def dotaznik_post (account_id):
     if request.method == 'POST':
         # vyplni tabulku family
         file_number = request.form["file_number"]
