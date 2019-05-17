@@ -73,7 +73,7 @@ def dotaznik_post (account_id):
         family_id = databaze.insert_family(file_number, approval_type_id, regional_office_id, expectation_status_id, region_id, district_id, carer_info_id, prepcourse, account_id)
         sex_id = request.form["parent1_sex_id"]
         year_of_birth = request.form["parent1_year_of_birth"]
-        databaze.insert_parent(family_id, sex_id, year_of_birth)
+        databaze.insert_parent1(family_id, parent1_sex_id, parent1_year_of_birth)
         # vyplni tabulku family_parent pro druhého rodiče
         family_id = databaze.insert_family(file_number, approval_type_id, regional_office_id, expectation_status_id, region_id, district_id, carer_info_id, prepcourse, account_id)
         sex_id = request.form["parent2_sex_id"]

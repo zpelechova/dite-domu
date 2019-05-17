@@ -113,8 +113,8 @@ def insert_family(file_number, approval_type_id, regional_office_id, expectation
             conn.close()
     return family_id
 
-def insert_parent(family_id, sex_id, year_of_birth):
-    """ vyplni tabulku family_parent """
+def insert_parent1(family_id, parent1_sex_id, parent1_year_of_birth):
+    """ vyplni tabulku family_parent pro prdvniho rodice"""
     sql = """INSERT INTO public.family_parent
             (family_id, sex_id, year_of_birth)
              VALUES(%s, %s, %s) RETURNING id;"""
