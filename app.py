@@ -44,8 +44,9 @@ def registrace_nr ():
     return render_template("success.html")
 
 @app.route('/tabulka')
-def tabulka ():
+def tabulka (): 
     vyber_z_databaze = databaze.return_family()
+    print(vyber_z_databaze)
     return render_template("tabulka.html")
 
 @app.route('/dotaznik')
