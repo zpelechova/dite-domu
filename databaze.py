@@ -88,7 +88,6 @@ def registrace_ku(first_name, last_name, position_name, email, password, phone):
             conn.close()
     return id_uzivatele
 
-
 def insert_family(file_number, approval_type_id, regional_office_id, expectation_status_id, region_id, district_id, carer_info_id, prepcourse, account_id, note, approval_date, number_child_in_care):
     """ vyplni tabulku family """
     sql = """INSERT INTO public.family
@@ -330,3 +329,18 @@ def insert_expectation_ethnicity(expectation_id, ethnicity_id):
         if conn is not None:
             conn.close()
     return expectation_ethnicity_id
+
+def tabulka_vypis():
+    sql = """SELECT * FROM public.family ORDER BY id DESC"""
+    conn = get_db()
+    try:
+        cur = conn.cursor()
+        cur.execute(sql)
+        family_table = cur.fetchall()
+        conn.close()
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
+    return family_table

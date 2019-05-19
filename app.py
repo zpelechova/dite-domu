@@ -2,6 +2,7 @@ import functools
 from flask import Flask, render_template, request, flash
 import main
 import databaze
+import tabulky
 import mail
 import gunicorn
 app = Flask("MojeAppka")
@@ -77,23 +78,23 @@ def dotaznik_post (account_id):
         approval_date = request.form["approval_date"]
         number_child_in_care = request.form["number_child_in_care"]
         # vyplni tabulku family_parent pro prvního rodiče
-        family_id = databaze.insert_family(file_number, approval_type_id, regional_office_id, expectation_status_id, region_id, district_id, carer_info_id, prepcourse, account_id)
+        family_id = databaze.insert_family(file_number, approval_type_id, regional_office_id, expectation_status_id, region_id, district_id, carer_info_id, prepcourse, account_id, note, approval_date, number_child_in_care)
         parent1_sex_id = request.form["parent1_sex_id"]
         parent1_year_of_birth = request.form["parent1_year_of_birth"]
         databaze.insert_parent1(family_id, parent1_sex_id, parent1_year_of_birth)
-        # # vyplni tabulku family_parent pro druhého rodiče
-        # family_id = databaze.insert_family(file_number, approval_type_id, regional_office_id, expectation_status_id, region_id, district_id, carer_info_id, prepcourse, account_id)
-        # parent2_sex_id = request.form["parent2_sex_id"]
-        # parent2_year_of_birth = request.form["parent2_year_of_birth"]
-        # databaze.insert_parent(family_id, parent2_sex_id, parent2_year_of_birth)
-        # # vyplni tabulku child_in_care pro nejmladší dítě v péči
-        # family_id = databaze.insert_family(file_number, approval_type_id, regional_office_id, expectation_status_id, region_id, district_id, carer_info_id, prepcourse, account_id)
-        # sex_id = request.form["youngest_child_sex_id"]
-        # year_of_birth = request.form["youngest_child_year_of_birth"]
-        # relationship_id = request.form["relationship_id"]
-        # databaze.insert_child_in_care(family_id, sex_id, year_of_birth, relationship_id)
+        # vyplni tabulku family_parent pro druhého rodiče
+        family_id = databaze.insert_family(file_number, approval_type_id, regional_office_id, expectation_status_id, region_id, district_id, carer_info_id, prepcourse, account_id, note, approval_date, number_child_in_care)
+        parent2_sex_id = request.form["parent2_sex_id"]
+        parent2_year_of_birth = request.form["parent2_year_of_birth"]
+        databaze.insert_parent(family_id, parent2_sex_id, parent2_year_of_birth)
+        # vyplni tabulku child_in_care pro nejmladší dítě v péči
+        family_id = databaze.insert_family(file_number, approval_type_id, regional_office_id, expectation_status_id, region_id, district_id, carer_info_id, prepcourse, account_id, note, approval_date, number_child_in_care)
+        sex_id = request.form["youngest_child_sex_id"]
+        year_of_birth = request.form["youngest_child_year_of_birth"]
+        relationship_id = request.form["relationship_id"]
+        databaze.insert_child_in_care(family_id, sex_id, year_of_birth, relationship_id)
         # vyplni tabulku expectation
-        family_id = databaze.insert_family(file_number, approval_type_id, regional_office_id, expectation_status_id, region_id, district_id, carer_info_id, prepcourse, account_id)
+        family_id = databaze.insert_family(file_number, approval_type_id, regional_office_id, expectation_status_id, region_id, district_id, carer_info_id, prepcourse, account_id, note, approval_date, number_child_in_care)
         sex_id = request.form["expectation_sex_id"]
         databaze.insert_expectation(family_id, sex_id)
         # vyplni tabulku expectation_sibling_info
@@ -143,3 +144,8 @@ def success ():
     )
 
 
+@app.route('/tabulka')
+def tabulka_zobraz():
+    family_table = databaze.tabulka_vypis()
+    print(family_table)
+    return render_template("tabulka.html") 

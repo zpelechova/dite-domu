@@ -35,7 +35,7 @@ try:
             query ="""INSERT INTO public.expectation_ethnicity(expectation_id, ethnicity_id)VALUES(%s, %s);"""
             # query ="INSERT INTO public.expectation_ethnicity(expectation_id, ethnicity_id)VALUES("+str(expectation_id)+","+ str(ethnicity_id) + ");" LUKASOVO VERZE
             # spusteni query
-            cursor.execute(query, (expectation_id, ethnicity_id))
+            cursor.execute(query,(expectation_id, ethnicity_id))
 
     connection.commit()
 
