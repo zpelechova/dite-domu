@@ -1,5 +1,15 @@
-#draft
-query = """SELECT family_id, e.id AS expectation_id_original,
+import psycopg2
+import psycopg2.extras
+
+try:
+    # nastaceni databazoveho spojeni
+    connection = psycopg2.connect(user="xdejergsdhhzyv", password="0fafa17768bacb33d48bd827065760dc7b9999ca0d1dd33aa75e1c13d47562ab",
+                                  host="ec2-79-125-4-72.eu-west-1.compute.amazonaws.com", port="5432", database="d18ffe46fqbrdj")
+
+    cursor = connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+
+    # vypise vsechny verejne udaje z tabulky family,
+    query = """SELECT family_id, e.id AS expectation_id_original,
 ea.expectation_id AS expectation_id_ea, 
 sex_id AS pref_pohlavi,
 ea.age_id, 
@@ -23,3 +33,21 @@ LEFT JOIN public.mental_handicap AS mh ON emh.mental_handicap_id = mh.id
 LEFT JOIN public.expectation_physical_handicap AS eph ON e.id = eph.expectation_id 
 LEFT JOIN public.physical_handicap AS ph ON eph.physical_handicap_id = ph.id
 ORDER BY family_id;"""
+    # WHERE xxx AND id_zavod=%s znamena ze vyberea data pro nejaky zavod, ktery zvolil uzivatel
+# spusteni query
+    cursor.execute(query)
+    res = cursor.fetchall()
+    print(res)
+    # for r in res:
+    #     print(r['approval_type'])
+
+# v pripade databazove chyby, vyhodit chybu
+except (Exception, psycopg2.Error) as error:
+    print("PostgreSQL Exception", error)
+# uzavreni databazoveho pripojeni
+finally:
+    # close communication with the database
+    if(connection):
+        cursor.close()
+        connection.close()
+        print("PostgreSQL connection is closed")

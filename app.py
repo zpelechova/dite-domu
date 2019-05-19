@@ -117,16 +117,9 @@ def dotaznik_post (account_id):
         expectation_id = databaze.insert_expectation(family_id, sex_id)
         expectation_anamnesis_id = request.form["expectation_anamnesis_id"]
         databaze.insert_expectation_anamnesis(expectation_id, expectation_anamnesis_id)
-        
-
-
-
-
-
-
     return render_template("success.html")
 
-
+ 
 @app.route('/login')
 def login ():
     return render_template("login.html",

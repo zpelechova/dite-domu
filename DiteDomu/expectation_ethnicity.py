@@ -5,7 +5,7 @@ import random
 try:
     # nastaceni databazoveho spojeni
     connection = psycopg2.connect(user = "xdejergsdhhzyv",password = "0fafa17768bacb33d48bd827065760dc7b9999ca0d1dd33aa75e1c13d47562ab",host = "ec2-79-125-4-72.eu-west-1.compute.amazonaws.com",port = "5432",database = "d18ffe46fqbrdj")
-    
+     
     cursor = connection.cursor()
 
     # test spojeni, vypise obsah sloupce ID z tabulky

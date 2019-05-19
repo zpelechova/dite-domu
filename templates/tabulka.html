@@ -13,26 +13,22 @@
     <table class="table table-hover">
       <thead>
         <tr>
-          <th scope="col">file_number</th>
-          <th scope="col">approval_type</th>
-          <th scope="col">regional_office</th>
-          <th scope="col">expectation_status</th>
-          <th scope="col">region</th>
-          <th scope="col">district</th>
-          <th scope="col">carer_info</th>
-          <th scope="col">prepcourse</th>
+          <th scope="col">Kraj</th>
+          <th scope="col">Okres</th>
+          <th scope="col">Status rodiny</th>
+          <th scope="col">Schváleni jako</th>
+          <th scope="col">Počet pečujících osob</th>
+          <th scope="col">Přípravný kurz</th>
         </tr>
       </thead>
       <tbody>
         
             {% for x in vyber_z_databaze %}
             <tr>
-              <td>{{ x.file_number }}</td>
-              <td>{{ x.approval_type_id }}</td>
-              <td>{{ x.regional_office_id }}</td>
-              <td>{{ x.expectation_status_id }}</td>
-              <td>{{ x.region_id }}</td>
+              <td>{{ x.region_id + district_id + ex }}</td>
               <td>{{ x.district_id }}</td>
+              <td>{{ x.expectation_status_id }}</td>
+              <td>{{ x.approval_type_id }}</td>
               <td>{{ x.carer_info_id }}</td>
               <td>{{ x.prepcourse }}</td>
             </tr>
