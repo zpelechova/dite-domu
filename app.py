@@ -47,6 +47,10 @@ def registrace_nr ():
 def tabulka (): 
     return render_template("tabulka.html")
 
+@app.route('/tabulka_ku')
+def tabulka_ku (): 
+    return render_template("tabulka_ku.html")
+
 @app.route('/dotaznik/<account_id>', methods=['GET'])
 def zobraz_dotaznik(account_id):
     return render_template("dotaznik.html", account_id=account_id)
@@ -118,6 +122,11 @@ def dotaznik_post (account_id):
         expectation_anamnesis_id = request.form["expectation_anamnesis_id"]
         databaze.insert_expectation_anamnesis(expectation_id, expectation_anamnesis_id)
     return render_template("success.html")
+
+@app.route('/search')
+def search ():
+    return render_template("search.html",
+    )
 
  
 @app.route('/login')
