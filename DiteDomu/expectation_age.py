@@ -35,7 +35,7 @@ try:
             # definice query
             query = """INSERT INTO public.expectation_age(expectation_id, age_id)VALUES(%s, %s);"""
         # spusteni query
-        cursor.execute(query, (expectation_id, age_id))
+        cursor.execute(query,(expectation_id, age_id))
 
     connection.commit()
 
