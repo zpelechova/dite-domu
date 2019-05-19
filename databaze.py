@@ -89,17 +89,17 @@ def registrace_ku(first_name, last_name, position_name, email, password, phone):
     return id_uzivatele
 
 
-def insert_family(file_number, approval_type_id, regional_office_id, expectation_status_id, region_id, district_id, carer_info_id, prepcourse, account_id):
+def insert_family(file_number, approval_type_id, regional_office_id, expectation_status_id, region_id, district_id, carer_info_id, prepcourse, account_id, note, approval_date, number_child_in_care):
     """ vyplni tabulku family """
     sql = """INSERT INTO public.family
-            (file_number, approval_type_id, regional_office_id, expectation_status_id, region_id, district_id, carer_info_id, prepcourse, account_id)
-             VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s) RETURNING id;"""
+            (file_number, approval_type_id, regional_office_id, expectation_status_id, region_id, district_id, carer_info_id, prepcourse, account_id, note, approval_date, number_child_in_care)
+             VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s) RETURNING id;"""
     conn = get_db()
     family_id = None
     try:
         cur = conn.cursor()
         # execute the INSERT statement
-        cur.execute(sql, (file_number, approval_type_id, regional_office_id, expectation_status_id, region_id, district_id, carer_info_id, prepcourse, account_id))
+        cur.execute(sql, (file_number, approval_type_id, regional_office_id, expectation_status_id, region_id, district_id, carer_info_id, prepcourse, account_id, note, approval_date, number_child_in_care))
         # get the generated id back
         family_id = cur.fetchone()[0]
         # commit the changes to the database

@@ -1,58 +1,58 @@
 {% extends "layout.html" %} {% block body %}
 <br />
 <div class="jumbotron">
-  <header>
-    <h1>
+    <header>
+        <h1>
       Náhradní rodiny, které máme v databázi.
     </h1>
-    <p>
-      Na této stránce si můžete prohlédnout tabulku se všemi informacemi o všech náhradních rodinách, případně jen podle zadaného filtru.
-    </p>
-    <form method="GET">
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th scope="col">Status rodiny (Volná/obsazená)</th>
-          <th scope="col">Bydliště kraj</th>
-          <th scope="col">Bydliště okres</th>
-          <th scope="col">Typ náhradní rodiny</th>
-          <th scope="col">Rodiče (pohlaví a věk narození)</th>
-          <th scope="col">Počet dětí v rodině</th>
-          <th scope="col">Nejmladší dítě v rodině (pohlaví, věk narození, druh vazby)</th>
-          <th scope="col">Specifika rodiny (poznámka)</th>
-          <th scope="col">Schváleni jako</th>
-          <th scope="col">Kraj, kde jsou vedeni</th>
-          <th scope="col">Číslo schválení</th>
-          <th scope="col">Datum schválení</th>
-          <th scope="col">Přípravný kurz</th>
+        <p>
+            Na této stránce si můžete prohlédnout tabulku se všemi informacemi o všech náhradních rodinách, případně jen podle zadaného filtru.
+        </p>
+        <form method="GET">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Status rodiny (Volná/obsazená)</th>
+                        <th scope="col">Bydliště kraj</th>
+                        <th scope="col">Bydliště okres</th>
+                        <th scope="col">Typ náhradní rodiny</th>
+                        <th scope="col">Rodiče (pohlaví a věk narození)</th>
+                        <th scope="col">Počet dětí v rodině</th>
+                        <th scope="col">Nejmladší dítě v rodině (pohlaví, věk narození, druh vazby)</th>
+                        <th scope="col">Specifika rodiny (poznámka)</th>
+                        <th scope="col">Schváleni jako</th>
+                        <th scope="col">Kraj, kde jsou vedeni</th>
+                        <th scope="col">Číslo schválení</th>
+                        <th scope="col">Datum schválení</th>
+                        <th scope="col">Přípravný kurz</th>
 
-          <th scope="col">Nejraději dítě: věk</th>
-          <th scope="col">Nejraději dítě: pohlaví</th>
-          <th scope="col">Nejraději dítě: počet zároveň</th>
-          <th scope="col">Nejraději dítě: postižení fyzické</th>
-          <th scope="col">Nejraději dítě: postižení mentální</th>
-          <th scope="col">Nejraději dítě: etnikum(kulturní identita)</th>
-          <th scope="col">Nejraději dítě: anamnéza</th>
-          <th scope="col">Nejraději dítě: právní stav</th>
-        </tr>
-      </thead>
-      <tbody>
-        
-            {% for x in vyber_z_databaze %}
-            <tr>
-              <td>{{ x.region_id + district_id + ex }}</td>
-              <td>{{ x.district_id }}</td>
-              <td>{{ x.expectation_status_id }}</td>
-              <td>{{ x.approval_type_id }}</td>
-              <td>{{ x.carer_info_id }}</td>
-              <td>{{ x.prepcourse }}</td>
-            </tr>
-      {% endfor %}
-    
-      </tbody>
-    </table>
-    </form>
-    <br />
-  </header>
+                        <th scope="col">Nejraději dítě: věk</th>
+                        <th scope="col">Nejraději dítě: pohlaví</th>
+                        <th scope="col">Nejraději dítě: počet zároveň</th>
+                        <th scope="col">Nejraději dítě: postižení fyzické</th>
+                        <th scope="col">Nejraději dítě: postižení mentální</th>
+                        <th scope="col">Nejraději dítě: etnikum(kulturní identita)</th>
+                        <th scope="col">Nejraději dítě: anamnéza</th>
+                        <th scope="col">Nejraději dítě: právní stav</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    {% for x in vyber_z_databaze %}
+                    <tr>
+                        <td>{{ x.region_id + district_id + ex }}</td>
+                        <td>{{ x.district_id }}</td>
+                        <td>{{ x.expectation_status_id }}</td>
+                        <td>{{ x.approval_type_id }}</td>
+                        <td>{{ x.carer_info_id }}</td>
+                        <td>{{ x.prepcourse }}</td>
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+        </form>
+        <br />
+    </header>
 </div>
 {% endblock %}

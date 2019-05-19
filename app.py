@@ -73,6 +73,9 @@ def dotaznik_post (account_id):
         carer_info_id = request.form["carer_info_id"]
         prepcourse = request.form["prepcourse"]
         account_id = request.form["account_id"]
+        note = request.form["note"]
+        approval_date = request.form["approval_date"]
+        number_child_in_care = request.form["number_child_in_care"]
         # vyplni tabulku family_parent pro prvního rodiče
         family_id = databaze.insert_family(file_number, approval_type_id, regional_office_id, expectation_status_id, region_id, district_id, carer_info_id, prepcourse, account_id)
         parent1_sex_id = request.form["parent1_sex_id"]
