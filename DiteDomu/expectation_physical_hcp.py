@@ -37,8 +37,7 @@ try:
     
     
         # spusteni query
-        #OVERIT ZDA NEMA BYT cursor.execute(query,(expectation_id, physical_handicap_id))
-        cursor.execute(query)
+        cursor.execute(query,(expectation_id, physical_handicap_id))
 
 
     connection.commit()
