@@ -19,29 +19,35 @@ try:
     
     cursor.execute("truncate family_parent cascade")
     cursor.execute("ALTER SEQUENCE family_parent_id_seq RESTART")
-    for i in range(1, 20):
+    
+    for i in range(1, 19):
         # definice sloupcu
-        family_id = random.randint(1,20)
+        
+        family_id = i
         #pohlavi omezeno na moznosti 1 a 2
-        sex_id = random.randint(1,2)
-        # roky/years k 'year_of_birth' pro rodice
-        years = list(range(1965,1990))
-        date_of_birth = random.choice(years)
-       
-
-        # definice query
-        query = "INSERT INTO public.family_parent(family_id, sex_id, year_of_birth)VALUES("+str(family_id)+","+ str(sex_id) + "," + str(date_of_birth)+");"
+        #generuje pocet deti v peci od poctu 0-4, vytvori seznam hodnot
+        num_sexs = random.randint(0, 4)
+        sex_ids = []
+        num_year_of_births = num_sexs
+        year_of_birth_list = []
+        #JE WHILE DOBRE?
+        while len(sex_ids) < num_sexs:
+            sex_id = random.randint(1,2)
+            sex_ids.append(sex_id)
+            # roky/years k 'year_of_birth' pro deti v peci rodiny
+            year_of_birth = random.randint(1965,1990)
+            year_of_birth_list.append(year_of_birth)
+        #JE WHILE DOBRE?
+        for sex_id in sex_ids:
+            # definice query
+            #DANOVA VERZE
+            query ="""INSERT INTO public.family_parent(family_id, sex_id, year_of_birth)VALUES(%s, %s, %s,);"""
+    
         # spusteni query
+        ##OVERIT ZDA BEZ SLOUPCU FUNGUJE cursor.execute(query, (family_id, sex_id, year_of_birth))
         cursor.execute(query)
 
     connection.commit()
-
-
-
-
-
-
-
 # v pripade databazove chyby, vyhodit chybu
 except (Exception, psycopg2.Error) as error :
     print ("PostgreSQL Exception", error)

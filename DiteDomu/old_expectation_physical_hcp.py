@@ -9,44 +9,32 @@ try:
     cursor = connection.cursor()
 
     # test spojeni, vypise obsah sloupce ID z tabulky
-    # query = "select * from expectation_mental_handicap"
+    # query = "select * from expectation_physical_handicap"
     # cursor.execute(query)
     # result = cursor.fetchall()
     #for row in result:
     #    print("Id = ", row[0])
 
     # vyprazdneni tabulky
-    
-    cursor.execute("truncate expectation_mental_handicap cascade")
-    cursor.execute("ALTER SEQUENCE expectation_mental_handicap_id_seq RESTART")
-    
-    for i in range(1, 19):
+    #????myslim neni nutne, vyprazdneni tabulek je u account tab
+    cursor.execute("truncate expectation_physical_handicap cascade")
+    cursor.execute("ALTER SEQUENCE expectation_physical_handicap_id_seq RESTART")
+    for i in range(1, 20):
         # definice sloupcu
-        # cyklus na nahodne vybirani multiple choice (1-2)
-        expectation_id = i
-        num_ments = random.randint(1, 2)
-        ment_ids = []
-        while len(ment_ids) < num_ments:
-            ment_id = random.randint(1, 2)
-            if ment_id not in ment_ids:
-                ment_ids.append(ment_id)
+        #NUTNO OPRAVIT ABY BRALO POSLEDNI ID, KOD Zuza?
+        expectation_id = random.randint(1,19)
+        #NUTNO OPRAVIT ABY BRALO POSLEDNI ID, KOD Zuza?
+        #VYGENERUJE JEN JEDNU MOZNOST, NUTNO OTESTOVAT MULTICHOICE
+        physical_handicap_id = random.randint(1,2)
         
-        for mental_handicap_id in ment_ids:
-            # definice query
-            #DANOVA VERZE
-            query ="""INSERT INTO public.expectation_mental_handicap(expectation_id, mental_handicap_id)VALUES(%s, %s);"""
-    
-    
+       
+
+        # definice query
+        query = "INSERT INTO public.expectation_physical_handicap(expectation_id, physical_handicap_id)VALUES("+str(expectation_id)+","+ str(physical_handicap_id) + ");"
         # spusteni query
-        #OVERIT ZDA NEMA BYT cursor.execute(query,(expectation_id, mental_handicap_id))
         cursor.execute(query)
 
     connection.commit()
-
-
-
-
-
 
 
 # v pripade databazove chyby, vyhodit chybu

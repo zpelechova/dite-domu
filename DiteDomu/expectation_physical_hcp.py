@@ -19,20 +19,27 @@ try:
     #????myslim neni nutne, vyprazdneni tabulek je u account tab
     cursor.execute("truncate expectation_physical_handicap cascade")
     cursor.execute("ALTER SEQUENCE expectation_physical_handicap_id_seq RESTART")
-    for i in range(1, 20):
+    for i in range(1, 19):
         # definice sloupcu
-        #NUTNO OPRAVIT ABY BRALO POSLEDNI ID, KOD Zuza?
-        expectation_id = random.randint(1,19)
-        #NUTNO OPRAVIT ABY BRALO POSLEDNI ID, KOD Zuza?
-        #VYGENERUJE JEN JEDNU MOZNOST, NUTNO OTESTOVAT MULTICHOICE
-        physical_handicap_id = random.randint(1,2)
+        # cyklus na nahodne vybirani multiple choice (1-2)
+        expectation_id = i
+        num_phys = random.randint(1, 2)
+        phy_ids = []
+        while len(phy_ids) < num_phys:
+            phy_id = random.randint(1, 2)
+            if phy_id not in phy_ids:
+                phy_ids.append(phy_id)
         
-       
-
-        # definice query
-        query = "INSERT INTO public.expectation_physical_handicap(expectation_id, physical_handicap_id)VALUES("+str(expectation_id)+","+ str(physical_handicap_id) + ");"
+        for physical_handicap_id in phy_ids:
+            # definice query
+            #DANOVA VERZE
+            query ="""INSERT INTO public.expectation_physical_handicap(expectation_id, physical_handicap_id)VALUES(%s, %s);"""
+    
+    
         # spusteni query
+        #OVERIT ZDA NEMA BYT cursor.execute(query,(expectation_id, physical_handicap_id))
         cursor.execute(query)
+
 
     connection.commit()
 

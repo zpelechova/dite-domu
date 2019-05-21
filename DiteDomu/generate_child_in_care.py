@@ -18,31 +18,40 @@ try:
     # vyprazdneni tabulky
     cursor.execute("truncate child_in_care cascade")
     cursor.execute("ALTER SEQUENCE child_in_care_id_seq RESTART")
-    #omezeno na polovinu rodin range neni od 1
-    #NUTNO OPRAVIT NA MULTICHOICE
-    for i in range(10, 19):
+
+    for i in range(1, 19):
         # definice sloupcu
+        
         family_id = i
         #pohlavi omezeno na moznosti 1 a 2
-        sex_id = random.randint(1,2)
-        relationship_id = random.randint(1,3)
+        #generuje pocet deti v peci od poctu 0-4, vytvori seznam hodnot
+        num_sexs = random.randint(0, 4)
+        sex_ids = []
+        num_relats = num_sexs
+        relat_ids = []
+        num_year_of_births = num_sexs
+        year_of_birth_list = []
+        #JE WHILE DOBRE?
+        while len(sex_ids) < num_sexs:
+            sex_id = random.randint(1,2)
+            sex_ids.append(sex_id)
+            relat_id = random.randint(1,3)
+            relat_ids.append(relat_id)
         # roky/years k 'year_of_birth' pro deti v peci rodiny
-        years = list(range(2001,2019))
-        date_of_birth = random.choice(years)
-       
-        # definice query
-        query = "INSERT INTO public.child_in_care(family_id, sex_id, relationship_id, year_of_birth)VALUES("+str(family_id)+","+ str(sex_id) + "," + str(relationship_id) + "," + str(date_of_birth)+");"
+            year_of_birth = random.randint(2001,2019)
+            year_of_birth_list.append(year_of_birth)
+        #JE WHILE DOBRE?
+        for sex_id in sex_ids:
+            # definice query
+            #DANOVA VERZE
+            query ="""INSERT INTO public.child_in_care(family_id, sex_id, relationship_id, year_of_birth)VALUES(%s, %s, %s,%s,);"""
+    
         # spusteni query
+        ##OVERIT ZDA BEZ SLOUPCU FUNGUJE cursor.execute(query, (family_id, sex_id, relationship_id, year_of_birth))
         cursor.execute(query)
 
     connection.commit()
-
-
-
-
-
-
-
+#CO ZNAMENA CERVENA SIPKA VLEVO?
 # v pripade databazove chyby, vyhodit chybu
 except (Exception, psycopg2.Error) as error :
     print ("PostgreSQL Exception", error)

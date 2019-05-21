@@ -11,7 +11,7 @@ try:
     # vypise vsechny verejne udaje z tabulky family,
     query = """SELECT family_id, e.id AS expectation_id_original,
 ea.expectation_id AS expectation_id_ea, 
-sex_id AS pref_pohlavi,
+s.name AS pref_pohlavi,
 ea.age_id, 
 ag.name AS pref_vek,
 an.name AS pref_anamneza,
@@ -32,6 +32,7 @@ LEFT JOIN public.expectation_mental_handicap AS emh ON e.id = emh.expectation_id
 LEFT JOIN public.mental_handicap AS mh ON emh.mental_handicap_id = mh.id
 LEFT JOIN public.expectation_physical_handicap AS eph ON e.id = eph.expectation_id 
 LEFT JOIN public.physical_handicap AS ph ON eph.physical_handicap_id = ph.id
+LEFT JOIN public.sex AS s ON f.age_id = s.id
 ORDER BY family_id;"""
     # WHERE xxx AND id_zavod=%s znamena ze vyberea data pro nejaky zavod, ktery zvolil uzivatel
 # spusteni query

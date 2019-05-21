@@ -9,36 +9,30 @@ try:
     cursor = connection.cursor()
 
     # test spojeni, vypise obsah sloupce ID z tabulky
-    # query = "select * from expectation_mental_handicap"
+    # query = "select * from approval_type"
     # cursor.execute(query)
     # result = cursor.fetchall()
     #for row in result:
     #    print("Id = ", row[0])
 
     # vyprazdneni tabulky
-    
-    cursor.execute("truncate expectation_mental_handicap cascade")
-    cursor.execute("ALTER SEQUENCE expectation_mental_handicap_id_seq RESTART")
-    
-    for i in range(1, 19):
+    cursor.execute("truncate child_in_care cascade")
+    cursor.execute("ALTER SEQUENCE child_in_care_id_seq RESTART")
+    #omezeno na polovinu rodin range neni od 1
+    #NUTNO OPRAVIT NA MULTICHOICE
+    for i in range(10, 19):
         # definice sloupcu
-        # cyklus na nahodne vybirani multiple choice (1-2)
-        expectation_id = i
-        num_ments = random.randint(1, 2)
-        ment_ids = []
-        while len(ment_ids) < num_ments:
-            ment_id = random.randint(1, 2)
-            if ment_id not in ment_ids:
-                ment_ids.append(ment_id)
-        
-        for mental_handicap_id in ment_ids:
-            # definice query
-            #DANOVA VERZE
-            query ="""INSERT INTO public.expectation_mental_handicap(expectation_id, mental_handicap_id)VALUES(%s, %s);"""
-    
-    
+        family_id = i
+        #pohlavi omezeno na moznosti 1 a 2
+        sex_id = random.randint(1,2)
+        relationship_id = random.randint(1,3)
+        # roky/years k 'year_of_birth' pro deti v peci rodiny
+        years = list(range(2001,2019))
+        date_of_birth = random.choice(years)
+       
+        # definice query
+        query = "INSERT INTO public.child_in_care(family_id, sex_id, relationship_id, year_of_birth)VALUES("+str(family_id)+","+ str(sex_id) + "," + str(relationship_id) + "," + str(date_of_birth)+");"
         # spusteni query
-        #OVERIT ZDA NEMA BYT cursor.execute(query,(expectation_id, mental_handicap_id))
         cursor.execute(query)
 
     connection.commit()
