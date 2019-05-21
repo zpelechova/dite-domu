@@ -20,14 +20,14 @@ try:
     cursor.execute("truncate expectation_anamnesis cascade")
     cursor.execute("ALTER SEQUENCE expectation_anamnesis_id_seq RESTART")
     
-    for i in range(1, 19):
+    for i in range(1, 2):
         # definice sloupcu
         # cyklus na nahodne vybirani multiple choice u anamnesis (1-7)
         expectation_id = i
         num_anams = random.randint(1, 7)
         anam_ids = []
         while len(anam_ids) < num_anams:
-            anam_id = random.randint(1, 4)
+            anam_id = random.randint(1, 7)
             if anam_id not in anam_ids:
                 anam_ids.append(anam_id)
         

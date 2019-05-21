@@ -27,7 +27,7 @@ try:
         num_ages = random.randint(1,5)
         age_ids = []
         while len(age_ids) < num_ages:
-            age_id = random.randint(1, 4)
+            age_id = random.randint(1, 5)
             if age_id not in age_ids:
                 age_ids.append(age_id)
         
