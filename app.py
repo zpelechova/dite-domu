@@ -44,10 +44,6 @@ def registrace_nr ():
             flash ('Někde se stala chyba, zkuste to prosím znovu', "warning")
     return render_template("success.html")
 
-@app.route('/tabulka_ku')
-def tabulka_ku (): 
-    return render_template("tabulka_ku.html")
-
 @app.route('/dotaznik/<account_id>', methods=['GET'])
 def zobraz_dotaznik(account_id):
     return render_template("dotaznik.html", account_id=account_id)
@@ -74,7 +70,6 @@ def dotaznik_post (account_id):
         approval_date = request.form["approval_date"]
         number_child_in_care = request.form.get('number_child_in_care')
         family_id = databaze.insert_family(file_number, approval_type_id, regional_office_id, expectation_status_id, region_id, district_id, carer_info_id, prepcourse, account_id, note, approval_date, number_child_in_care)
-        print('vlozeno do family')
         # vyplni tabulku family_parent pro prvního rodiče
         parent1_sex_id = request.form["parent1_sex_id"]
         parent1_year_of_birth = request.form["parent1_year_of_birth"]
@@ -105,16 +100,17 @@ def dotaznik_post (account_id):
         physical_handicap_id = request.form["physical_handicap_id"]
         databaze.insert_expectation_physical_handicap(expectation_id, physical_handicap_id)
         # vyplni tabulku expectation_ethnicity
-        expectation_ethnicity_id = request.form["expectation_ethnicity_id"]
+        expectation_ethnicity_id = request.form.getlist("expectation_ethnicity_id")
         databaze.insert_expectation_ethnicity(expectation_id, expectation_ethnicity_id)
+        print(expectation_ethnicity_id)
         # vyplni tabulku expectation_legal_status
-        expectation_legal_status = request.form["expectation_legal_status"]
+        expectation_legal_status = request.form.getlist("expectation_legal_status")
         databaze.insert_expectation_legal_status(expectation_id, expectation_legal_status)
-                # vyplni tabulku expectation_age
-        expectation_age = request.form["expectation_age"]
+        # vyplni tabulku expectation_age
+        expectation_age = request.form.getlist("expectation_age")
         databaze.insert_expectation_age(expectation_id, expectation_age)
-                # vyplni tabulku expectation_anamnesis
-        expectation_anamnesis_id = request.form["expectation_anamnesis_id"]
+        # vyplni tabulku expectation_anamnesis
+        expectation_anamnesis_id = request.form.getlist("expectation_anamnesis_id")
         databaze.insert_expectation_anamnesis(expectation_id, expectation_anamnesis_id)
     return render_template("success.html")
 
@@ -123,7 +119,6 @@ def search ():
     return render_template("search.html",
     )
 
- 
 @app.route('/login')
 def login ():
     return render_template("login.html",
@@ -137,8 +132,20 @@ def success ():
 @app.route('/tabulka')
 def tabulka_zobraz():
     family_table = databaze.tabulka_vypis()
-    print(family_table)
     return render_template("tabulka.html", 
     family_table=family_table
     ) 
+
+@app.route('/tabulka_ku')
+def tabulka_ku ():
+    expectation_table = databaze.tabulka_ku_vypis()
+    print(expectation_table)
+    return render_template("tabulka_ku.html",
+    expectation_table=expectation_table
+    )
+
+@app.route('/tabulka_navic')
+def tabulka_navic (): 
+    return render_template("tabulka_navic.html")
+
 

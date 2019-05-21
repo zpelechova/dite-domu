@@ -73,13 +73,9 @@ def registrace_ku(first_name, last_name, position_name, email, password, phone):
     password = hash_password(password)  
     try:
         cur = conn.cursor()
-        # execute the INSERT statement
         cur.execute(sql, (first_name, last_name, position_name, email, password, phone, "3", datetime.datetime.now(), 2))
-        # get the generated id back
         id_uzivatele = cur.fetchone()[0]
-        # commit the changes to the database
         conn.commit()
-        # close communication with the database
         cur.close()
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
@@ -97,13 +93,9 @@ def insert_family(file_number, approval_type_id, regional_office_id, expectation
     family_id = None
     try:
         cur = conn.cursor()
-        # execute the INSERT statement
         cur.execute(sql, (file_number, approval_type_id, regional_office_id, expectation_status_id, region_id, district_id, carer_info_id, prepcourse, account_id, note, approval_date, number_child_in_care))
-        # get the generated id back
         family_id = cur.fetchone()[0]
-        # commit the changes to the database
         conn.commit()
-        # close communication with the database
         cur.close()
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
@@ -121,13 +113,9 @@ def insert_parent1(family_id, parent1_sex_id, parent1_year_of_birth):
     family_parent_id = None
     try:
         cur = conn.cursor()
-        # execute the INSERT statement
         cur.execute(sql, (family_id, parent1_sex_id, parent1_year_of_birth))
-        # get the generated id back
         family_parent_id = cur.fetchone()[0]
-        # commit the changes to the database
         conn.commit()
-        # close communication with the database
         cur.close()
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
@@ -145,13 +133,9 @@ def insert_child_in_care(family_id, sex_id, year_of_birth, relationship_id):
     child_in_care_id = None
     try:
         cur = conn.cursor()
-        # execute the INSERT statement
         cur.execute(sql, (family_id, sex_id, year_of_birth, relationship_id))
-        # get the generated id back
         child_in_care_id = cur.fetchone()[0]
-        # commit the changes to the database
         conn.commit()
-        # close communication with the database
         cur.close()
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
@@ -159,16 +143,6 @@ def insert_child_in_care(family_id, sex_id, year_of_birth, relationship_id):
         if conn is not None:
             conn.close()
     return child_in_care_id
-
-# def return_family():
-#     """ Vypise polozky tabulky family. """
-#     sql = """SELECT file_number, approval_type_id, regional_office_id, expectation_status_id, region_id, district_id, carer_info_id, prepcourse FROM public.family"""
-#     conn = get_db()
-#     cur = conn.cursor(cursor_factory = psycopg2.extras.RealDictCursor)
-#     cur.execute(sql)
-#     vyber_z_databaze = cur.fetchall()
-#     conn.close()
-#     return vyber_z_databaze    
 
 def insert_expectation(family_id, sex_id):
     """ vyplni tabulku expectation"""
@@ -208,18 +182,15 @@ def insert_expectation_sibling_info(expectation_id, sibling_info_id):
                 if conn is not None:
                     conn.close()
 
-
 def insert_expectation_mental_handicap(expectation_id, mental_handicap_id):
     """ vyplni tabulku expectation_mental_handicap"""
-    sql = """INSERT INTO public.expectation
+    sql = """INSERT INTO public.expectation_mental_handicap
             (expectation_id, mental_handicap_id)
-             VALUES(%s, %s) RETURNING id;"""
+             VALUES(%s, %s);"""
     conn = get_db()
-    expectation_mental_handicap_id = None
     try:
         cur = conn.cursor()
         cur.execute(sql, (expectation_id, mental_handicap_id))
-        expectation_mental_handicap_id = cur.fetchone()[0]
         conn.commit()
         cur.close()
     except (Exception, psycopg2.DatabaseError) as error:
@@ -227,19 +198,16 @@ def insert_expectation_mental_handicap(expectation_id, mental_handicap_id):
     finally:
         if conn is not None:
             conn.close()
-    return expectation_mental_handicap_id
 
 def insert_expectation_physical_handicap(expectation_id, physical_handicap_id):
     """ vyplni tabulku expectation_physical_handicap"""
-    sql = """INSERT INTO public.expectation
+    sql = """INSERT INTO public.expectation_physical_handicap
             (expectation_id, physical_handicap_id)
              VALUES(%s, %s) RETURNING id;"""
     conn = get_db()
-    expectation_physical_handicap_id = None
     try:
         cur = conn.cursor()
         cur.execute(sql, (expectation_id, physical_handicap_id))
-        expectation_physical_handicap_id = cur.fetchone()[0]
         conn.commit()
         cur.close()
     except (Exception, psycopg2.DatabaseError) as error:
@@ -247,87 +215,78 @@ def insert_expectation_physical_handicap(expectation_id, physical_handicap_id):
     finally:
         if conn is not None:
             conn.close()
-    return expectation_physical_handicap_id
 
 def insert_expectation_legal_status(expectation_id, legal_status_id):
     """ vyplni tabulku expectation_legal_status"""
-    sql = """INSERT INTO public.expectation
-            (expectation_id, legal_status_id)
-             VALUES(%s, %s) RETURNING id;"""
-    conn = get_db()
-    expectation_legal_status_id = None
-    try:
-        cur = conn.cursor()
-        cur.execute(sql, (expectation_id, legal_status_id))
-        expectation_legal_status_id = cur.fetchone()[0]
-        conn.commit()
-        cur.close()
-    except (Exception, psycopg2.DatabaseError) as error:
-        print(error)
-    finally:
-        if conn is not None:
-            conn.close()
-    return expectation_legal_status_id
+    for x in legal_status_id:
+        sql = """INSERT INTO public.expectation_legal_status
+                (expectation_id, legal_status_id)
+                VALUES(%s, %s);"""
+        conn = get_db()
+        try:
+            cur = conn.cursor()
+            cur.execute(sql, (expectation_id, x))
+            conn.commit()
+            cur.close()
+        except (Exception, psycopg2.DatabaseError) as error:
+            print(error)
+        finally:
+            if conn is not None:
+                conn.close()
 
 def insert_expectation_age(expectation_id, age_id):
     """ vyplni tabulku expectation_age """
-    sql = """INSERT INTO public.expectation
-            (expectation_id, age_id)
-             VALUES(%s, %s) RETURNING id;"""
-    conn = get_db()
-    expectation_age_id = None
-    try:
-        cur = conn.cursor()
-        cur.execute(sql, (expectation_id, age_id))
-        expectation_age_id = cur.fetchone()[0]
-        conn.commit()
-        cur.close()
-    except (Exception, psycopg2.DatabaseError) as error:
-        print(error)
-    finally:
-        if conn is not None:
-            conn.close()
-    return expectation_age_id
+    for x in age_id:
+        sql = """INSERT INTO public.expectation_age
+                (expectation_id, age_id)
+                VALUES(%s, %s);"""
+        conn = get_db()
+        try:
+            cur = conn.cursor()
+            cur.execute(sql, (expectation_id, x))
+            conn.commit()
+            cur.close()
+        except (Exception, psycopg2.DatabaseError) as error:
+            print(error)
+        finally:
+            if conn is not None:
+                conn.close()
 
 def insert_expectation_anamnesis(expectation_id, anamnesis_id):
     """ vyplni tabulku expectation_anamnesis"""
-    sql = """INSERT INTO public.expectation
-            (expectation_id, anamnesis_id)
-             VALUES(%s, %s) RETURNING id;"""
-    conn = get_db()
-    expectation_anamnesis_id = None
-    try:
-        cur = conn.cursor()
-        cur.execute(sql, (expectation_id, anamnesis_id))
-        expectation_anamnesis_id = cur.fetchone()[0]
-        conn.commit()
-        cur.close()
-    except (Exception, psycopg2.DatabaseError) as error:
-        print(error)
-    finally:
-        if conn is not None:
-            conn.close()
-    return expectation_anamnesis_id
+    for x in anamnesis_id:
+        sql = """INSERT INTO public.expectation_anamnesis
+                (expectation_id, anamnesis_id)
+                VALUES(%s, %s);"""
+        conn = get_db()
+        try:
+            cur = conn.cursor()
+            cur.execute(sql, (expectation_id, x))
+            conn.commit()
+            cur.close()
+        except (Exception, psycopg2.DatabaseError) as error:
+            print(error)
+        finally:
+            if conn is not None:
+                conn.close()
 
 def insert_expectation_ethnicity(expectation_id, ethnicity_id):
     """ vyplni tabulku expectation_ethnicity"""
-    sql = """INSERT INTO public.expectation
-            (expectation_id, ethnicity_id)
-             VALUES(%s, %s) RETURNING id;"""
-    conn = get_db()
-    expectation_ethnicity_id = None
-    try:
-        cur = conn.cursor()
-        cur.execute(sql, (expectation_id, ethnicity_id))
-        expectation_ethnicity_id = cur.fetchone()[0]
-        conn.commit()
-        cur.close()
-    except (Exception, psycopg2.DatabaseError) as error:
-        print(error)
-    finally:
-        if conn is not None:
-            conn.close()
-    return expectation_ethnicity_id
+    for x in ethnicity_id:
+        sql = """INSERT INTO public.expectation_ethnicity
+                (expectation_id, ethnicity_id)
+                VALUES(%s, %s);"""
+        conn = get_db()
+        try:
+            cur = conn.cursor()
+            cur.execute(sql, (expectation_id, x))
+            conn.commit()
+            cur.close()
+        except (Exception, psycopg2.DatabaseError) as error:
+            print(error)
+        finally:
+            if conn is not None:
+                conn.close()
 
 def tabulka_vypis():
     sql = """SELECT * FROM public.family ORDER BY id DESC"""
@@ -343,3 +302,43 @@ def tabulka_vypis():
         if conn is not None:
             conn.close()
     return family_table
+
+def tabulka_ku_vypis():
+    sql = """SELECT family_id,
+                    ag.name AS expectation_age,
+                    s.name AS expectation_sex,
+                    sb.name AS expectation_sibling_info,
+                    ph.name AS expectation_physical_handicap,
+                    mh.name AS expectation_mental_handicap,
+                    et.name AS expectation_ethnicity,
+                    an.name AS expectation_anamnesis,
+                    ls.name AS expectation_legal_status
+                    FROM public.expectation as e
+                    LEFT JOIN public.expectation_age AS ea ON e.id = ea.expectation_id 
+                    LEFT JOIN public.age AS ag ON ea.age_id = ag.id
+                    LEFT JOIN public.expectation_anamnesis AS ean ON e.id = ean.expectation_id 
+                    LEFT JOIN public.anamnesis AS an ON ean.anamnesis_id = an.id
+                    LEFT JOIN public.expectation_ethnicity AS eet ON e.id = eet.expectation_id 
+                    LEFT JOIN public.ethnicity AS et ON eet.ethnicity_id = et.id
+                    LEFT JOIN public.expectation_legal_status AS els ON e.id = els.expectation_id 
+                    LEFT JOIN public.legal_status AS ls ON els.legal_status_id = ls.id
+                    LEFT JOIN public.expectation_mental_handicap AS emh ON e.id = emh.expectation_id 
+                    LEFT JOIN public.mental_handicap AS mh ON emh.mental_handicap_id = mh.id
+                    LEFT JOIN public.expectation_physical_handicap AS eph ON e.id = eph.expectation_id 
+                    LEFT JOIN public.physical_handicap AS ph ON eph.physical_handicap_id = ph.id
+                    LEFT JOIN public.expectation_sibling_info AS esb ON e.id = esb.expectation_id 
+                    LEFT JOIN public.sibling_info AS sb ON esb.sibling_info_id = sb.id
+                    LEFT JOIN public.sex AS s ON e.sex_id = s.id
+                    ORDER BY family_id"""
+    conn = get_db()
+    try:
+        cur = conn.cursor(cursor_factory = psycopg2.extras.RealDictCursor)
+        cur.execute(sql)
+        expectation_table = cur.fetchall()
+        conn.close()
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
+    return expectation_table
