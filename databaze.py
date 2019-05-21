@@ -192,23 +192,22 @@ def insert_expectation(family_id, sex_id):
 
 def insert_expectation_sibling_info(expectation_id, sibling_info_id):
     """ vyplni tabulku expectation"""
-    sql = """INSERT INTO public.expectation
-            (expectation_id, sibling_info_id)
-             VALUES(%s, %s) RETURNING id;"""
-    conn = get_db()
-    expectation_sibling_info_id = None
-    try:
-        cur = conn.cursor()
-        cur.execute(sql, (expectation_id, sibling_info_id))
-        expectation_sibling_info_id = cur.fetchone()[0]
-        conn.commit()
-        cur.close()
-    except (Exception, psycopg2.DatabaseError) as error:
-        print(error)
-    finally:
-        if conn is not None:
-            conn.close()
-    return expectation_sibling_info_id
+    for x in sibling_info_id:
+            sql = """INSERT INTO public.expectation_sibling_info
+                (expectation_id, sibling_info_id)
+                VALUES(%s, %s);"""
+            conn = get_db()
+            try:
+                cur = conn.cursor()
+                cur.execute(sql, (expectation_id, x))
+                conn.commit()
+                cur.close()
+            except (Exception, psycopg2.DatabaseError) as error:
+                print(error)
+            finally:
+                if conn is not None:
+                    conn.close()
+
 
 def insert_expectation_mental_handicap(expectation_id, mental_handicap_id):
     """ vyplni tabulku expectation_mental_handicap"""
@@ -334,7 +333,7 @@ def tabulka_vypis():
     sql = """SELECT * FROM public.family ORDER BY id DESC"""
     conn = get_db()
     try:
-        cur = conn.cursor()
+        cur = conn.cursor(cursor_factory = psycopg2.extras.RealDictCursor)
         cur.execute(sql)
         family_table = cur.fetchall()
         conn.close()

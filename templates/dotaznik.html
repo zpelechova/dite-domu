@@ -12,7 +12,7 @@
                 </p>
             </header>
         </div>
-        <input type="hidden" name="account_id" value="{account_id}}">
+        <input type="hidden" name="account_id" value="{{ account_id }}">
         <div class="jumbotron">
             <div class="container">
                 <h2 class="red-text">
@@ -483,7 +483,7 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label>Rok narození</label>
-                            <input type="text" placeholder="1989" name="parent2_age" />
+                            <input type="text" placeholder="1989" name="parent2_year_of_birth" />
                         </div>
                         <div class="form-group col-md-1">
                             <label>Pohlaví</label>
@@ -492,13 +492,13 @@
                             <div class="input-group inline">
                                 <div class="input-group-prepend">
                                     <div class="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" class="custom-control-input" name="parent2_sex" value="2" id="parent2_sex_female">
+                                        <input type="radio" class="custom-control-input" name="parent2_sex_id" value="2" id="parent2_sex_female">
                                         <label class="custom-control-label" for="parent2_sex_female">Žena</label>
                                     </div>
                                 </div>
                                 <div class="input-group-prepend">
                                     <div class="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" class="custom-control-input" name="parent2_sex" value="1" id="parent2_sex_male">
+                                        <input type="radio" class="custom-control-input" name="parent2_sex_id" value="1" id="parent2_sex_male">
                                         <label class="custom-control-label" for="parent2_sex_male">Muž</label>
                                     </div>
                                 </div>
@@ -570,7 +570,7 @@
                       <label for="family_specification"></label>
                       		          <input
         		    type="textarea"
-            		name="family_specification"
+            		name="note"
             		class="form-control"
                 rows="2"
                 id="family_specification"
