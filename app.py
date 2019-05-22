@@ -138,7 +138,6 @@ def tabulka_zobraz():
 @app.route('/tabulka_ku')
 def tabulka_ku ():
     expectation_table = databaze.tabulka_ku_vypis()
-    print(expectation_table)
     return render_template("tabulka_ku.html",
     expectation_table=expectation_table
     )
