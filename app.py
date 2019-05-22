@@ -1,8 +1,6 @@
 import functools
 from flask import Flask, render_template, request, flash
-import main
 import databaze
-import tabulky
 import mail
 import gunicorn
 app = Flask("MojeAppka")
