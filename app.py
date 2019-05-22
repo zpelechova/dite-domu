@@ -3,6 +3,7 @@ from flask import Flask, render_template, request, flash
 import databaze
 import mail
 import gunicorn
+import logging
 app = Flask("MojeAppka")
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
@@ -146,4 +147,7 @@ def tabulka_ku ():
 def tabulka_ku_rodina (): 
     return render_template("tabulka_ku_rodina.html")
 
-
+if __name__ != '__main__':
+    gunicorn_logger = logging.getLogger('gunicorn.error')
+    app.logger.handlers = gunicorn_logger.handlers
+    app.logger.setLevel(gunicorn_logger.level)
