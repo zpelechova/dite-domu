@@ -144,8 +144,8 @@ def tabulka_ku ():
     expectation_table=expectation_table
     )
 
-@app.route('/tabulka_navic')
-def tabulka_navic (): 
-    return render_template("tabulka_navic.html")
+@app.route('/tabulka_ku_rodina')
+def tabulka_ku_rodina (): 
+    return render_template("tabulka_ku_rodina.html")
 
 

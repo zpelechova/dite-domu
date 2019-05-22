@@ -289,7 +289,20 @@ def insert_expectation_ethnicity(expectation_id, ethnicity_id):
                 conn.close()
 
 def tabulka_vypis():
-    sql = """SELECT * FROM public.family ORDER BY id DESC"""
+    sql = """SELECT f.id
+                    , rg.name as region
+                    , ds.name as district
+                    , es.name as expectation_status
+                    , ap.name as approval_type
+                    , ca.name as carer_info
+                    , f.prepcourse
+                    FROM public.family as f
+                    LEFT JOIN public.region AS rg ON f.region_id = rg.id 
+                    LEFT JOIN public.district AS ds ON f.district_id = ds.id 
+                    LEFT JOIN public.expectation_status AS es ON f.expectation_status_id = es.id 
+                    LEFT JOIN public.approval_type AS ap ON f.approval_type_id = ap.id 
+                    LEFT JOIN public.carer_info AS ca ON f.carer_info_id = ca.id 
+                    ORDER BY f.id DESC"""
     conn = get_db()
     try:
         cur = conn.cursor(cursor_factory = psycopg2.extras.RealDictCursor)
