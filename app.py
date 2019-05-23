@@ -1,3 +1,5 @@
+import gviz_api
+import json
 import functools
 from flask import Flask, render_template, request, flash
 import databaze
@@ -142,6 +144,18 @@ def tabulka_ku ():
     expectation_table=expectation_table
     )
 
+@app.route('/graf')
+def graf():
+    return render_template("graf.html")
+    
+@app.route("/graf-data")
+def graf_data():
+    description = {"kraj": ("string", "Kraj"),"volni": ("number", "Volni")}
+    data = databaze.view_volni()
+    data_table = gviz_api.DataTable(description)
+    data_table.LoadData(data)
+    return data_table.ToJSon(columns_order=("kraj", "volni"), order_by="volni")
+
 @app.route('/tabulka_ku_rodina')
 def tabulka_ku_rodina (): 
     return render_template("tabulka_ku_rodina.html")
@@ -150,4 +164,5 @@ if __name__ != '__main__':
     gunicorn_logger = logging.getLogger('gunicorn.error')
     app.logger.handlers = gunicorn_logger.handlers
     app.logger.setLevel(gunicorn_logger.level)
+
 

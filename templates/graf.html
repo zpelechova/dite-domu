@@ -1,0 +1,30 @@
+<html>
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+      var jsonData = $.ajax({
+          url: "/graf-data",
+          dataType: "json",
+          async: false
+          }).responseText;
+      var data = new google.visualization.DataTable(jsonData);
+        var options = {'title':'Volné rodiny v jednotlivých krajích',
+                       'width':500,
+                       'height':300,
+                       colors: ['darkcyan'],
+                    };
+        var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+    </script>
+  </head>
+
+  <body>
+    <!--Div that will hold the pie chart-->
+    <div id="chart_div"></div>
+  </body>
+</html>

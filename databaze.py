@@ -1,3 +1,4 @@
+import gviz_api
 import psycopg2
 import psycopg2.extras
 import datetime
@@ -356,3 +357,27 @@ def tabulka_ku_vypis():
         if conn is not None:
             conn.close()
     return expectation_table
+
+def view_volni():
+    sql = """SELECT * FROM view_volni_final ORDER BY volni"""
+    conn = get_db()
+    try:
+        cur = conn.cursor(cursor_factory = psycopg2.extras.RealDictCursor)
+        cur.execute(sql)
+        view_volni = cur.fetchall()
+        conn.close()
+        description = {"kraj": ("string", "Kraj"),
+               "volni": ("number", "Volni")}
+        data = view_volni
+        data_table = gviz_api.DataTable(description)
+        data_table.LoadData(data)
+        # print "Content-type: text/plain"
+        # print
+        print(data_table.ToJSonResponse(columns_order=("kraj", "volni"), order_by="volni"))
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
+    return view_volni
+
