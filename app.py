@@ -144,17 +144,17 @@ def tabulka_ku ():
     expectation_table=expectation_table
     )
 
-@app.route('/graf')
-def graf():
-    return render_template("graf.html")
+# @app.route('/graf')
+# def graf():
+#     return render_template("graf.html")
     
-@app.route("/graf-data")
-def graf_data():
-    description = {"kraj": ("string", "Kraj"),"volni": ("number", "Volni")}
-    data = databaze.view_volni()
-    data_table = gviz_api.DataTable(description)
-    data_table.LoadData(data)
-    return data_table.ToJSon(columns_order=("kraj", "volni"), order_by="volni")
+# @app.route("/graf-data")
+# def graf_data():
+#     description = {"kraj": ("string", "Kraj"),"volni": ("number", "Volni")}
+#     data = databaze.view_volni()
+#     data_table = gviz_api.DataTable(description)
+#     data_table.LoadData(data)
+#     return data_table.ToJSon(columns_order=("kraj", "volni"), order_by="volni")
 
 @app.route('/tabulka_ku_rodina')
 def tabulka_ku_rodina (): 
