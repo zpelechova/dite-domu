@@ -160,6 +160,7 @@ def graf_data():
 def tabulka_ku_rodina (): 
     return render_template("tabulka_ku_rodina.html")
 
+
 if __name__ != '__main__':
     gunicorn_logger = logging.getLogger('gunicorn.error')
     app.logger.handlers = gunicorn_logger.handlers
