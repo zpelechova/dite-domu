@@ -1,4 +1,4 @@
-# import gviz_api
+import gviz_api
 import psycopg2
 import psycopg2.extras
 import datetime
@@ -381,12 +381,11 @@ def view_volni():
             conn.close()
     return view_volni
 
-def tabulka_ku_search():
-    approval_type_id = request.form["approval_type_id"]
+def tabulka_ku_search(approval_type_id):
     sql = """SELECT * 
                 FROM public.expectation e
                 LEFT JOIN public.family f ON e.family_id = f.id
-                WHERE approval_type_id = ?"""
+                WHERE approval_type_id = %s"""
     conn = get_db()
     try:
         cur = conn.cursor()

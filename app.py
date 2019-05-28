@@ -1,4 +1,4 @@
-# import gviz_api
+import gviz_api
 import json
 import functools
 from flask import Flask, render_template, request, flash
@@ -12,6 +12,7 @@ app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 @app.route('/')
 def index ():
     return render_template("index.html")
+
 
 @app.route('/registrace_ku')
 def zobraz_registraci_ku ():
@@ -144,17 +145,18 @@ def tabulka_ku ():
     expectation_table=expectation_table
     )
 
-# @app.route('/graf')
-# def graf():
-#     return render_template("graf.html")
+@app.route('/graf')
+def graf():
+    return render_template("graf.html")
     
-# @app.route("/graf-data")
-# def graf_data():
-#     description = {"kraj": ("string", "Kraj"),"volni": ("number", "Volni")}
-#     data = databaze.view_volni()
-#     data_table = gviz_api.DataTable(description)
-#     data_table.LoadData(data)
-#     return data_table.ToJSon(columns_order=("kraj", "volni"), order_by="volni")
+@app.route("/graf-data")
+def graf_data():
+    description = {"kraj": ("string", "Kraj"),"volni": ("number", "Volni")}
+    data = databaze.view_volni()
+    data_table = gviz_api.DataTable(description)
+    data_table.LoadData(data)
+    return data_table.ToJSon(columns_order=("kraj", "volni"), order_by="volni")
+
 
 @app.route('/tabulka_ku_rodina')
 def tabulka_ku_rodina (): 
@@ -164,11 +166,10 @@ def tabulka_ku_rodina ():
 def search_post():
     if request.method == 'POST':
         approval_type_id = request.form["approval_type_id"]
-        expectation_table = databaze.tabulka_ku_search()
+        expectation_table = databaze.tabulka_ku_search(approval_type_id)
     return render_template("tabulka_ku.html",
     expectation_table=expectation_table
     )
-
 
 if __name__ != '__main__':
     gunicorn_logger = logging.getLogger('gunicorn.error')
