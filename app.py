@@ -1,4 +1,5 @@
 import gviz_api
+import setup
 import json
 import functools
 from flask import Flask, render_template, request, flash
