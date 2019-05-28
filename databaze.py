@@ -4,7 +4,7 @@ import psycopg2.extras
 import datetime
 import os
 import hashlib, binascii
-from flask import g, flash
+from flask import g, flash, request
 from hashlib import sha512
 from flask_login import UserMixin
 from functools import lru_cache
@@ -381,3 +381,22 @@ def view_volni():
             conn.close()
     return view_volni
 
+def tabulka_ku_search():
+    approval_type_id = request.form["approval_type_id"]
+    sql = """SELECT * 
+                FROM public.expectation e
+                LEFT JOIN public.family f ON e.family_id = f.id
+                WHERE approval_type_id = ?"""
+    conn = get_db()
+    try:
+        cur = conn.cursor()
+        cur.execute(sql, (approval_type_id, ))
+        expectation_table = cur.fetchall()
+        print(expectation_table)
+        conn.close()
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
+    return expectation_table

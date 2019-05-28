@@ -160,10 +160,18 @@ def tabulka_ku ():
 def tabulka_ku_rodina (): 
     return render_template("tabulka_ku_rodina.html")
 
+@app.route('/search', methods=['POST'])
+def search_post():
+    if request.method == 'POST':
+        approval_type_id = request.form["approval_type_id"]
+        expectation_table = databaze.tabulka_ku_search()
+    return render_template("tabulka_ku.html",
+    expectation_table=expectation_table
+    )
+
 
 if __name__ != '__main__':
     gunicorn_logger = logging.getLogger('gunicorn.error')
     app.logger.handlers = gunicorn_logger.handlers
     app.logger.setLevel(gunicorn_logger.level)
-
 
