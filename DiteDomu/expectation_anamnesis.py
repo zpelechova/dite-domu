@@ -33,7 +33,7 @@ try:
         
         for anamnesis_id in anam_ids:
             # definice query
-            #DANOVA VERZE
+           
             query ="""INSERT INTO public.expectation_anamnesis(expectation_id, anamnesis_id)VALUES(%s, %s);"""
             
             # spusteni query

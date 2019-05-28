@@ -1,4 +1,6 @@
 -- Vek ke konkretni family
+--do Wheru je mozne dat input z ahrefu
+--DOPLNIT VSECHNY SELECTY NA VSECHNY POLE
 select age.name
 from expectation_age
 join expectation on expectation.Id = expectation_age.expectation_id
@@ -68,3 +70,4 @@ cic.year_of_birth AS "datum_narozeni_dite"
 FROM public.child_in_care as cic
 LEFT JOIN public.relationship AS rel ON cic.relationship_id = rel.id
 LEFT JOIN public.sex AS s ON cic.sex_id = s.id;
+
