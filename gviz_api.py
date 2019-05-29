@@ -33,7 +33,7 @@ except ImportError:
 import json
 import types
 
-import six
+# import six
 
 
 class DataTableException(Exception):
