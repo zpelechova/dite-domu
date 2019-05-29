@@ -1,6 +1,7 @@
 {% extends "layout.html" %} {% block body %}
 
 <div class="container">
+    <div class="jumbotron">
 <form class="needs-validation" novalidate>
     <div class="form-row">
       <div class="col-md-4 mb-3">
@@ -11,7 +12,7 @@
         </div>
       </div>
       <div class="col-md-4 mb-3">
-        <label for="validationTooltip02">Last name</label>
+        <label for="validationTooltip02">Počet dětí v rodině</label>
         <input type="text" class="form-control" id="validationTooltip02" placeholder="Last name" value="Otto" required>
         <div class="valid-tooltip">
           Looks good!
@@ -53,7 +54,8 @@
         </div>
       </div>
     </div>
-    <button class="btn btn-primary" type="submit">Submit form</button>
+    <button class="btn btn-info" type="submit">Submit form</button>
   </form>
+</div>
 </div>
 {% endblock %}

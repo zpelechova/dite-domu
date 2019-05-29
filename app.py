@@ -191,6 +191,8 @@ def search_post():
         expectation_table=expectation_table
         )
 
+        
+
 
 @app.route('/profil')
 def profil ():
