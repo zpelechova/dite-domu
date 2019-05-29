@@ -381,3 +381,22 @@ def view_volni():
             conn.close()
     return view_volni
 
+def get_expectation_ages(family_id):
+    sql = """select age.name
+              from expectation_age
+              join expectation on expectation.Id = expectation_age.expectation_id
+              join age on age.Id = expectation_age.age_id
+              where family_id = %s"""
+    conn = get_db()
+    try:
+        #cur = conn.cursor(cursor_factory = psycopg2.extras.RealDictCursor) - Uprava Lukas, bez Real Dictionary
+        cur = conn.cursor()
+        cur.execute(sql, family_id)
+        result = cur.fetchall()
+        conn.close()
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
+    return result

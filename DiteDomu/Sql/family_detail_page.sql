@@ -9,6 +9,8 @@ where family_id = 1
 
 
 
+
+
 -- vypis expectations => agregovane sloupce
 SELECT 
 	e.family_id,
