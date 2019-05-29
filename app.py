@@ -164,20 +164,22 @@ def tabulka_ku_rodina ():
 @app.route('/search', methods=['POST'])
 def search_post():
     if request.method == 'POST':
-        approval_type_id = request.form["approval_type_id"]
-        legal_status_id= request.form["legal_status_id"]
-        district_id= request.form["district_id"]
-        age= request.form["child_age"]
-        sex= request.form["expectation_sex_id"]
-        siblings= request.form["siblings"]
-        physical_handicap= request.form["physical_handicap"]
-        mental_handicap= request.form["mental_handicap_id"]
-        ethnicity= request.form["ethnicity"]
-        anamnesis= request.form["anamnesis_id"]
-        expectation_table = databaze.tabulka_ku_search(approval_type_id, legal_status_id, district_id, age, sex, siblings, physical_handicap, mental_handicap,  ethnicity, anamnesis)
+        approval_type_id = request.form.get("approval_type_id")
+        legal_status_id= request.form.get("legal_status_id")
+        district_id= request.form.get("district_id")
+        age= request.form.get("child_age")
+        sex= request.form.get("expectation_sex_id")
+        sibling_info= request.form.get("siblings")
+        physical_handicap= request.form.get("physical_handicap")
+        mental_handicap= request.form.get("mental_handicap_id")
+        ethnicity= request.form.get("ethnicity")
+        anamnesis= request.form.get("anamnesis_id")
+        expectation_table = databaze.tabulka_ku_search(approval_type_id, legal_status_id, district_id, age, sex, sibling_info, physical_handicap, mental_handicap,  ethnicity, anamnesis)
+        print(expectation_table)
         return render_template("tabulka_ku.html",
         expectation_table=expectation_table
         )
+
 
 
 

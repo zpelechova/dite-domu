@@ -373,7 +373,6 @@ def view_volni():
         data_table.LoadData(data)
         # print "Content-type: text/plain"
         # print
-        print(data_table.ToJSonResponse(columns_order=("kraj", "volni"), order_by="volni"))
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
     finally:
@@ -381,25 +380,17 @@ def view_volni():
             conn.close()
     return view_volni
 
-def tabulka_ku_search(approval_type_id, legal_status_id, district_id, age, sex, siblings, physical_handicap, mental_handicap,  ethnicity, anamnesis):
+def tabulka_ku_search(approval_type_id, legal_status_id, district_id, age, sex, sibling_info, physical_handicap, mental_handicap,  ethnicity, anamnesis):
+    expectation_table = []
     sql = """SELECT * 
                 FROM public.expectation e
                 LEFT JOIN public.family f ON e.family_id = f.id
-                WHERE approval_type_id = %s
-                AND legal_status_id = %s
-                AND district_id = %s
-                AND age = %s
-                AND sex = %s
-                AND siblings = %s
-                AND physical_handicap = %s
-                AND mental_handicap = %s
-                AND ethnicity = %s
-                AND anamnesis = %s
+                WHERE (%s IS NULL OR approval_type_id = %s)
                 """
     conn = get_db()
     try:
-        cur = conn.cursor()
-        cur.execute(sql, (approval_type_id, approval_type_id, legal_status_id, district_id, age, sex, siblings, physical_handicap, mental_handicap,  ethnicity, anamnesis))
+        cur = conn.cursor(cursor_factory = psycopg2.extras.RealDictCursor)
+        cur.execute(sql, (approval_type_id, approval_type_id))
         expectation_table = cur.fetchall()
         print(expectation_table)
         conn.close()
