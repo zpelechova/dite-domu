@@ -381,15 +381,25 @@ def view_volni():
             conn.close()
     return view_volni
 
-def tabulka_ku_search(approval_type_id):
+def tabulka_ku_search(approval_type_id, legal_status_id, district_id, age, sex, siblings, physical_handicap, mental_handicap,  ethnicity, anamnesis):
     sql = """SELECT * 
                 FROM public.expectation e
                 LEFT JOIN public.family f ON e.family_id = f.id
-                WHERE approval_type_id = %s"""
+                WHERE approval_type_id = %s
+                AND legal_status_id = %s
+                AND district_id = %s
+                AND age = %s
+                AND sex = %s
+                AND siblings = %s
+                AND physical_handicap = %s
+                AND mental_handicap = %s
+                AND ethnicity = %s
+                AND anamnesis = %s
+                """
     conn = get_db()
     try:
         cur = conn.cursor()
-        cur.execute(sql, (approval_type_id, ))
+        cur.execute(sql, (approval_type_id, approval_type_id, legal_status_id, district_id, age, sex, siblings, physical_handicap, mental_handicap,  ethnicity, anamnesis))
         expectation_table = cur.fetchall()
         print(expectation_table)
         conn.close()

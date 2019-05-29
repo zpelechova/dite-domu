@@ -1,5 +1,4 @@
 import gviz_api
-import setup
 import json
 import functools
 from flask import Flask, render_template, request, flash
@@ -10,10 +9,10 @@ import logging
 app = Flask("MojeAppka")
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
+
 @app.route('/')
 def index ():
     return render_template("index.html")
-
 
 @app.route('/registrace_ku')
 def zobraz_registraci_ku ():
@@ -158,7 +157,6 @@ def graf_data():
     data_table.LoadData(data)
     return data_table.ToJSon(columns_order=("kraj", "volni"), order_by="volni")
 
-
 @app.route('/tabulka_ku_rodina')
 def tabulka_ku_rodina (): 
     return render_template("tabulka_ku_rodina.html")
@@ -167,10 +165,21 @@ def tabulka_ku_rodina ():
 def search_post():
     if request.method == 'POST':
         approval_type_id = request.form["approval_type_id"]
-        expectation_table = databaze.tabulka_ku_search(approval_type_id)
-    return render_template("tabulka_ku.html",
-    expectation_table=expectation_table
-    )
+        legal_status_id= request.form["legal_status_id"]
+        district_id= request.form["district_id"]
+        age= request.form["child_age"]
+        sex= request.form["expectation_sex_id"]
+        siblings= request.form["siblings"]
+        physical_handicap= request.form["physical_handicap"]
+        mental_handicap= request.form["mental_handicap_id"]
+        ethnicity= request.form["ethnicity"]
+        anamnesis= request.form["anamnesis_id"]
+        expectation_table = databaze.tabulka_ku_search(approval_type_id, legal_status_id, district_id, age, sex, siblings, physical_handicap, mental_handicap,  ethnicity, anamnesis)
+        return render_template("tabulka_ku.html",
+        expectation_table=expectation_table
+        )
+
+
 
 if __name__ != '__main__':
     gunicorn_logger = logging.getLogger('gunicorn.error')
