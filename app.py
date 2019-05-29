@@ -162,6 +162,8 @@ def tabulka_ku_rodina ():
     return render_template("tabulka_ku_rodina.html")
 
 @app.route('/search', methods=['POST'])
+
+
 def search_post():
     if request.method == 'POST':
         approval_type_id = request.form.get("approval_type_id")
@@ -181,6 +183,9 @@ def search_post():
         )
 
 
+@app.route('/profil')
+def profil ():
+    return render_template("profil.html")
 
 
 if __name__ != '__main__':

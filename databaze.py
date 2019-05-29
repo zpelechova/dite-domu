@@ -385,12 +385,14 @@ def tabulka_ku_search(approval_type_id, legal_status_id, district_id, age, sex, 
     sql = """SELECT * 
                 FROM public.expectation e
                 LEFT JOIN public.family f ON e.family_id = f.id
-                WHERE (%s IS NULL OR approval_type_id = %s)
+                WHERE (%(approval_type_id)s IS NULL OR approval_type_id = %(approval_type_id)s)
+                  AND (%(sex)s IS NULL OR sex_id = %(sex)s OR sex_id = 3)
                 """
     conn = get_db()
     try:
         cur = conn.cursor(cursor_factory = psycopg2.extras.RealDictCursor)
-        cur.execute(sql, (approval_type_id, approval_type_id))
+        cur.execute(sql, {"approval_type_id": approval_type_id, 
+                          "sex": sex})
         expectation_table = cur.fetchall()
         print(expectation_table)
         conn.close()
