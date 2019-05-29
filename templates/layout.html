@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Dite domu</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+    <link rel="stylesheet" href="/static/bootstrap.css" type="text/css"/>
     <link href="/static/czechmap.css" rel="stylesheet" type="text/css" />
     <link href="/static/homepage.css" rel="stylesheet" type="text/css" />
     <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon">
@@ -19,15 +19,24 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav mr-auto">
-                <!-- <li class="nav-item active">
-                  <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                </li>
+              <li class="nav-item">
                 <li class="nav-item">
-                  <a class="nav-link" href="#">Features</a>
+                  <a class="nav-link" href="/tabulka">Přehled volných rodin</a>
                 </li>
+                <a class="nav-link" href="/registrace_nr">Registrace NR</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/dotaznik/20">Dotaznik NR</a>
+              </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/registrace_ku">Registrace KU</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/search">Vyhledávání KU</a>
+              </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">Pricing</a>
-                </li> -->
+                  <a class="nav-link" href="/tabulka_ku">Výpis pro KU</a>
+                </li>
             </ul>
             <span class="navbar-text white">
                 <a class="btn btn-info" href="/login" role="button"
@@ -77,10 +86,10 @@
     <script type="text/javascript" src="/static/site.js"></script>
     <script type="text/javascript" src="/static/czechmap.js"></script>
     
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript"> -->
-      <!-- google.charts.load('current', {'packages':['corechart']});
+    <!-- <script src="/static/jquery.min.js"></script> -->
+    <script type="text/javascript" src="/static/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
       google.charts.setOnLoadCallback(drawChart);
       function drawChart() {
       var jsonData = $.ajax({
@@ -94,9 +103,9 @@
                        'height':300,
                        colors: ['lightseagreen'],
                     };
-        var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+        var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
         chart.draw(data, options);
       }
-    </script> -->
+    </script>
 </body>
 </html>

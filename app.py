@@ -1,4 +1,4 @@
-# import gviz_api
+import gviz_api
 import json
 import functools
 from flask import Flask, render_template, request, flash
@@ -8,6 +8,7 @@ import gunicorn
 import logging
 app = Flask("MojeAppka")
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
+
 
 @app.route('/')
 def index ():
@@ -153,26 +154,46 @@ def family_profile (family_id):
     expectation_ages=expectation_ages,
     )
 
-# @app.route('/graf')
-# def graf():
-#     return render_template("graf.html")
+@app.route('/graf')
+def graf():
+    return render_template("graf.html")
     
-# @app.route("/graf-data")
-# def graf_data():
-#     description = {"kraj": ("string", "Kraj"),"volni": ("number", "Volni")}
-#     data = databaze.view_volni()
-#     data_table = gviz_api.DataTable(description)
-#     data_table.LoadData(data)
-#     return data_table.ToJSon(columns_order=("kraj", "volni"), order_by="volni")
+@app.route("/graf-data")
+def graf_data():
+    description = {"kraj": ("string", "Kraj"),"volni": ("number", "Volni")}
+    data = databaze.view_volni()
+    data_table = gviz_api.DataTable(description)
+    data_table.LoadData(data)
+    return data_table.ToJSon(columns_order=("kraj", "volni"), order_by="volni")
 
 @app.route('/tabulka_ku_rodina')
 def tabulka_ku_rodina (): 
     return render_template("tabulka_ku_rodina.html")
+
+@app.route('/search', methods=['POST'])
+def search_post():
+    if request.method == 'POST':
+        approval_type_id = request.form.get("approval_type_id")
+        legal_status_id= request.form.get("legal_status_id")
+        district_id= request.form.get("district_id")
+        age= request.form.get("child_age")
+        sex= request.form.get("expectation_sex_id")
+        sibling_info= request.form.get("siblings")
+        physical_handicap= request.form.get("physical_handicap")
+        mental_handicap= request.form.get("mental_handicap_id")
+        ethnicity= request.form.get("ethnicity")
+        anamnesis= request.form.get("anamnesis_id")
+        expectation_table = databaze.tabulka_ku_search(approval_type_id, legal_status_id, district_id, age, sex, sibling_info, physical_handicap, mental_handicap,  ethnicity, anamnesis)
+        print(expectation_table)
+        return render_template("tabulka_ku.html",
+        expectation_table=expectation_table
+        )
+
+
 
 
 if __name__ != '__main__':
     gunicorn_logger = logging.getLogger('gunicorn.error')
     app.logger.handlers = gunicorn_logger.handlers
     #app.logger.setLevel(gunicorn_logger.level)
-
 

@@ -1,10 +1,10 @@
-# import gviz_api
+import gviz_api
 import psycopg2
 import psycopg2.extras
 import datetime
 import os
 import hashlib, binascii
-from flask import g, flash
+from flask import g, flash, request
 from hashlib import sha512
 from flask_login import UserMixin
 from functools import lru_cache
@@ -373,7 +373,6 @@ def view_volni():
         data_table.LoadData(data)
         # print "Content-type: text/plain"
         # print
-        print(data_table.ToJSonResponse(columns_order=("kraj", "volni"), order_by="volni"))
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
     finally:
@@ -393,10 +392,25 @@ def get_expectation_ages(family_id):
         cur = conn.cursor()
         cur.execute(sql, family_id)
         result = cur.fetchall()
+    return result
+      
+def tabulka_ku_search(approval_type_id, legal_status_id, district_id, age, sex, sibling_info, physical_handicap, mental_handicap,  ethnicity, anamnesis):
+    expectation_table = []
+    sql = """SELECT * 
+                FROM public.expectation e
+                LEFT JOIN public.family f ON e.family_id = f.id
+                WHERE (%s IS NULL OR approval_type_id = %s)
+                """
+    conn = get_db()
+    try:
+        cur = conn.cursor(cursor_factory = psycopg2.extras.RealDictCursor)
+        cur.execute(sql, (approval_type_id, approval_type_id))
+        expectation_table = cur.fetchall()
+        print(expectation_table)
         conn.close()
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
     finally:
         if conn is not None:
             conn.close()
-    return result
+    return expectation_table
