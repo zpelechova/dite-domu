@@ -380,6 +380,20 @@ def view_volni():
             conn.close()
     return view_volni
 
+def get_expectation_ages(family_id):
+    sql = """select age.name
+              from expectation_age
+              join expectation on expectation.Id = expectation_age.expectation_id
+              join age on age.Id = expectation_age.age_id
+              where family_id = %s"""
+    conn = get_db()
+    try:
+        #cur = conn.cursor(cursor_factory = psycopg2.extras.RealDictCursor) - Uprava Lukas, bez Real Dictionary
+        cur = conn.cursor()
+        cur.execute(sql, family_id)
+        result = cur.fetchall()
+    return result
+      
 def tabulka_ku_search(approval_type_id, legal_status_id, district_id, age, sex, sibling_info, physical_handicap, mental_handicap,  ethnicity, anamnesis):
     expectation_table = []
     sql = """SELECT * 

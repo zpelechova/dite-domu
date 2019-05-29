@@ -142,7 +142,16 @@ def tabulka_zobraz():
 def tabulka_ku ():
     expectation_table = databaze.tabulka_ku_vypis()
     return render_template("tabulka_ku.html",
-    expectation_table=expectation_table
+    expectation_table=expectation_table,
+    )
+
+@app.route('/family_profile/<family_id>', methods=['GET'])
+def family_profile (family_id):
+##get_expectation_ages(family_id)
+    expectation_ages = databaze.get_expectation_ages(family_id)
+    #everything = databaze.get_view(family_id) pro kompletni vystup
+    return render_template("family_profile.html",
+    expectation_ages=expectation_ages,
     )
 
 @app.route('/graf')
@@ -191,5 +200,5 @@ def profil ():
 if __name__ != '__main__':
     gunicorn_logger = logging.getLogger('gunicorn.error')
     app.logger.handlers = gunicorn_logger.handlers
-    app.logger.setLevel(gunicorn_logger.level)
+    #app.logger.setLevel(gunicorn_logger.level)
 
