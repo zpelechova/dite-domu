@@ -78,21 +78,19 @@ def dotaznik_post (account_id):
         # vyplni tabulku family_parent pro druhého rodiče
         parent2_sex_id = request.form.get("parent2_sex_id")
         parent2_year_of_birth = request.form.get("parent2_year_of_birth")
-        if parent2_sex_id is not None and parent2_year_of_birth is not None:
-            databaze.insert_parent1(family_id, parent2_sex_id, parent2_year_of_birth)
+        # if parent2_sex_id is not None and parent2_year_of_birth is not None:
+        databaze.insert_parent1(family_id, parent2_sex_id, parent2_year_of_birth)
         # vyplni tabulku child_in_care pro nejmladší dítě v péči
         youngest_child_sex_id = request.form.get("youngest_child_sex_id")
         youngest_child_year_of_birth = request.form.get("youngest_child_year_of_birth")
         relationship_id = request.form.get("relationship_id")
-        if youngest_child_sex_id is not None and youngest_child_year_of_birth is not None and relationship_id is not None:
-            databaze.insert_child_in_care(family_id, youngest_child_sex_id, youngest_child_year_of_birth, relationship_id)
-        # vyplni tabulku expectation
+        # if youngest_child_sex_id is not None and youngest_child_year_of_birth is not None and relationship_id is not None:
+        databaze.insert_child_in_care(family_id, youngest_child_sex_id, youngest_child_year_of_birth, relationship_id)
+        # vyplni tabulku expectation 
         sex_id = request.form["expectation_sex_id"]
         # vyplni tabulku expectation_sibling_info
         expectation_id = databaze.insert_expectation(family_id, sex_id)
-        print(expectation_id)
         sibling_info_id = request.form.getlist("sibling_info_id")
-        print(sibling_info_id)
         databaze.insert_expectation_sibling_info(expectation_id, sibling_info_id)
         # vyplni tabulku expectation_mental_handicap
         mental_handicap_id = request.form["mental_handicap_id"] 
@@ -103,7 +101,6 @@ def dotaznik_post (account_id):
         # vyplni tabulku expectation_ethnicity
         expectation_ethnicity_id = request.form.getlist("expectation_ethnicity_id")
         databaze.insert_expectation_ethnicity(expectation_id, expectation_ethnicity_id)
-        print(expectation_ethnicity_id)
         # vyplni tabulku expectation_legal_status
         expectation_legal_status = request.form.getlist("expectation_legal_status")
         databaze.insert_expectation_legal_status(expectation_id, expectation_legal_status)
