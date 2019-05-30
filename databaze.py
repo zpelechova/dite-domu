@@ -48,21 +48,14 @@ def registrace_nr(email, password):
     password = hash_password(password)
     try:
         cur = conn.cursor()
-        # execute the INSERT statement
         cur.execute(sql, (email, password, "2", datetime.datetime.now(), 1))
-        # get the generated id back
         id_uzivatele = cur.fetchone()[0]
-        # commit the changes to the database
         conn.commit()
-        # close communication with the database
         cur.close()
-    except (Exception, psycopg2.DatabaseError) as error:
-        flash('Vaše emailová adresa už je v naší databázi.')
-        print(error)
+        return id_uzivatele
     finally:
         if conn is not None:
             conn.close()
-    return id_uzivatele
 
 def registrace_ku(first_name, last_name, position_name, email, password, phone):
     """ vlozi noveho pracovnika KU do databaze """
@@ -78,12 +71,10 @@ def registrace_ku(first_name, last_name, position_name, email, password, phone):
         id_uzivatele = cur.fetchone()[0]
         conn.commit()
         cur.close()
-    except (Exception, psycopg2.DatabaseError) as error:
-        print(error)
+        return id_uzivatele
     finally:
         if conn is not None:
             conn.close()
-    return id_uzivatele
 
 def insert_family(file_number, approval_type_id, regional_office_id, expectation_status_id, district_id, carer_info_id, prepcourse, account_id, note, approval_date, number_child_in_care):
     """ vyplni tabulku family """
@@ -98,12 +89,10 @@ def insert_family(file_number, approval_type_id, regional_office_id, expectation
         family_id = cur.fetchone()[0]
         conn.commit()
         cur.close()
-    except (Exception, psycopg2.DatabaseError) as error:
-        print(error)
+        return family_id
     finally:
         if conn is not None:
             conn.close()
-    return family_id
 
 def insert_parent1(family_id, parent1_sex_id, parent1_year_of_birth):
     """ vyplni tabulku family_parent pro prdvniho rodice"""
@@ -118,12 +107,10 @@ def insert_parent1(family_id, parent1_sex_id, parent1_year_of_birth):
         family_parent_id = cur.fetchone()[0]
         conn.commit()
         cur.close()
-    except (Exception, psycopg2.DatabaseError) as error:
-        print(error)
+        return family_parent_id
     finally:
         if conn is not None:
             conn.close()
-    return family_parent_id
 
 def insert_child_in_care(family_id, youngest_child_sex_id, youngest_child_year_of_birth, relationship_id):
     """ vyplni tabulku child_in_care"""
@@ -138,12 +125,10 @@ def insert_child_in_care(family_id, youngest_child_sex_id, youngest_child_year_o
         child_in_care_id = cur.fetchone()[0]
         conn.commit()
         cur.close()
-    except (Exception, psycopg2.DatabaseError) as error:
-        print(error)
+        return child_in_care_id
     finally:
         if conn is not None:
             conn.close()
-    return child_in_care_id
 
 def insert_expectation(family_id, sex_id):
     """ vyplni tabulku expectation"""
@@ -158,12 +143,10 @@ def insert_expectation(family_id, sex_id):
         expectation_id = cur.fetchone()[0]
         conn.commit()
         cur.close()
-    except (Exception, psycopg2.DatabaseError) as error:
-        print(error)
+        return expectation_id
     finally:
         if conn is not None:
             conn.close()
-    return expectation_id
 
 def insert_expectation_sibling_info(expectation_id, sibling_info_id):
     """ vyplni tabulku expectation"""
@@ -177,8 +160,6 @@ def insert_expectation_sibling_info(expectation_id, sibling_info_id):
                 cur.execute(sql, (expectation_id, x))
                 conn.commit()
                 cur.close()
-            except (Exception, psycopg2.DatabaseError) as error:
-                print(error)
             finally:
                 if conn is not None:
                     conn.close()
@@ -194,8 +175,6 @@ def insert_expectation_mental_handicap(expectation_id, mental_handicap_id):
         cur.execute(sql, (expectation_id, mental_handicap_id))
         conn.commit()
         cur.close()
-    except (Exception, psycopg2.DatabaseError) as error:
-        print(error)
     finally:
         if conn is not None:
             conn.close()
@@ -211,8 +190,6 @@ def insert_expectation_physical_handicap(expectation_id, physical_handicap_id):
         cur.execute(sql, (expectation_id, physical_handicap_id))
         conn.commit()
         cur.close()
-    except (Exception, psycopg2.DatabaseError) as error:
-        print(error)
     finally:
         if conn is not None:
             conn.close()
@@ -229,8 +206,6 @@ def insert_expectation_legal_status(expectation_id, legal_status_id):
             cur.execute(sql, (expectation_id, x))
             conn.commit()
             cur.close()
-        except (Exception, psycopg2.DatabaseError) as error:
-            print(error)
         finally:
             if conn is not None:
                 conn.close()
@@ -247,8 +222,6 @@ def insert_expectation_age(expectation_id, age_id):
             cur.execute(sql, (expectation_id, x))
             conn.commit()
             cur.close()
-        except (Exception, psycopg2.DatabaseError) as error:
-            print(error)
         finally:
             if conn is not None:
                 conn.close()
@@ -265,8 +238,6 @@ def insert_expectation_anamnesis(expectation_id, anamnesis_id):
             cur.execute(sql, (expectation_id, x))
             conn.commit()
             cur.close()
-        except (Exception, psycopg2.DatabaseError) as error:
-            print(error)
         finally:
             if conn is not None:
                 conn.close()
@@ -283,13 +254,12 @@ def insert_expectation_ethnicity(expectation_id, ethnicity_id):
             cur.execute(sql, (expectation_id, x))
             conn.commit()
             cur.close()
-        except (Exception, psycopg2.DatabaseError) as error:
-            print(error)
         finally:
             if conn is not None:
                 conn.close()
 
 def tabulka_vypis():
+# zobrazí tabulku "přehled volných rodin"
     sql = """SELECT f.id
                     , ds.name as district
                     , rg.name as region
@@ -310,14 +280,13 @@ def tabulka_vypis():
         cur.execute(sql)
         family_table = cur.fetchall()
         conn.close()
-    except (Exception, psycopg2.DatabaseError) as error:
-        print(error)
+        return family_table
     finally:
         if conn is not None:
             conn.close()
-    return family_table
 
 def tabulka_ku_vypis():
+# zobrazí tabulku "Výpis pro KU" bez filtrovaných parametrů
     sql = """SELECT family_id,
                     string_agg(distinct ag.name, ', ') AS expectation_age,
                     string_agg(distinct s.name , ', ') AS expectation_sex,
@@ -350,52 +319,15 @@ def tabulka_ku_vypis():
         cur = conn.cursor(cursor_factory = psycopg2.extras.RealDictCursor)
         cur.execute(sql)
         expectation_table = cur.fetchall()
-        conn.close()
-    except (Exception, psycopg2.DatabaseError) as error:
-        print(error)
+        return expectation_table
     finally:
         if conn is not None:
             conn.close()
-    return expectation_table
 
-def view_volni():
-    sql = """SELECT * FROM view_volni_final ORDER BY volni"""
-    conn = get_db()
-    try:
-        cur = conn.cursor(cursor_factory = psycopg2.extras.RealDictCursor)
-        cur.execute(sql)
-        view_volni = cur.fetchall()
-        conn.close()
-        description = {"kraj": ("string", "Kraj"),
-               "volni": ("number", "Volni")}
-        data = view_volni
-        data_table = gviz_api.DataTable(description)
-        data_table.LoadData(data)
-        # print "Content-type: text/plain"
-        # print
-    except (Exception, psycopg2.DatabaseError) as error:
-        print(error)
-    finally:
-        if conn is not None:
-            conn.close()
-    return view_volni
-
-# def get_expectation_ages(family_id):
-#     sql = """select age.name
-#               from expectation_age
-#               join expectation on expectation.Id = expectation_age.expectation_id
-#               join age on age.Id = expectation_age.age_id
-#               where family_id = %s"""
-#     conn = get_db()
-#     try:
-#         #cur = conn.cursor(cursor_factory = psycopg2.extras.RealDictCursor) - Uprava Lukas, bez Real Dictionary
-#         cur = conn.cursor()
-#         cur.execute(sql, family_id)
-#         result = cur.fetchall()
-#     return result
-      
 def tabulka_ku_search(approval_type_id, legal_status_id, district_id, age, sex, sibling_info, physical_handicap, mental_handicap,  ethnicity, anamnesis):
-    sql = """SELECT 
+# zobrazí tabulku "Výpis pro KU" na základě zadaných parametrů
+    sql = """
+    WITH a AS (SELECT 
     f.id AS family_id,
     ag.name AS expectation_age,
     s.name AS expectation_sex,
@@ -410,9 +342,19 @@ def tabulka_ku_search(approval_type_id, legal_status_id, district_id, age, sex, 
     es.name AS expectation_status,
     ap.name AS approval_type,
     ca.name AS carer_info,
-    f.prepcourse
+    f.prepcourse,
+    CASE WHEN (%(approval_type_id)s IS NULL OR approval_type_id = %(approval_type_id)s) THEN 1 ELSE 0 END AS case_approval
+    , CASE WHEN (%(sex)s IS NULL OR sex_id = %(sex)s OR sex_id = 3) THEN 1 ELSE 0 END AS case_sex
+    , CASE WHEN (%(legal_status_id)s IS NULL OR legal_status_id = %(legal_status_id)s) THEN 1 ELSE 0 END AS case_legal_status
+    , CASE WHEN (%(district_id)s IS NULL OR district_id = %(district_id)s OR district_id = 78) THEN 1 ELSE 0 END AS case_district
+    , CASE WHEN (%(age)s IS NULL OR age_id = %(age)s) THEN 1 ELSE 0 END AS case_age
+    , CASE WHEN (%(siblings)s IS NULL OR esb.sibling_info_id = %(siblings)s) THEN 1 ELSE 0 END AS case_siblings
+    , CASE WHEN (%(physical_handicap)s IS NULL OR physical_handicap_id = %(physical_handicap)s) THEN 1 ELSE 0 END AS case_physical_handicap
+    , CASE WHEN (%(mental_handicap)s IS NULL OR mental_handicap_id = %(mental_handicap)s) THEN 1 ELSE 0 END AS case_mental_handicap
+    , CASE WHEN (%(ethnicity)s IS NULL OR ethnicity_id = %(ethnicity)s) THEN 1 ELSE 0 END AS case_ethnicity
+    , CASE WHEN (%(anamnesis)s IS NULL OR anamnesis_id = %(anamnesis)s) THEN 1 ELSE 0 END AS case_anamnesis
     FROM public.family as f
-    LEFT JOIN   PUBLIC.expectation as e ON f.id = e.family_id
+    LEFT JOIN public.expectation as e ON f.id = e.family_id
     LEFT JOIN public.expectation_age AS ea ON e.id = ea.expectation_id 
     LEFT JOIN public.age AS ag ON ea.age_id = ag.id
     LEFT JOIN public.expectation_anamnesis AS ean ON e.id = ean.expectation_id 
@@ -432,24 +374,21 @@ def tabulka_ku_search(approval_type_id, legal_status_id, district_id, age, sex, 
     LEFT JOIN region rg ON ds.region_id = rg.id
     LEFT JOIN expectation_status es ON f.expectation_status_id = es.id
     LEFT JOIN approval_type ap ON f.approval_type_id = ap.id
-    LEFT JOIN carer_info ca ON f.carer_info_id = ca.id
-    WHERE (%(approval_type_id)s IS NULL OR approval_type_id = %(approval_type_id)s)
-    AND (%(sex)s IS NULL OR sex_id = %(sex)s OR sex_id = 3)
-    AND (%(legal_status_id)s IS NULL OR legal_status_id = %(legal_status_id)s)
-    AND (%(district_id)s IS NULL OR district_id = %(district_id)s OR district_id = 78)
-    AND (%(age)s IS NULL OR age_id = %(age)s)
-    AND (%(siblings)s IS NULL OR esb.sibling_info_id = %(siblings)s)
-    AND (%(physical_handicap)s IS NULL OR physical_handicap_id = %(physical_handicap)s)
-    AND (%(mental_handicap)s IS NULL OR mental_handicap_id = %(mental_handicap)s)
-    AND (%(ethnicity)s IS NULL OR ethnicity_id = %(ethnicity)s)
-    AND (%(anamnesis)s IS NULL OR anamnesis_id = %(anamnesis)s)
-    ORDER BY family_id"""
+    LEFT JOIN carer_info ca ON f.carer_info_id = ca.id),
+	b AS (SELECT *, (case_approval, case_sex, case_legal_status, case_district, case_age, case_siblings, case_physical_handicap, case_mental_handicap, case_ethnicity, case_anamnesis) as result,
+    ROW_NUMBER() OVER(
+    PARTITION BY family_id
+    ORDER BY (case_approval, case_sex, case_legal_status, case_district, case_age, case_siblings, case_physical_handicap, case_mental_handicap, case_ethnicity, case_anamnesis) DESC) AS poradi
+	FROM a)
+	SELECT * FROM b
+	WHERE poradi = 1 AND vysledek > 6
+    """
     conn = get_db()
     try:
         cur = conn.cursor(cursor_factory = psycopg2.extras.RealDictCursor)
         cur.execute(sql, {"approval_type_id": approval_type_id, 
-                          "sex": sex,
-                          "legal_status_id": legal_status_id ,
+                        "sex": sex,
+                        "legal_status_id": legal_status_id ,
                         "district_id": district_id ,
                         "age": age ,
                         "siblings": sibling_info ,
@@ -461,9 +400,64 @@ def tabulka_ku_search(approval_type_id, legal_status_id, district_id, age, sex, 
         expectation_table = cur.fetchall()
         print(expectation_table)
         conn.close()
-    except (Exception, psycopg2.DatabaseError) as error:
-        print(error)
+        return expectation_table
     finally:
         if conn is not None:
             conn.close()
-    return expectation_table
+
+def tabulka_ku_vypis_family(family_id):
+# zobrazí tabulku "Profil"
+    sql = """SELECT family_id,
+                    string_agg(distinct ag.name, ', ') AS expectation_age,
+                    string_agg(distinct s.name , ', ') AS expectation_sex,
+                    string_agg(distinct sb.name , ', ') AS expectation_sibling_info,
+                    string_agg(distinct ph.name , ', ') AS expectation_physical_handicap,
+                    string_agg(distinct mh.name , ', ') AS expectation_mental_handicap,
+                    string_agg(distinct et.name , ', ') AS expectation_ethnicity,
+                    string_agg(distinct an.name , ', ') AS expectation_anamnesis,
+                    string_agg(distinct ls.name , ', ') AS expectation_legal_status
+                    FROM public.expectation as e
+                    LEFT JOIN public.expectation_age AS ea ON e.id = ea.expectation_id 
+                    LEFT JOIN public.age AS ag ON ea.age_id = ag.id
+                    LEFT JOIN public.expectation_anamnesis AS ean ON e.id = ean.expectation_id 
+                    LEFT JOIN public.anamnesis AS an ON ean.anamnesis_id = an.id
+                    LEFT JOIN public.expectation_ethnicity AS eet ON e.id = eet.expectation_id 
+                    LEFT JOIN public.ethnicity AS et ON eet.ethnicity_id = et.id
+                    LEFT JOIN public.expectation_legal_status AS els ON e.id = els.expectation_id 
+                    LEFT JOIN public.legal_status AS ls ON els.legal_status_id = ls.id
+                    LEFT JOIN public.expectation_mental_handicap AS emh ON e.id = emh.expectation_id 
+                    LEFT JOIN public.mental_handicap AS mh ON emh.mental_handicap_id = mh.id
+                    LEFT JOIN public.expectation_physical_handicap AS eph ON e.id = eph.expectation_id 
+                    LEFT JOIN public.physical_handicap AS ph ON eph.physical_handicap_id = ph.id
+                    LEFT JOIN public.expectation_sibling_info AS esb ON e.id = esb.expectation_id 
+                    LEFT JOIN public.sibling_info AS sb ON esb.sibling_info_id = sb.id
+                    LEFT JOIN public.sex AS s ON e.sex_id = s.id
+                    WHERE family_id = %s
+                    GROUP BY family_id"""
+    conn = get_db()
+    try:
+        cur = conn.cursor(cursor_factory = psycopg2.extras.RealDictCursor)
+        cur.execute(sql, (family_id,))
+        family_profile = cur.fetchone()
+        return family_profile
+    finally:
+        if conn is not None:
+            conn.close()
+
+def view_volni():
+    sql = """SELECT * FROM view_volni ORDER BY volni"""
+    conn = get_db()
+    try:
+        cur = conn.cursor(cursor_factory = psycopg2.extras.RealDictCursor)
+        cur.execute(sql)
+        view_volni = cur.fetchall()
+        conn.close()
+        description = {"kraj": ("string", "Kraj"),
+               "volni": ("number", "Volni")}
+        data = view_volni
+        data_table = gviz_api.DataTable(description)
+        data_table.LoadData(data)
+        return view_volni
+    finally:
+        if conn is not None:
+            conn.close()

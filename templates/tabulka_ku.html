@@ -21,7 +21,7 @@
                         <th scope="col">Kulturní identita</th>
                         <th scope="col">Anamnéza</th>
                         <th scope="col">Právní stav</th>
-                        <th scope="col">Rodina ahref </th>
+                        <th scope="col">Profil rodiny</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -35,7 +35,7 @@
                             <td>{{ x.expectation_ethnicity }}</td>
                             <td>{{ x.expectation_anamnesis }}</td>
                             <td>{{ x.expectation_legal_status }}</td>
-                            <td>{{ x.family_id }}</td>
+                            <td><a href="{{ url_for('family_profile', family_id=x.family_id) }}">Klikněte sem</a></td>
                     </tr>
                     {% endfor %}
 
