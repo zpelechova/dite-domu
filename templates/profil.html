@@ -61,7 +61,7 @@ x.note -->
       required>x.expectation_legal_status</label>
   </div>
   <div class="form-group">
-    <label for="formGroupExampleInput2">Další specifika rodiny / POznámka </label>
+    <label for="formGroupExampleInput2">Další specifika rodiny / Poznámka </label>
     <label type="text" class="form-control" id="formGroupExampleInput2" placeholder="Another input"
       required>x.note</label>
   </div>
@@ -69,36 +69,28 @@ x.note -->
 </div>
 </div>
 
-
+<!-- KRATKE POLE -->
 <div class="container">
   <div class="jumbotron">
     <form class="needs-validation" novalidate>
       <div class="form-row">
+          <!-- x.file_number 
+          x.approval_date
+          x.approval_type_id  -->
+          
         <div class="col-md-4 mb-3">
           <label for="validationTooltip01">Spisová značka rozhodnutí</label>
-          <label type="text" class="form-control" id="validationTooltip01" placeholder="First name" value="Mark"
-            required>x.file_number</label>
-          <div class="valid-tooltip">
-            Looks good!
-          </div>
+          <label type="text" class="form-control" required>x.file_number</label>
         </div>
 
         <div class="col-md-4 mb-3">
-          <label for="validationTooltip02">Počet dětí v rodině</label>
-          <label type="text" class="form-control" id="validationTooltip02">5</label>
-          <div class="valid-tooltip">
-            Looks good!
-          </div>
+          <label for="validationTooltip02">Datum vydání rozhodnutí</label>
+          <label type="text" class="form-control" >x.approval_date</label>
         </div>
-
         <div class="col-md-4 mb-3">
-          <label for="validationTooltip02">Počet dětí v rodině2</label>
-          <label type="text" class="form-control" id="validationTooltip02">25</label>
-          <div class="valid-tooltip">
-            Looks good!
-          </div>
+          <label for="validationTooltip02">Náhradní rodina schválena jako</label>
+          <label type="text" class="form-control" >x.approval_type_id</label>
         </div>
-
       </div>
     </form>
   </div>
