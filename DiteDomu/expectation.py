@@ -19,7 +19,7 @@ try:
     
     cursor.execute("truncate expectation cascade")
     cursor.execute("ALTER SEQUENCE expectation_id_seq RESTART")
-    for i in range(1, 20):
+    for i in range(1, 501):
         # definice sloupcu
         ##NUTNO OPRAVIT ABY BRALO POSLEDNI ID, KOD Zuza?
         family_id = i
