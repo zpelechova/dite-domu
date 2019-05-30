@@ -63,7 +63,6 @@ def dotaznik_post (account_id):
         approval_type_id = request.form["approval_type_id"]
         regional_office_id = request.form["regional_office_id"]
         expectation_status_id = request.form["expectation_status_id"]
-        region_id = request.form["region_id"]
         district_id = request.form["district_id"]
         carer_info_id = request.form["carer_info_id"]
         prepcourse = request.form["prepcourse"]
@@ -71,22 +70,22 @@ def dotaznik_post (account_id):
         note = request.form["note"]
         approval_date = request.form["approval_date"]
         number_child_in_care = request.form.get('number_child_in_care')
-        family_id = databaze.insert_family(file_number, approval_type_id, regional_office_id, expectation_status_id, region_id, district_id, carer_info_id, prepcourse, account_id, note, approval_date, number_child_in_care)
+        family_id = databaze.insert_family(file_number, approval_type_id, regional_office_id, expectation_status_id, district_id, carer_info_id, prepcourse, account_id, note, approval_date, number_child_in_care)
         # vyplni tabulku family_parent pro prvního rodiče
         parent1_sex_id = request.form["parent1_sex_id"]
         parent1_year_of_birth = request.form["parent1_year_of_birth"]
         databaze.insert_parent1(family_id, parent1_sex_id, parent1_year_of_birth)
         # vyplni tabulku family_parent pro druhého rodiče
-        # parent2_sex_id = request.form["parent2_sex_id"]
-        # parent2_year_of_birth = request.form["parent2_year_of_birth"]
-        # if parent2_sex_id is not None and parent2_year_of_birth is not None:
-        #     databaze.insert_parent1(family_id, parent2_sex_id, parent2_year_of_birth)
+        parent2_sex_id = request.form.get("parent2_sex_id")
+        parent2_year_of_birth = request.form.get("parent2_year_of_birth")
+        if parent2_sex_id is not None and parent2_year_of_birth is not None:
+            databaze.insert_parent1(family_id, parent2_sex_id, parent2_year_of_birth)
         # vyplni tabulku child_in_care pro nejmladší dítě v péči
-        # family_id = databaze.insert_family(file_number, approval_type_id, regional_office_id, expectation_status_id, region_id, district_id, carer_info_id, prepcourse, account_id, note, approval_date, number_child_in_care)
-        # sex_id = request.form["youngest_child_sex_id"]
-        # year_of_birth = request.form["youngest_child_year_of_birth"]
-        # relationship_id = request.form["relationship_id"]
-        # databaze.insert_child_in_care(family_id, sex_id, year_of_birth, relationship_id)
+        youngest_child_sex_id = request.form.get("youngest_child_sex_id")
+        youngest_child_year_of_birth = request.form.get("youngest_child_year_of_birth")
+        relationship_id = request.form.get("relationship_id")
+        if youngest_child_sex_id is not None and youngest_child_year_of_birth is not None and relationship_id is not None:
+            databaze.insert_child_in_care(family_id, youngest_child_sex_id, youngest_child_year_of_birth, relationship_id)
         # vyplni tabulku expectation
         sex_id = request.form["expectation_sex_id"]
         # vyplni tabulku expectation_sibling_info
@@ -190,9 +189,6 @@ def search_post():
         return render_template("tabulka_ku.html",
         expectation_table=expectation_table
         )
-
-        
-
 
 @app.route('/profil')
 def profil ():
