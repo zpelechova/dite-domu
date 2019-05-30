@@ -1,61 +1,108 @@
 {% extends "layout.html" %} {% block body %}
+<!-- DLOUHE
+x.expectation_age
+x.expectation_sibling_info
+ -->
+ <div class="container">
+  <div class="jumbotron">
+<form>
+  <div class="form-group">
+    <label for="formGroupExampleInput">Věk dítěte</label>
+    <label type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input"
+      required>x.expectation_age</label>
+  </div>
+  <div class="form-group">
+    <label for="formGroupExampleInput2">Počet dětí, které je rodina připravena přijmout najednou</label>
+    <label type="text" class="form-control" id="formGroupExampleInput2" placeholder="Another input"
+      required>x.expectation_sibling_info</label>
+  </div>
+</form>
+
+<!-- x.expectation_physical_handicap
+x.expectation_mental_handicap
+ -->
+
+<form>
+  <div class="form-group">
+    <label for="formGroupExampleInput">Fyzické nebo smyslové postižení</label>
+    <label type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input"
+      required>x.expectation_physical_handicap</label>
+  </div>
+  <div class="form-group">
+    <label for="formGroupExampleInput2">Mentální postižení</label>
+    <label type="text" class="form-control" id="formGroupExampleInput2" placeholder="Another input"
+      required>x.expectation_mental_handicap</label>
+  </div>
+</form>
+
+<!-- x.expectation_ethnicity
+x.expectation_anamnesis
+ -->
+
+<form>
+  <div class="form-group">
+    <label for="formGroupExampleInput">Etnikum a kulturní identita</label>
+    <label type="text" class="form-control">x.expectation_ethnicity</label>
+  </div>
+  <div class="form-group">
+    <label for="formGroupExampleInput2">Přijatelná anamnéza dítěte</label>
+    <label type="text" class="form-control" id="formGroupExampleInput2" placeholder="Another input"
+      required>x.expectation_anamnesis</label>
+  </div>
+</form>
+
+<!-- x.expectation_legal_status
+x.note -->
+
+<form>
+  <div class="form-group">
+    <label for="formGroupExampleInput">Právní stav dítěte</label>
+    <label type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input"
+      required>x.expectation_legal_status</label>
+  </div>
+  <div class="form-group">
+    <label for="formGroupExampleInput2">Další specifika rodiny / POznámka </label>
+    <label type="text" class="form-control" id="formGroupExampleInput2" placeholder="Another input"
+      required>x.note</label>
+  </div>
+</form>
+</div>
+</div>
+
 
 <div class="container">
-    <div class="jumbotron">
-<form class="needs-validation" novalidate>
-    <div class="form-row">
-      <div class="col-md-4 mb-3">
-        <label for="validationTooltip01">krajsky urad</label>
-        <label type="text" class="form-control" id="validationTooltip01" placeholder="First name" value="Mark" required >praha</label>
-        <div class="valid-tooltip">
-          Looks good!
-        </div>
-      </div>
-      <div class="col-md-4 mb-3">
-        <label for="validationTooltip02">Počet dětí v rodině</label>
-        <input type="text" class="form-control" id="validationTooltip02" placeholder="Last name" value="Otto" required>
-        <div class="valid-tooltip">
-          Looks good!
-        </div>
-      </div>
-      <div class="col-md-4 mb-3">
-        <label for="validationTooltipUsername">Username</label>
-        <div class="input-group">
-          <div class="input-group-prepend">
-            <span class="input-group-text" id="validationTooltipUsernamePrepend">@</span>
-          </div>
-          <input type="text" class="form-control" id="validationTooltipUsername" placeholder="Username" aria-describedby="validationTooltipUsernamePrepend" required>
-          <div class="invalid-tooltip">
-            Please choose a unique and valid username.
+  <div class="jumbotron">
+    <form class="needs-validation" novalidate>
+      <div class="form-row">
+        <div class="col-md-4 mb-3">
+          <label for="validationTooltip01">Spisová značka rozhodnutí</label>
+          <label type="text" class="form-control" id="validationTooltip01" placeholder="First name" value="Mark"
+            required>x.file_number</label>
+          <div class="valid-tooltip">
+            Looks good!
           </div>
         </div>
-      </div>
-    </div>
-    <div class="form-row">
-      <div class="col-md-6 mb-3">
-        <label for="validationTooltip03">City</label>
-        <input type="text" class="form-control" id="validationTooltip03" placeholder="City" required>
-        <div class="invalid-tooltip">
-          Please provide a valid city.
+
+        <div class="col-md-4 mb-3">
+          <label for="validationTooltip02">Počet dětí v rodině</label>
+          <label type="text" class="form-control" id="validationTooltip02">5</label>
+          <div class="valid-tooltip">
+            Looks good!
+          </div>
         </div>
-      </div>
-      <div class="col-md-3 mb-3">
-        <label for="validationTooltip04">State</label>
-        <input type="text" class="form-control" id="validationTooltip04" placeholder="State" required>
-        <div class="invalid-tooltip">
-          Please provide a valid state.
+
+        <div class="col-md-4 mb-3">
+          <label for="validationTooltip02">Počet dětí v rodině2</label>
+          <label type="text" class="form-control" id="validationTooltip02">25</label>
+          <div class="valid-tooltip">
+            Looks good!
+          </div>
         </div>
+
       </div>
-      <div class="col-md-3 mb-3">
-        <label for="validationTooltip05">Zip</label>
-        <input type="text" class="form-control" id="validationTooltip05" placeholder="Zip" required>
-        <div class="invalid-tooltip">
-          Please provide a valid zip.
-        </div>
-      </div>
-    </div>
-    <button class="btn btn-info" type="submit">Submit form</button>
-  </form>
+    </form>
+  </div>
 </div>
-</div>
+<!-- PREKONTROLOVAT KONEC DIV -->
+
 {% endblock %}

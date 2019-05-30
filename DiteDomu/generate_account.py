@@ -45,7 +45,7 @@ try:
     cursor.execute("truncate expectation_sibling_info cascade")
     cursor.execute("ALTER SEQUENCE expectation_sibling_info_id_seq RESTART")
     
-    for i in range(1, 20):
+    for i in range(1, 501):
         # definice sloupcu - password, email, telephone, role_id, account_status_id, account_deactivation_reason_id, officer_first_name, officer_last_name, officer_position_name)
         
         password = "password_test"+ str(i)
