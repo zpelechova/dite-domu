@@ -79,17 +79,73 @@ x.note -->
           x.approval_type_id  -->
           
         <div class="col-md-4 mb-3">
-          <label for="validationTooltip01">Spisová značka rozhodnutí</label>
+          <label for="validationTooltip01">Spisová značka usnesení</label>
           <label type="text" class="form-control" required>x.file_number</label>
         </div>
 
         <div class="col-md-4 mb-3">
-          <label for="validationTooltip02">Datum vydání rozhodnutí</label>
+          <label for="validationTooltip02">Datum vydání usnesení</label>
           <label type="text" class="form-control" >x.approval_date</label>
         </div>
         <div class="col-md-4 mb-3">
           <label for="validationTooltip02">Náhradní rodina schválena jako</label>
           <label type="text" class="form-control" >x.approval_type_id</label>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="container">
+  <div class="jumbotron">
+    <form class="needs-validation" novalidate>
+      <div class="form-row">
+          <!-- x.regional_office_id 
+x.expectation_status_id 
+x.prepcourse 
+  -->
+          
+        <div class="col-md-4 mb-3">
+          <label for="validationTooltip01">Rodina je v péči</label>
+          <label type="text" class="form-control" required>x.regional_office_id</label>
+        </div>
+
+        <div class="col-md-4 mb-3">
+          <label for="validationTooltip02">Status náhradní rodiny</label>
+          <label type="text" class="form-control" >x.expectation_status_id</label>
+        </div>
+        <div class="col-md-4 mb-3">
+          <label for="validationTooltip02">Organizace, u které rodina absolvovala přípravku</label>
+          <label type="text" class="form-control" >x.prepcourse</label>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="container">
+  <div class="jumbotron">
+    <form class="needs-validation" novalidate>
+      <div class="form-row">
+          
+
+        <!-- x.number_child_in_care 
+x.youngest_child_in_care 
+x.carer_info_id  -->
+
+          
+        <div class="col-md-4 mb-3">
+          <label for="validationTooltip01">Počet dětí, které má rodina již v péči</label>
+          <label type="text" class="form-control" required>x.number_child_in_care</label>
+        </div>
+
+        <div class="col-md-4 mb-3">
+          <label for="validationTooltip02">Věk nejmladšího dítěte v náhradní rodině</label>
+          <label type="text" class="form-control" >x.youngest_child_in_care</label>
+        </div>
+        <div class="col-md-4 mb-3">
+          <label for="validationTooltip02">Počet pečujících rodičů</label>
+          <label type="text" class="form-control" >x.carer_info_id</label>
         </div>
       </div>
     </form>

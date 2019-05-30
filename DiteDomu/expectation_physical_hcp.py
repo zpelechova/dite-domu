@@ -19,7 +19,7 @@ try:
     #????myslim neni nutne, vyprazdneni tabulek je u account tab
     cursor.execute("truncate expectation_physical_handicap cascade")
     cursor.execute("ALTER SEQUENCE expectation_physical_handicap_id_seq RESTART")
-    for i in range(1, 19):
+    for i in range(1, 501):
         # definice sloupcu
         # cyklus na nahodne vybirani multiple choice (1-2)
         expectation_id = i

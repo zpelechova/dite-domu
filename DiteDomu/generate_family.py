@@ -54,6 +54,8 @@ try:
         # definice query
         #odtranenn region_id
         query = """INSERT INTO public.family(file_number, approval_type_id, regional_office_id,expectation_status_id, district_id, carer_info_id, prepcourse, account_id, note, approval_date, number_child_in_care) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
+
+        
         
         # spusteni query
         cursor.execute(query, (file_number, approval_type_id, regional_office_id, expectation_status_id, district_id, carer_info_id, prepcourse, account_id, note, approval_date, number_child_in_care))
