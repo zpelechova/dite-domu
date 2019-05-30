@@ -20,7 +20,7 @@ try:
     cursor.execute("truncate expectation_mental_handicap cascade")
     cursor.execute("ALTER SEQUENCE expectation_mental_handicap_id_seq RESTART")
     
-    for i in range(1, 19):
+    for i in range(1, 501):
         # definice sloupcu
         # cyklus na nahodne vybirani multiple choice (1-2)
         expectation_id = i

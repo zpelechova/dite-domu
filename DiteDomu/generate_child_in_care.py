@@ -20,39 +20,44 @@ try:
     cursor.execute("ALTER SEQUENCE child_in_care_id_seq RESTART")
 
 ##Pozor nedriv query na vyber family_id kde number of children in care  neni nula nebo null
- select id from public.family where id is not null and id>0
- 
-    for i in range(1, 501):
+#elect id from public.family where id is not null and id>0
+    select_families = """SELECT id from public.family WHERE number_child_in_care>0 AND number_child_in_care is not NULL;"""
+    cursor.execute(select_families)
+    res = cursor.fetchall()
+    #print(res)
+    for i in res:
+        #print(i)
         # definice sloupcu
-        family_id = i
+        family_id = i[0]
         #pohlavi omezeno na moznosti 1 a 2
         
         #generuje pocet deti v peci od poctu 0-1, vytvori seznam hodnot
         #zmeneno z poctu 0-4, zaznamenavat bude rodina pouze udaje o nejmladsim diteti
         ##POZOR
-        num_sexs = random.randint(0, 1)
-        sex_ids = []
-        num_relats = num_sexs
-        relat_ids = []
-        num_year_of_births = num_sexs
-        year_of_birth_list = []
-        #JE WHILE DOBRE?
-        while len(sex_ids) < num_sexs:
-            sex_id = random.randint(1,2)
-            sex_ids.append(sex_id)
-            relat_id = random.randint(1,3)
-            relat_ids.append(relat_id)
-        # roky/years k 'year_of_birth' pro deti v peci rodiny
-            year_of_birth = random.randint(2001,2019)
-            year_of_birth_list.append(year_of_birth)
+        # num_sexs = random.randint(0, 1)
+        # sex_ids = []
+        # num_relats = num_sexs
+        # relat_ids = []
+        # num_year_of_births = num_sexs
+        # year_of_birth_list = []
         
-        for sex_id in sex_ids:
+        # while len(sex_ids) < num_sexs:
+        #     sex_id = random.randint(1,2)
+        #     sex_ids.append(sex_id)
+        #     relat_id = random.randint(1,3)
+        #     relat_ids.append(relat_id)
+        # roky/years k 'year_of_birth' pro deti v peci rodiny
+        sex_id = random.randint(1,2)
+        relationship_id = random.randint(1,3)
+        year_of_birth = random.randint(2001,2019)
+            #year_of_birth_list.append(year_of_birth)
+        
+        #for sex_id in sex_ids:
             # definice query
             #DANOVA VERZE
-            query ="""INSERT INTO public.child_in_care(family_id, sex_id, relationship_id, year_of_birth)VALUES(%s, %s, %s,%s,) AS cic
-            LEFT JOIN public.family AS f ON f.id = cic.family_id
-            WHERE number_child_in_care>1;"""
-    
+            
+        query ="""INSERT INTO public.child_in_care(family_id, sex_id, relationship_id, year_of_birth)VALUES(%s, %s, %s,%s);"""
+           
         # spusteni query
         cursor.execute(query, (family_id, sex_id, relationship_id, year_of_birth))
         
