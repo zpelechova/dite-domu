@@ -36,10 +36,6 @@ try:
 
 
 
-
-
-
-
 # v pripade databazove chyby, vyhodit chybu
 except (Exception, psycopg2.Error) as error :
     print ("PostgreSQL Exception", error)
