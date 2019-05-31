@@ -20,7 +20,7 @@ try:
     cursor.execute("truncate family_parent cascade")
     cursor.execute("ALTER SEQUENCE family_parent_id_seq RESTART")
     
-    for i in range(1, 501):
+    for i in range(1, 201):
         # definice sloupcu
         
         family_id = i

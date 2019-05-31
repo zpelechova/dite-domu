@@ -46,7 +46,7 @@ try:
     # cursor.execute("truncate expectation_sibling_info cascade")
     # cursor.execute("ALTER SEQUENCE expectation_sibling_info_id_seq RESTART")
     
-    for i in range(21, 30):
+    for i in range(201,215):
         # definice sloupcu - password, email, telephone, role_id, account_status_id, account_deactivation_reason_id, family_id, created_on, officer_first_name, officer_last_name, officer_position_name)
 	
         password = "password_test"+ str(i)
@@ -58,8 +58,8 @@ try:
         statuses = [1, 2]
         account_status_id = random.choice(statuses)
         account_status_id = 3
-        #account_status_id = nastaveno na NULL, generuji pouze aktivni ucty
-        ##??account_deactivation_reason_id = NULL
+        #account_status_id = negeneruji, generuji pouze aktivni ucty
+       
         
         
         officer_first_name = "jmeno_test"+ str(i)
@@ -68,9 +68,9 @@ try:
 
         # definice query
         
-        query = "INSERT INTO public.account(password, email, telephone, role_id, account_status_id, officer_first_name, officer_last_name, officer_position_name)VALUES('"+ password +"','"+ email +"',"+ str(telephone) + ","+ str(role_id) + ","+ str(account_status_id) + ",'"+ officer_first_name +"','" + officer_last_name +"','"+ officer_position_name +"');"
+        query = """INSERT INTO public.account(password, email, telephone, role_id, account_status_id, officer_first_name, officer_last_name, officer_position_name)VALUES(%s, %s, %s, %s, %s, %s, %s, %s);"""
         # spusteni query
-        cursor.execute(query)
+        cursor.execute(query,(password, email, telephone, role_id, account_status_id, officer_first_name, officer_last_name, officer_position_name))
 
     connection.commit()
 
