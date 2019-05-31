@@ -183,7 +183,6 @@ def family_profile(family_id):
     family_profile=family_profile,
     )
 
-
 @app.route('/tabulka/<region_id>', methods=['GET'])
 def table_region (region_id):
     family_table = databaze.table_region(region_id)

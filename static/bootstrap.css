@@ -3418,7 +3418,7 @@ input[type="submit"].btn-block {
 }
 .custom-control-label::before {
   position: absolute;
-  top: 0.25rem;
+  top: 0.75rem;
   left: -1.5rem;
   display: block;
   width: 1rem;
@@ -3430,7 +3430,7 @@ input[type="submit"].btn-block {
 }
 .custom-control-label::after {
   position: absolute;
-  top: 0.25rem;
+  top: 0.75rem;
   left: -1.5rem;
   display: block;
   width: 1rem;
