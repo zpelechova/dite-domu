@@ -17,7 +17,7 @@ try:
     cursor.execute("truncate family cascade")
     cursor.execute("ALTER SEQUENCE family_id_seq RESTART")
 
-    for i in range(1, 501):
+    for i in range(1, 201):
         # definice sloupcu
         account_id = i
         file_number = "file_number_test"+str(i)
@@ -34,7 +34,7 @@ try:
                 
         carer_info_id = random.randint(1,2)
 
-        courses = ['Paprsek', 'Dobrá Rodina', 'Krajský úřad']
+        courses = ['Paprsek', 'Dobrá Rodina', 'Krajský úřad', 'NATAMA', 'Cestou necestou', 'Domus', 'FOD', 'Routa','Lata', 'Charita', 'Pod křídly']
         prepcourse = random.choice(courses)
         #prepcourse = "prepcourse_test"
         

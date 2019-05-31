@@ -26,7 +26,7 @@ try:
     #     query = "INSERT INTO public.expectation_legal_status(family_id,legal_status_id)VALUES("+str(family_id)+","+ str(legal_status_id) + ");"
     #     # spusteni query
     #     cursor.execute(query)
-    for i in range(1, 501):
+    for i in range(1, 201):
         # definice sloupcu
         # cyklus na nahodne vybirani multiple choice u legal_status (1-4)
         expectation_id = i

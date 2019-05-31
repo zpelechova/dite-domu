@@ -45,29 +45,31 @@ try:
     cursor.execute("truncate expectation_sibling_info cascade")
     cursor.execute("ALTER SEQUENCE expectation_sibling_info_id_seq RESTART")
     
-    for i in range(1, 501):
+    for i in range(1, 201):
         # definice sloupcu - password, email, telephone, role_id, account_status_id, account_deactivation_reason_id, officer_first_name, officer_last_name, officer_position_name)
         
         password = "password_test"+ str(i)
         email = "jmeno_prijmeni" + str(i) + "@domena.com"
         role_id = 2
-        #generuji pouze aktivni ucty rodin, ale musi byt vyplnene sloupce pro KU NUTNO OPRAVIT
-        telephone = random.randint (111111111,999999999)
+        #generuji pouze aktivni ucty rodin
+        
         account_status_id = 1
         # account_status omezene na aktivni
         # statuses = [1, 3]
         # account_status_id = random.choice(statuses)
         #account_status_id = nenastaveno, generuji pouze aktivni ucty
-        
-        officer_first_name = "NA"+ str(i)
-        officer_last_name = "NA"+ str(i)
-        officer_position_name = "NA"+ str(i)
+        #sloupce platne jen pro KU nevyplnuji
+        #telephone = random.randint (111111111,999999999)
+        # officer_first_name = "NA"+ str(i)
+        # officer_last_name = "NA"+ str(i)
+        # officer_position_name = "NA"+ str(i)
 
         # definice query
         
-        query = "INSERT INTO public.account(password, email, telephone, role_id, account_status_id, officer_first_name, officer_last_name, officer_position_name)VALUES('"+ password +"','"+ email +"',"+ str(telephone) + ","+ str(role_id) + ","+ str(account_status_id) + ",'"+ officer_first_name +"','" + officer_last_name +"','"+ officer_position_name +"');"
+        query = """INSERT INTO public.account(password, email, role_id, account_status_id )VALUES( %s, %s, %s, %s);"""
         # spusteni query
-        cursor.execute(query)
+        cursor.execute(query, (password, email, role_id, account_status_id))
+
     connection.commit()
 
 # v pripade databazove chyby, vyhodit chybu

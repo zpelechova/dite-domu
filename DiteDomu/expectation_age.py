@@ -20,7 +20,7 @@ try:
     cursor.execute("ALTER SEQUENCE expectation_age_id_seq RESTART")
         
         #age_id = random.randint(1,5)
-    for i in range(1, 501):
+    for i in range(1, 201):
         # definice sloupcu
         # cyklus na nahodne vybirani multiple choice u age (1-5)
         expectation_id = i
