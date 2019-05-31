@@ -27,15 +27,17 @@ try:
         num_ages = random.randint(1,5)
         age_ids = []
         while len(age_ids) < num_ages:
-            age_id = random.randint(1, 5)
+            age_id = random.randint(1,5)
             if age_id not in age_ids:
                 age_ids.append(age_id)
+                print(age_ids)
+        
         
         for age_id in age_ids:
             # definice query
             query = """INSERT INTO public.expectation_age(expectation_id, age_id)VALUES(%s, %s);"""
-        # spusteni query
-        cursor.execute(query,(expectation_id, age_id))
+        # # spusteni query
+        # cursor.execute(query,(expectation_id, age_id))
 
     connection.commit()
 
