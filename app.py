@@ -183,6 +183,16 @@ def family_profile(family_id):
     family_profile=family_profile,
     )
 
+
+@app.route('/tabulka/<region_id>', methods=['GET'])
+def table_region (region_id):
+    family_table = databaze.table_region(region_id)
+    print(family_table)
+    return render_template("tabulka.html",
+    family_table = family_table
+    )
+
+
 if __name__ != '__main__':
     gunicorn_logger = logging.getLogger('gunicorn.error')
     app.logger.handlers = gunicorn_logger.handlers

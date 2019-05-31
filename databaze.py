@@ -285,11 +285,40 @@ def tabulka_vypis():
         if conn is not None:
             conn.close()
 
+def table_region(region_id):
+# zobrazí tabulku "přehled volných rodin v daném kraji"
+    sql = """SELECT f.id
+                    , ds.name as district
+                    , rg.name as region
+                    , es.name as expectation_status
+                    , ap.name as approval_type
+                    , ca.name as carer_info
+                    , f.prepcourse
+                    FROM public.family as f
+                    LEFT JOIN public.district AS ds ON f.district_id = ds.id 
+                    LEFT JOIN public.region AS rg ON ds.region_id = rg.id 
+                    LEFT JOIN public.expectation_status AS es ON f.expectation_status_id = es.id 
+                    LEFT JOIN public.approval_type AS ap ON f.approval_type_id = ap.id 
+                    LEFT JOIN public.carer_info AS ca ON f.carer_info_id = ca.id 
+                    WHERE rg.id = %s
+                    ORDER BY f.id DESC"""
+    conn = get_db()
+    try:
+        cur = conn.cursor(cursor_factory = psycopg2.extras.RealDictCursor)
+        cur.execute(sql, (region_id, ))
+        family_table = cur.fetchall()
+        print(family_table)
+        conn.close()
+        return family_table
+    finally:
+        if conn is not None:
+            conn.close()
+
 def tabulka_ku_vypis():
 # zobrazí tabulku "Výpis pro KU" bez filtrovaných parametrů
     sql = """SELECT family_id,
                     string_agg(distinct ag.name, ', ') AS expectation_age,
-                    string_agg(distinct s.name , ', ') AS expectation_sex,
+                    string_agg(distinct s.name_child , ', ') AS expectation_sex,
                     string_agg(distinct sb.name , ', ') AS expectation_sibling_info,
                     string_agg(distinct ph.name , ', ') AS expectation_physical_handicap,
                     string_agg(distinct mh.name , ', ') AS expectation_mental_handicap,
@@ -330,7 +359,7 @@ def tabulka_ku_search(approval_type_id, legal_status_id, district_id, age, sex, 
     WITH a AS (SELECT 
     f.id AS family_id,
     ag.name AS expectation_age,
-    s.name AS expectation_sex,
+    s.name_child AS expectation_sex,
     sb.name AS expectation_sibling_info,
     ph.name AS expectation_physical_handicap,
     mh.name AS expectation_mental_handicap,
@@ -375,13 +404,13 @@ def tabulka_ku_search(approval_type_id, legal_status_id, district_id, age, sex, 
     LEFT JOIN expectation_status es ON f.expectation_status_id = es.id
     LEFT JOIN approval_type ap ON f.approval_type_id = ap.id
     LEFT JOIN carer_info ca ON f.carer_info_id = ca.id),
-	b AS (SELECT *, (case_approval, case_sex, case_legal_status, case_district, case_age, case_siblings, case_physical_handicap, case_mental_handicap, case_ethnicity, case_anamnesis) as result,
+	b AS (SELECT *, (case_approval + case_sex + case_legal_status + case_district + case_age + case_siblings + case_physical_handicap + case_mental_handicap + case_ethnicity + case_anamnesis) AS result,
     ROW_NUMBER() OVER(
     PARTITION BY family_id
-    ORDER BY (case_approval, case_sex, case_legal_status, case_district, case_age, case_siblings, case_physical_handicap, case_mental_handicap, case_ethnicity, case_anamnesis) DESC) AS poradi
+    ORDER BY (case_approval + case_sex + case_legal_status + case_district + case_age + case_siblings + case_physical_handicap + case_mental_handicap + case_ethnicity + case_anamnesis) DESC) AS poradi
 	FROM a)
 	SELECT * FROM b
-	WHERE poradi = 1 AND vysledek > 6
+	WHERE poradi = 1 AND result > 7
     """
     conn = get_db()
     try:
@@ -399,7 +428,6 @@ def tabulka_ku_search(approval_type_id, legal_status_id, district_id, age, sex, 
                         })
         expectation_table = cur.fetchall()
         print(expectation_table)
-        conn.close()
         return expectation_table
     finally:
         if conn is not None:
@@ -409,7 +437,7 @@ def tabulka_ku_vypis_family(family_id):
 # zobrazí tabulku "Profil"
     sql = """SELECT family_id,
                     string_agg(distinct ag.name, ', ') AS expectation_age,
-                    string_agg(distinct s.name , ', ') AS expectation_sex,
+                    string_agg(distinct s.name_child , ', ') AS expectation_sex,
                     string_agg(distinct sb.name , ', ') AS expectation_sibling_info,
                     string_agg(distinct ph.name , ', ') AS expectation_physical_handicap,
                     string_agg(distinct mh.name , ', ') AS expectation_mental_handicap,
@@ -439,6 +467,7 @@ def tabulka_ku_vypis_family(family_id):
         cur = conn.cursor(cursor_factory = psycopg2.extras.RealDictCursor)
         cur.execute(sql, (family_id,))
         family_profile = cur.fetchone()
+        print(family_id)
         return family_profile
     finally:
         if conn is not None:
