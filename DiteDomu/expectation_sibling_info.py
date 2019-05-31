@@ -29,16 +29,15 @@ try:
             sibl_id = random.randint(1, 4)
             if sibl_id not in sibl_ids:
                 sibl_ids.append(sibl_id)
-        
+        print(sibl_ids)
         for sibling_info_id in sibl_ids:
             # definice query
-            #LUKASOVO VERZE
-            # query ="INSERT INTO public.expectation_sibling_info(expectation_id, sibling_info_id)VALUES("+str(expectation_id)+","+ str(sibling_info_id) + ");"
+            
             #DANOVA VERZE
             query ="""INSERT INTO public.expectation_sibling_info(expectation_id, sibling_info_id)VALUES(%s, %s);"""
     
-        # spusteni query
-        cursor.execute(query, (expectation_id, sibling_info_id))
+            # spusteni query
+            cursor.execute(query, (expectation_id, sibling_info_id))
 
     connection.commit()
 
