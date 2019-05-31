@@ -16,30 +16,28 @@ try:
     #    print("Id = ", row[0])
 
     # vyprazdneni tabulky
-    #????myslim neni nutne, vyprazdneni tabulek je u account tab
-    # cursor.execute("truncate expectation_sibling_info cascade")
-    # cursor.execute("ALTER SEQUENCE expectation_sibling_info_id_seq RESTART")
-    for i in range(1, 20):
+    cursor.execute("truncate expectation_sibling_info cascade")
+    cursor.execute("ALTER SEQUENCE expectation_sibling_info_id_seq RESTART")
+    for i in range(1,201):
         # definice sloupcu
-        #NUTNO OPRAVIT ABY BRALO POSLEDNI ID, KOD Zuza?
-        family_id = random.randint(1,20)
-        #NUTNO OPRAVIT ABY BRALO POSLEDNI ID, KOD Zuza?
-        #VYGENERUJE JEN JEDNU MOZNOST, NUTNO OTESTOVAT MULTICHOICE
-        sibling_info_id = random.randint(1,4)
+        family_id = i
+        #nagenerovani poctu zvolenych moznosti
+        num_sibls = random.randint(1, 4)
+        sibl_ids = []
         
-       
+        while len(sibl_ids) < num_sibls:
+            sibl_id = random.randint(1, 4)
+            if sibl_id not in sibl_ids:
+                sibl_ids.append(sibl_id)
+        
+        for sibling_info_id in sibl_ids:
+            # definice query
+            query = """INSERT INTO public.expectation_sibling_info(family_id, sibling_info_id)VALUES(%s, %s);"""
+            # spusteni query
+            cursor.execute(query, (family_id, sibling_info_id))
 
-        # definice query
-        query = "INSERT INTO public.expectation_sibling_info(family_id, sibling_info_id)VALUES("+str(family_id)+","+ str(sibling_info_id) + ");"
-        # spusteni query
-        cursor.execute(query)
 
     connection.commit()
-
-
-
-
-
 
 
 # v pripade databazove chyby, vyhodit chybu

@@ -16,24 +16,25 @@ try:
     #    print("Id = ", row[0])
 
     # vyprazdneni tabulky
-    #????myslim neni nutne, vyprazdneni tabulek je u account tab
-    # cursor.execute("truncate expectation_age cascade")
-    # cursor.execute("ALTER SEQUENCE expectation_age_id_seq RESTART")
-    for i in range(1, 20):
+    cursor.execute("truncate expectation_age cascade")
+    cursor.execute("ALTER SEQUENCE expectation_age_id_seq RESTART")
+    for i in range(1,201):
         # definice sloupcu
-        #NUTNO OPRAVIT ABY BRALO POSLEDNI ID, KOD Zuza?
-        family_id = random.randint(1,20)
-        #NUTNO OPRAVIT ABY BRALO POSLEDNI ID, KOD Zuza?
-        #VYGENERUJE JEN JEDNU MOZNOST, NUTNO OTESTOVAT MULTICHOICE
-        age_id = random.randint(1,5)
+        family_id = i
+        #nagenerovani poctu zvolenych moznosti
+        num_ages = random.randint(1, 5)
+        age_ids = []
         
-       
-
-        # definice query
-        query = "INSERT INTO public.expectation_age(family_id, age_id)VALUES("+str(family_id)+","+ str(age_id) + ");"
-        # spusteni query
-        cursor.execute(query)
-
+        while len(age_ids) < num_ages:
+            age_id = random.randint(1, 5)
+            if age_id not in age_ids:
+                age_ids.append(age_id)
+        
+        for age_id in age_ids:
+            # definice query
+            query = """INSERT INTO public.expectation_age(family_id, age_id)VALUES(%s, %s);"""
+            # spusteni query
+            cursor.execute(query, (family_id, age_id))
     connection.commit()
 
 
