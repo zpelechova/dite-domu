@@ -1,131 +1,165 @@
 {% extends "layout.html" %} {% block body %}
 
+
+<!-- {{family_profile.file_number}}
+  {{family_profile.approval_date}}
+    {{family_profile.prepcourse}}
+      {{family_profile.note}}
+        {{family_profile.number_child_in_care}}
+          {{family_profile.approval_type}}
+            {{family_profile.regional_office}}
+              {{family_profile.expectation_status}}
+                {{family_profile.district}}
+                  {{family_profile.youngest_child_sex}}
+                    {{family_profile.youngest_child_relationship}}
+                      {{family_profile.youngest_child_year_of_birth}}
+                        {{family_profile.carer_info}}
+                          {{family_profile.parent_sex}}
+                            {{family_profile.parent_year_of_birth}} -->
+
+
 <div class="container">
     <div class="jumbotron">
         <header>
             <h1>
-        Kompletní profil náhradní rodiny
+        Profil náhradní rodiny
       </h1>
-            <p>
-                Pro TISK prosím stiskněte Ctrl P na Vašem počítači.
-            </p> 
-          </header>
-            <form>
-                <div class="form-group">
-                    <label for="formGroupExampleInput">Věk dítěte</label>
-                    <label type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input" required> {family_profile.expectation_age} </label>
-                </div>
-                <div class="form-group">
-                    <label for="formGroupExampleInput2">Počet dětí, které je rodina připravena přijmout najednou</label>
-                    <label type="text" class="form-control" id="formGroupExampleInput2" placeholder="Another input" required>{family_profile.expectation_sibling_info}</label>
-                </div>
-            </form>
+      <p class="font-italic">Pro TISK prosím stiskněte Ctrl+P na Vašem počítači.
+      </p>
+        </header>
 
-            <form>
-                <div class="form-group">
-                    <label for="formGroupExampleInput">Fyzické nebo smyslové postižení</label>
-                    <label type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input" required>{family_profile.expectation_physical_handicap}</label>
-                </div>
-                <div class="form-group">
-                    <label for="formGroupExampleInput2">Mentální postižení</label>
-                    <label type="text" class="form-control" id="formGroupExampleInput2" placeholder="Another input" required>{family_profile.expectation_mental_handicap}</label>
-                </div>
-            </form>
-
-            <form>
-                <div class="form-group">
-                    <label for="formGroupExampleInput">Etnikum a kulturní identita</label>
-                    <label type="text" class="form-control">{family_profile.expectation_ethnicity}</label>
-                </div>
-                <div class="form-group">
-                    <label for="formGroupExampleInput2">Přijatelná anamnéza dítěte</label>
-                    <label type="text" class="form-control" id="formGroupExampleInput2" placeholder="Another input" required>{family_profile.expectation_anamnesis}</label>
-                </div>
-            </form>
-            <!-- CO ZADAT DO x.note -->
-
-            <form>
-                <div class="form-group">
-                    <label for="formGroupExampleInput">Právní stav dítěte</label>
-                    <label type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input" required>{family_profile.expectation_legal_status}</label>
-                </div>
-                <div class="form-group">
-                    <label for="formGroupExampleInput2">Další specifika rodiny / Poznámka </label>
-                    <label type="text" class="form-control" id="formGroupExampleInput2" placeholder="Another input" required>x.note</label>
-                </div>
-            </form>
-    </div>
-</div>
-
-<!-- KRATKE POLE -->
-<div class="container">
-    <div class="jumbotron">
         <form class="needs-validation" novalidate>
             <div class="form-row">
 
                 <div class="col-md-4 mb-3">
                     <label for="validationTooltip01">Spisová značka usnesení</label>
-                    <label type="text" class="form-control" required>x.file_number</label>
+                    <label type="text" class="form-control" required>{{family_profile.file_number}}</label>
                 </div>
 
                 <div class="col-md-4 mb-3">
                     <label for="validationTooltip02">Datum vydání usnesení</label>
-                    <label type="text" class="form-control">x.approval_date</label>
+                    <label type="text" class="form-control">{{family_profile.approval_date}}</label>
                 </div>
 
                 <div class="col-md-4 mb-3">
                     <label for="validationTooltip02">Náhradní rodina schválena jako</label>
-                    <label type="text" class="form-control">x.approval_type_id</label>
+                    <label type="text" class="form-control">{{family_profile.approval_type}}</label>
                 </div>
             </div>
         </form>
-    </div>
-</div>
 
-<div class="container">
-    <div class="jumbotron">
         <form class="needs-validation" novalidate>
             <div class="form-row">
 
                 <div class="col-md-4 mb-3">
                     <label for="validationTooltip01">Rodina je v péči</label>
-                    <label type="text" class="form-control" required>x.regional_office_id</label>
+                    <label type="text" class="form-control" required>{{family_profile.regional_office}}</label>
                 </div>
 
                 <div class="col-md-4 mb-3">
                     <label for="validationTooltip02">Status náhradní rodiny</label>
-                    <label type="text" class="form-control">x.expectation_status_id</label>
+                    <label type="text" class="form-control">{{family_profile.expectation_status}}</label>
                 </div>
                 <div class="col-md-4 mb-3">
-                    <label for="validationTooltip02">Přípravka rodiny u </label>
-                    <label type="text" class="form-control">x.prepcourse</label>
+                    <label for="validationTooltip02">Přípravka absolvována u </label>
+                    <label type="text" class="form-control">{{family_profile.prepcourse}}</label>
                 </div>
             </div>
         </form>
-    </div>
-</div>
+<!-- RODICE -->
+<form class="needs-validation" novalidate>
+    <div class="form-row">
 
-<div class="container">
-    <div class="jumbotron">
+        <div class="col-md-4 ">
+            <label for="validationTooltip01">Počet pečujících rodičů</label>
+            <label type="text" class="form-control" >{{family_profile.carer_info}}</label>
+        </div>
+
+        <div class="col-md-8">
+            <label for="validationTooltip02">Rodiče (pohlaví/rok narození)</label>
+            <label type="text" class="form-control">{{family_profile.parent_sex}} {{family_profile.parent_year_of_birth}}</label>
+        </div>
+        
+    </div>
+</form>
+
         <form class="needs-validation" novalidate>
-            <div class="form-row">
 
-                <div class="col-md-4 mb-3">
-                    <label for="validationTooltip01">Počet dětí, které má rodina již v péči</label>
-                    <label type="text" class="form-control" required>x.number_child_in_care</label>
+    <div class="form-row">
+        <div class="col-md-4">
+            <label for="validationTooltip02">Počet dětí, které má rodina již v péči</label>
+            <label type="text" class="form-control">{{family_profile.number_child_in_care}}</label>
+        </div>
+        <div class="col-md-8">
+            <label for="validationTooltip02">Nejmladší dítě v náhradní rodině (pohlaví/rok narození/vztah)</label>
+            <label type="text" class="form-control">
+              {{family_profile.youngest_child_sex}}
+                {{family_profile.youngest_child_relationship}}
+                  {{family_profile.youngest_child_year_of_birth}}</label>
+        </div>
+      </div>
+  </form>
+  <form>
+      <div class="form-row">
+        <div class="col-md-12">
+            <label for="validationTooltip02">Bydliště - okres(kraj)</label>
+            <label type="text" class="form-control">{{family_profile.district}}</label>
+        </div>
+      </div>
+    </form>
+        <header>
+            <h5>
+                Rodina uvážila své možnosti a preference. Ideálně by rodina ráda přijala dítě/děti dle charakteristik níže uvedených. 
+            </h5>
+             
+        </header>
+
+       
+            <form>
+                <div class="form-group">
+                    <label for="formGroupExampleInput">Věk dítěte</label>
+                    <label type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input" required> {{family_profile.expectation_age}} </label>
                 </div>
 
-                <div class="col-md-4 mb-3">
-                    <label for="validationTooltip02">Věk nejmladšího dítěte v náhradní rodině</label>
-                    <label type="text" class="form-control">x.youngest_child_in_care</label>
+                <div class="form-group">
+                    <label for="formGroupExampleInput">Pohlaví dítěte</label>
+                    <label type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input" required> {{family_profile.expectation_sex}} </label>
                 </div>
-                <div class="col-md-4 mb-3">
-                    <label for="validationTooltip02">Počet pečujících rodičů</label>
-                    <label type="text" class="form-control">x.carer_info_id</label>
+
+                <div class="form-group">
+                    <label for="formGroupExampleInput2">Počet dětí, které je rodina připravena přijmout najednou</label>
+                    <label type="text" class="form-control" id="formGroupExampleInput2" placeholder="Another input" required>{{family_profile.expectation_sibling_info}}</label>
                 </div>
-            </div>
-        </form>
+            
+                <div class="form-group">
+                    <label for="formGroupExampleInput">Fyzické nebo smyslové postižení</label>
+                    <label type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input" required>{{family_profile.expectation_physical_handicap}}</label>
+                </div>
+                <div class="form-group">
+                    <label for="formGroupExampleInput2">Mentální postižení</label>
+                    <label type="text" class="form-control" id="formGroupExampleInput2" placeholder="Another input" required>{{family_profile.expectation_mental_handicap}}</label>
+                </div>
+            
+                <div class="form-group">
+                    <label for="formGroupExampleInput">Etnikum a kulturní identita</label>
+                    <label type="text" class="form-control">{{family_profile.expectation_ethnicity}}</label>
+                </div>
+                <div class="form-group">
+                    <label for="formGroupExampleInput2">Přijatelná anamnéza dítěte</label>
+                    <label type="text" class="form-control" id="formGroupExampleInput2" placeholder="Another input" required>{{family_profile.expectation_anamnesis}}</label>
+                </div>
+            
+                <div class="form-group">
+                    <label for="formGroupExampleInput">Právní stav dítěte</label>
+                    <label type="text" class="form-control" >{{family_profile.expectation_legal_status}}</label>
+                </div>
+                <div class="form-group">
+                    <label for="formGroupExampleInput2">Další specifika rodiny / Poznámka </label>
+                    <label type="text" class="form-control" >{{family_profile.note}}</label>
+                </div>
+            </form>
     </div>
 </div>
+
 
 {% endblock %}

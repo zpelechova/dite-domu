@@ -43,9 +43,9 @@ try:
             
             query ="""INSERT INTO public.family_parent(family_id, sex_id, year_of_birth)VALUES(%s, %s, %s);"""
     
-        # spusteni query
-        cursor.execute(query, (family_id, sex_id, year_of_birth))
-        #cursor.execute(query)
+            # spusteni query
+            cursor.execute(query, (family_id, sex_id, year_of_birth))
+          
 
     connection.commit()
 # v pripade databazove chyby, vyhodit chybu
