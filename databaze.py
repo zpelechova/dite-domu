@@ -411,6 +411,7 @@ def tabulka_ku_search(approval_type_id, legal_status_id, district_id, age, sex, 
 	FROM a)
 	SELECT * FROM b
 	WHERE poradi = 1 AND result > 7
+    ORDER BY result DESC
     """
     conn = get_db()
     try:

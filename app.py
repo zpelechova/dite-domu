@@ -131,7 +131,7 @@ def search_post():
         anamnesis= request.form.get("anamnesis_id")
         expectation_table = databaze.tabulka_ku_search(approval_type_id, legal_status_id, district_id, age, sex, sibling_info, physical_handicap, mental_handicap,  ethnicity, anamnesis)
         print(expectation_table)
-        return render_template("tabulka_ku.html",
+        return render_template("tabulka_search.html",
         expectation_table=expectation_table
         )
 
