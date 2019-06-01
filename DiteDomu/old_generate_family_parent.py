@@ -20,38 +20,32 @@ try:
     cursor.execute("truncate family_parent cascade")
     cursor.execute("ALTER SEQUENCE family_parent_id_seq RESTART")
     
-#Nedriv query na vyber family_id kde carer_infoid = 2 tzn. 2 rodice
-
-    select_families = """SELECT id from public.family WHERE carer_info_id=2;"""
-    cursor.execute(select_families)
-    res = cursor.fetchall()
-    # na zkousku
-    print(res)
-    seznam = [x[0] for x in res]
-    print(seznam)
     for i in range(1, 201):
+        # definice sloupcu
+        
         family_id = i
-        if i in seznam:
-            num_sexs = 2
-        else:
-            num_sexs = 1
-            
+        #pohlavi omezeno na moznosti 1 a 2
+        #generuje pocet rodicu 1-2, vytvori seznam hodnot
+        num_sexs = random.randint(1,2)
         sex_ids = []
         num_year_of_births = num_sexs
         year_of_birth_list = []
+        
         while len(sex_ids) < num_sexs:
             sex_id = random.randint(1,2)
             sex_ids.append(sex_id)
-                # roky/years k 'year_of_birth' pro rodice
+            # roky/years k 'year_of_birth' pro rodice
             year_of_birth = random.randint(1965,1990)
             year_of_birth_list.append(year_of_birth)
-    
-            # definice query            
-            sql ="""INSERT INTO public.family_parent(family_id, sex_id, year_of_birth)VALUES(%s, %s, %s);"""
+        
+        for sex_id in sex_ids:
+            # definice query
+            
+            query ="""INSERT INTO public.family_parent(family_id, sex_id, year_of_birth)VALUES(%s, %s, %s);"""
     
             # spusteni query
-            cursor.execute(sql, (family_id, sex_id, year_of_birth))
-
+            cursor.execute(query, (family_id, sex_id, year_of_birth))
+          
 
     connection.commit()
 # v pripade databazove chyby, vyhodit chybu
