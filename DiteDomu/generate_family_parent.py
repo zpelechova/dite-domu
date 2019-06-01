@@ -26,9 +26,9 @@ try:
     cursor.execute(select_families)
     res = cursor.fetchall()
     # na zkousku
-    print(res)
+    #print(res)
     seznam = [x[0] for x in res]
-    print(seznam)
+    #print(seznam)
     for i in range(1, 201):
         family_id = i
         if i in seznam:
