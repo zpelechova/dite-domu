@@ -191,6 +191,10 @@ def table_region (region_id):
     family_table = family_table
     )
 
+@app.route('/video')
+def video():
+    return render_template("video.html")
+
 
 if __name__ != '__main__':
     gunicorn_logger = logging.getLogger('gunicorn.error')
