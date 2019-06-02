@@ -404,7 +404,8 @@ def tabulka_ku_search(approval_type_id, legal_status_id, district_id, age, sex, 
     LEFT JOIN region rg ON ds.region_id = rg.id
     LEFT JOIN expectation_status es ON f.expectation_status_id = es.id
     LEFT JOIN approval_type ap ON f.approval_type_id = ap.id
-    LEFT JOIN carer_info ca ON f.carer_info_id = ca.id),
+    LEFT JOIN carer_info ca ON f.carer_info_id = ca.id
+    WHERE f.expectation_status_id = 1),
 	b AS (SELECT *, (case_approval + case_sex + case_legal_status + case_district + case_age + case_siblings + case_physical_handicap + case_mental_handicap + case_ethnicity + case_anamnesis) AS result,
     ROW_NUMBER() OVER(
     PARTITION BY family_id
