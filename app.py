@@ -166,11 +166,11 @@ def graf():
     
 @app.route("/graf-data")
 def graf_data():
-    description = {"kraj": ("string", "Kraj"),"volni": ("number", "Volni")}
-    data = databaze.view_volni()
+    description = {"kraj": ("string", "Kraj"),"osvojitele": ("number", "Osvojitelé"), "pestouni": ("number", "Pěstouni")}
+    data = databaze.volni()
     data_table = gviz_api.DataTable(description)
     data_table.LoadData(data)
-    return data_table.ToJSon(columns_order=("kraj", "volni"), order_by="volni")
+    return data_table.ToJSon(columns_order=("kraj", "osvojitele", "pestouni"), order_by="osvojitele")
 
 @app.route('/profil')
 def profile ():

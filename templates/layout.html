@@ -71,7 +71,7 @@
     <div>
         <img src="/static/footer.jpg" width=100% alt="">
     </div>
-    <footer class="page-footer font-small navbar-dark bg-info pt-4">
+    <footer class="page-footer font-small navbar-dark bg-info pt-4 bottom-page">
       <div class="container-fluid text-center text-md-left">
             <div class="row bg-info ">
                 <div class="col-md-6 mt-md-0 mt-3">
@@ -103,10 +103,14 @@
           }).responseText;
       var data = new google.visualization.DataTable(jsonData);
         var options = {'title':'Volné rodiny v jednotlivých krajích',
-                       'width':500,
-                       'height':300,
-                       colors: ['lightseagreen'],
+                       width:560,
+                       height:400,
+                       colors: ['#17a2b8', '#e9ecef'],
+                       chartArea: {top: 30, left:90},
+                       vAxis: {direction: -1},
+                       isStacked: true,
                     };
+        
         var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
         chart.draw(data, options);
       }
