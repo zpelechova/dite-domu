@@ -273,6 +273,7 @@ def tabulka_vypis():
                     LEFT JOIN public.expectation_status AS es ON f.expectation_status_id = es.id 
                     LEFT JOIN public.approval_type AS ap ON f.approval_type_id = ap.id 
                     LEFT JOIN public.carer_info AS ca ON f.carer_info_id = ca.id 
+                    WHERE f.expectation_status_id = 1
                     ORDER BY f.id DESC"""
     conn = get_db()
     try:
@@ -300,7 +301,7 @@ def table_region(region_id):
                     LEFT JOIN public.expectation_status AS es ON f.expectation_status_id = es.id 
                     LEFT JOIN public.approval_type AS ap ON f.approval_type_id = ap.id 
                     LEFT JOIN public.carer_info AS ca ON f.carer_info_id = ca.id 
-                    WHERE rg.id = %s
+                    WHERE rg.id = %s AND f.expectation_status_id = 1
                     ORDER BY f.id DESC"""
     conn = get_db()
     try:
@@ -411,6 +412,7 @@ def tabulka_ku_search(approval_type_id, legal_status_id, district_id, age, sex, 
 	FROM a)
 	SELECT * FROM b
 	WHERE poradi = 1 AND result > 7
+    ORDER BY result DESC
     """
     conn = get_db()
     try:
@@ -501,20 +503,21 @@ GROUP BY f.id, file_number, approval_date, prepcourse, note, number_child_in_car
         if conn is not None:
             conn.close()
 
-def view_volni():
-    sql = """SELECT * FROM view_volni ORDER BY volni"""
+def volni():
+    sql = """SELECT * FROM volni"""
     conn = get_db()
     try:
         cur = conn.cursor(cursor_factory = psycopg2.extras.RealDictCursor)
         cur.execute(sql)
-        view_volni = cur.fetchall()
+        volni = cur.fetchall()
         conn.close()
         description = {"kraj": ("string", "Kraj"),
-               "volni": ("number", "Volni")}
-        data = view_volni
+               "osvojitele": ("number", "Osvojitelé"),
+               "pestouni": ("number", "Pěstouni")}
+        data = volni
         data_table = gviz_api.DataTable(description)
         data_table.LoadData(data)
-        return view_volni
+        return volni
     finally:
         if conn is not None:
             conn.close()

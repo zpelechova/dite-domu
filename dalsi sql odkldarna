@@ -1,37 +1,3 @@
-SELECT f.id AS family_id,
-       file_number,
-       approval_date,
-       prepcourse,
-       note,
-       number_child_in_care,
-       ap.name AS approval_type,
-       ro.name AS regional_office,
-       es.name AS expectation_status,
-       ds.name AS district,
-       (s.name_child + ', ' + rl.name + ', ' + cc.year_of_birth) AS youngest_child,
-       ci.name AS carer_info
-	   FROM public.family AS f 
-	   LEFT JOIN public.expectation AS e
-       LEFT JOIN public.sex AS s ON e.sex_id = s.id
-       LEFT JOIN public.approval_type AS ap ON f.approval_type_id = ap.id
-       LEFT JOIN public.regional_office AS ro ON f.regional_office_id = ro.id
-       LEFT JOIN public.expectation_status AS es ON f.expectation_status_id = es.id
-       LEFT JOIN public.district AS ds ON f.district_id = ds.id
-       LEFT JOIN public.child_in_care AS cc ON cc.family_id = f.id
-       LEFT JOIN public.relationship AS rl ON cc.relationship_id = rl.id
-       LEFT JOIN public.sex AS s ON cc.sex_id = s.id    
-       LEFT JOIN public.carer_info AS ci ON f.carer_info_id = ci.id
-       WHERE family_id = 3;             
-                    
-
-vybere informace o dítěti:
-SELECT s.name_child as youngest_child_sex, 
-		rl.name AS youngest_child_relationship, 
-		cc.year_of_birth AS youngest_child_year_of_birth
-       FROM public.child_in_care AS cc
-       LEFT JOIN public.relationship AS rl ON cc.relationship_id = rl.id
-       LEFT JOIN public.sex AS s ON cc.sex_id = s.id;
-
 vybere informaci o rodicich:
 SELECT family_id,
 s2.name_adult as parent_sex, 
