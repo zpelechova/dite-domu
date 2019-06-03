@@ -195,7 +195,6 @@ def table_region (region_id):
 def video():
     return render_template("video.html")
 
-
 if __name__ != '__main__':
     gunicorn_logger = logging.getLogger('gunicorn.error')
     app.logger.handlers = gunicorn_logger.handlers
