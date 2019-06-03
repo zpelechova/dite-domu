@@ -10,7 +10,7 @@
 
     },function(){
 
-        $('#czechMap-overlap').attr('src', 'none.png');
+        $('#czechMap-overlap').attr('src', '/static/none.png');
     });
 
  });
