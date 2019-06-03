@@ -70,51 +70,7 @@
                 Rodina uvážila své možnosti a preference. Ideálně by rodina ráda přijala dítě/děti dle charakteristik níže uvedených. 
             </h5>
         </header>
-
-       
-            <form>
-                <div class="form-group">
-                    <label for="formGroupExampleInput">Věk dítěte</label>
-                    <label type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input" required> {{family_profile.expectation_age}} </label>
-                </div>
-
-                <div class="form-group">
-                    <label for="formGroupExampleInput">Pohlaví dítěte</label>
-                    <label type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input" required> {{family_profile.expectation_sex}} </label>
-                </div>
-
-                <div class="form-group">
-                    <label for="formGroupExampleInput2">Počet dětí, které je rodina připravena přijmout najednou</label>
-                    <label type="text" class="form-control" id="formGroupExampleInput2" placeholder="Another input" required>{{family_profile.expectation_sibling_info}}</label>
-                </div>
-            
-                <div class="form-group">
-                    <label for="formGroupExampleInput">Fyzické nebo smyslové postižení</label>
-                    <label type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input" required>{{family_profile.expectation_physical_handicap}}</label>
-                </div>
-                <div class="form-group">
-                    <label for="formGroupExampleInput2">Mentální postižení</label>
-                    <label type="text" class="form-control" >{{family_profile.expectation_mental_handicap}}</label>
-                </div>
-            
-                <div class="form-group">
-                    <label for="formGroupExampleInput">Etnikum a kulturní identita</label>
-                    <label type="text" class="form-control">{{family_profile.expectation_ethnicity}}</label>
-                </div>
-                <div class="form-group">
-                    <label for="formGroupExampleInput2">Přijatelná anamnéza dítěte</label>
-                    <label type="textarea" rows="2"class="form-control" id="formGroupExampleInput2" >{{family_profile.expectation_anamnesis}}</label>
-                </div>
-            
-                <div class="form-group">
-                    <label for="formGroupExampleInput">Právní stav dítěte</label>
-                    <label type="text" class="form-control" >{{family_profile.expectation_legal_status}}</label>
-                </div>
-                <div class="form-group">
-                    <label for="formGroupExampleInput2">Další specifika rodiny / Poznámka </label>
-                    <label type="textarea" rows="4" class="form-control" >{{family_profile.note}}</label>
-                </div>
-            </form>
+    <form>
         <div class="form-group">
             <label for="formGroupExampleInput">Věk dítěte</label>
             <label type="text" class="form-control"> {{family_profile.expectation_age}} </label>
@@ -149,8 +105,9 @@
         </div>
         <div class="form-group">
             <label for="formGroupExampleInput2">Další specifika rodiny / Poznámka </label>
-            <label type="text" class="form-control">{{family_profile.note}}</label>
+            <textarea class="form-control" id="family_note" rows="2">{{family_profile.note}}</textarea>
         </div>
+    </form>
     </div>
 </div>
 {% endblock %}
