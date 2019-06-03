@@ -1,6 +1,0 @@
-vybere informaci o rodicich:
-SELECT family_id,
-s2.name_adult as parent_sex, 
-fp.year_of_birth AS parent_year_of_birth
-FROM public.family_parent AS fp
-LEFT JOIN public.sex AS s ON fp.sex_id = s.id;

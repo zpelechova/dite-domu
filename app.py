@@ -140,6 +140,35 @@ def login ():
     return render_template("login.html",
     )
 
+@app.route('/login', , methods=['POST'])
+def login_post ():
+    if request.method == 'POST':
+        email = request.form["login_email"]
+        heslo = request.form["login_password"]
+        uzivatel = najdi_uzivatele(email)
+        # uspesne_prihlasen = False
+        if uzivatel:
+            if sha512(heslo.encode()).hexdigest() != uzivatel.password_hash:
+                flash ('Špatně zadané heslo.', "danger")
+            elif sha512(heslo.encode()).hexdigest() == uzivatel.password_hash:
+                if login_user(uzivatel, force=True):
+                    flash ('Uživatel byl úspěšně přihlášen.', "success")
+
+                    if next.endswith('prihlaseni') or next.endswith('registrace'):
+                        return redirect(url_for('zavody_bp.show_zavody'))
+                    return redirect(next)
+        if not uzivatel:
+            flash ("Zadaný e-mail není v naší databázi. Nejprve se, prosím, zaregistruj.", "danger")
+    return render_template('nevim.html', form=form)
+
+        provided_password = request.form["login_password"]
+        result = databaze.verify_password(stored_password, provided_password)
+        if result = True:
+            return render_template("login.html"
+        else:
+            flash
+    )
+
 @app.route('/success')
 def success ():
     return render_template("success.html",

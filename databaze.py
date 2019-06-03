@@ -522,3 +522,19 @@ def volni():
     finally:
         if conn is not None:
             conn.close()
+
+def najdi_uzivatele(email):
+    """ najde uzivatele v databazi """
+    sql = """SELECT email, password, id FROM account WHERE email=%s;"""
+    conn = get_db()
+    try:
+        cur = conn.cursor()
+        cur.execute(sql, (email.lower(),))
+        uzivatel = cur.fetchone()
+    finally:
+        if conn is not None:
+            conn.close()
+    if uzivatel:
+        return uzivatel
+    else:
+        return None
