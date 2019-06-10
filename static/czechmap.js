@@ -2,7 +2,6 @@
 //Contact: matousek.vr@gmail.com
 //License: GPL
 
-
   $(function(){
      var czechMapOverlap = $('#czechMap-overlap'),
          czechMap = $('#czechMap'); 
