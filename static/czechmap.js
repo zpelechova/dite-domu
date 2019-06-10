@@ -11,7 +11,7 @@
          
          czechMapOverlap.attr('src', $(this).attr('data-img') );
          czechMapOverlap.hide(0).stop(false, true);
-        //  czechMapOverlap.fadeIn(300);
+         czechMapOverlap.fadeIn(300);
          
      },function(){
          
@@ -24,7 +24,7 @@
      
          czechMapOverlap.attr('src', czechMap.find('[href="' + $(this).attr('href') + '"]').attr('data-img') );
          czechMapOverlap.hide(0).stop(false, true);
-        //  czechMapOverlap.fadeIn(300);
+         czechMapOverlap.fadeIn(300);
          
      },function(){
          
