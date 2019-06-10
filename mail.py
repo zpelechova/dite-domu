@@ -19,6 +19,6 @@ def email_dotaznik(email, id):
     mail = smtplib.SMTP(host='smtp.gmail.com',port=587)
     mail.ehlo()
     mail.starttls()
-    mail.login('ditedomu@gmail.com','dite13062019domu')
+    mail.login('ditedomu@gmail.com','DiteDomu2019')
     mail.sendmail('ditedomu@gmail.com',email, zprava.as_string())
     mail.close()
