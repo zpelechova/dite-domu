@@ -11,7 +11,7 @@
          
          czechMapOverlap.attr('src', $(this).attr('data-img') );
          czechMapOverlap.hide(0).stop(false, true);
-         czechMapOverlap.fadeIn(500);
+         czechMapOverlap.fadeIn(300);
          
      },function(){
          
